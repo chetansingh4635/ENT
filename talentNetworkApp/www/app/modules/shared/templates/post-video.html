@@ -1,0 +1,44 @@
+<ion-view view-title="celebrityEvents">
+
+	<ion-content class="celebrityEvents secondary-theme celebraty-popup" ng-init="getEventInfo()">
+		<div class="celebevent-bg display-flex v-center">
+		</div>
+		<div class="date-strip display-flex">
+			<div class="date-box display-flex h-center v-center">
+				<div class="text-center">
+					<span>27</span><br>
+					<span>Sept</span>
+				</div>
+			</div>
+			<div class="decription-box">
+				<h2 class="light">Image Upload</h2>
+				<p class="light-color">Image upload description</p>
+
+				<div class="upload-user">
+				<h2 class="light">Image Upload : <span>Dhirendar</span></h2>
+				</div>
+				
+
+			</div><!--/decription-box-->
+		</div><!--/.date-strip-->
+		<div class="uploaded-date-pop">
+			<h2 class="light">Uploaded on</h2>
+		</div>
+		<div class="date-time-strip row light text-center">
+			<div class="col-50 v-divider">
+				<p class="">{{description.start_date}}</p>
+				<p>to</p>
+				<p>{{description.end_date}}</p> 
+			</div>
+			<div class="col-50">
+				<p>{{description.start_time}}</p>
+				<p>to</p>
+				<p>{{description.end_time}}</p> 
+			</div>
+		</div>
+		
+		<div class="text-center mt-20 mb-20 padding-bottom">
+			<button class="button button-energized text-uppercase button-squire">Become a Fan <span class="like-btn"></span> <span>5</span></button>
+		</div>
+	</ion-content>
+</ion-view>

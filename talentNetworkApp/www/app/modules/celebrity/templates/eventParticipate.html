@@ -1,0 +1,57 @@
+
+<ion-modal-view >
+ <div class="text-right" style="top:3%;right:5%;position:absolute;z-index:10;" ng-click="hideModal()">
+            <button class="button button-clear button-dark button-small ion-android-close"></button>
+        </div>	
+	<ion-content style="    align-items: center;align-self: center;justify-content:center; display: flex;margin-left: 4%; margin-right: 4%;">	
+	<form class="popup-wrap text-center" name="participateForm" ng-submit="participateForm.$valid && participate.acceptance && moveToParticipate()" novalidate>
+   <web-link value="participate.youtube"  save-web-link="saveWebLink(data)"></web-link>
+   <web-link value="participate.sound"  save-web-link="saveSoundWebLink(data)"></web-link>
+    {{imageData}}
+    <button type="button" class="button button-clear button-large button-light button-block button-upload" ng-click="openUploadMedia('image')" ng-if="(imageData ? false:true)">
+  		 Upload Image in this area
+  		<!-- <input type="file" class="file-control" /> -->
+	</button>
+	<p ng-show="!(participate.uploadedTalent.length)&& participateForm.$submitted" class="help-block error-msg-popups">Please upload an image .</p>
+	{{videoData}}
+   <button type="button" class="button button-clear button-large button-light button-block button-upload" ng-click="openUploadMedia('video')" ng-if="(videoData ? false:true)">
+  		 Upload Video in this area
+  		<!-- <input type="file" class="file-control" /> -->
+	</button>
+	<p ng-show="!(participate.uploadedTalent.length)&& participateForm.$submitted" class="help-block error-msg-popups">Please upload a video .</p>
+
+	<div class="list list-popup">
+        <label class="item item-input" >
+			<input type="text" placeholder="Add a youtube link" ng-model="participate.youtube" name="youtube" >
+		</label>
+		 <label class="item item-input" >
+			<input type="text" placeholder="Add a soundcloud link " ng-model="participate.sound" name="sound" >
+		</label>
+		 <p ng-show="soundWeblink.validLink== false" class="help-block error-msg-popups">Please enter valid sound cloud link!!</p>
+
+		<label class="item item-input">
+			<input type="text" placeholder="Name" ng-model="participate.name" name="name" required >
+		</label>
+
+		<p ng-show="participateForm.name.$error.required && (participateForm.name.$touched || participateForm.$submitted )" class="help-block error-msg-popups">name is required!!</p>
+		<label class="item item-input">
+			<input type="text" placeholder="Add Description here" ng-model="participate.description" name="description" required>
+		</label>
+        <p ng-show="participateForm.description.$error.required && (participateForm.description.$touched || participateForm.$submitted )" class="help-block error-msg-popups">decsription is required!!</p>
+        <label>
+
+         <ion-checkbox class="custom-ent" name="termsAndCondition" ng-model="participate.acceptance"  ng-click="toggleAcceptance()"  ng-checked="participate.acceptance" ng-required="true"> I agree to the Terms &amp; Conditions</ion-checkbox></label>
+          <p ng-show="!participate.acceptance && (participateForm.termsAndCondition.$touched || participateForm.$submitted )" class="help-block error-msg-popups">acceptance is required!!</p>
+
+		
+
+	</div><!--/.list-->
+<!--/.popup-wrap-->
+	            <div class="Idae-btn-section">
+		          
+		            <button style="width:100% !important; margin-left:5% !important; margin-right:5% !important;" class="button button-energized button-squire fixed-width-btn" type="submit">Participate</button>
+	            </div>
+	            </form>
+	</ion-content>
+</ion-modal-view>
+

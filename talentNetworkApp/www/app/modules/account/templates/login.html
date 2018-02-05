@@ -1,0 +1,50 @@
+<ion-view view-title="Login">
+    <ion-content class="login-bg">
+        <div class="logo">
+            <img alt="logo-ent" src="img/Logo.png">
+        </div>
+        <form name="form.loginForm" ng-submit="form.loginForm.$valid && login(form.loginForm.$valid)" autocomplete="off" novalidate>
+            <div class="list">
+                <label class="item item-input en-email">
+                    <input type="email" name="email" placeholder="Your Email" ng-model="loginObject.email" class="btn"  ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required id="f_1" ng-keypress="keypressHandler($event, 2)" maxlength="100">
+                    <p ng-if="(form.loginForm.email.$touched || form.loginForm.$submitted) &&  (form.loginForm.email.$error.email || form.loginForm.email.$error.pattern) && !form.loginForm.email.$error.required" class="help-block error-msg">Enter a valid email.</p>
+
+                    <p ng-if="(form.loginForm.email.$touched || form.loginForm.$submitted) &&  (form.loginForm.email.$error.required)" class="help-block error-msg">Email is required.</p>
+                </label>
+                <label class="item item-input en-email en-password">
+                    <input type="password" name="password" ng-model="loginObject.password" placeholder="Password" class="btn" required id="f_2"  ng-keypress="keypressHandler($event, 3)" maxlength="50">
+                    <p ng-if="(form.loginForm.password.$touched || form.loginForm.$submitted) && form.loginForm.password.$error.required" class="help-block error-msg">Password is required.</p>
+                </label>
+            </div>
+            <div class="en-padding mt-25" >
+                <button class="button button-block button-ent" type="submit"   id="f_3">
+                    LOGIN
+                </button>
+            </div>
+        </form>
+        <div class="forget-pwd clearfix">
+            <div class="frow h-space-between">
+                <p ng-click="moveToForgotPassword()">Forgot Password?</p>
+                <div class="forget-pwd clearfix" ui-sref="signUp" nav-direction="forward" nav-transition='android'>
+                    <p>Register</p>
+                     
+                </div><!--/.frow-->
+            </div>
+        </div>
+
+        <div class="en-or">
+            <span>or</span>
+        </div>
+
+        
+        <div class="social-fb frow v-center h-center" ng-click="facebookLogin()">
+            <span class="fb-bg"></span>
+            <a class="tb">Connect with Facebook</a>
+        </div><!--/.social-fb-->
+        <div class="en-padding mt-25">
+                <button ui-sref="resendVerificationEmail" class="button button-block button-ent" type="submit"   id="f_3">
+                   Resend Verification Email
+                </button>
+            </div>
+    </ion-content>
+</ion-view>

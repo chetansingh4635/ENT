@@ -1,0 +1,29 @@
+﻿<div class="popup-wrap text-center" ng-form name="popupForm.image" >
+ 	<h1 class="mt-0 text-left frow h-space-between">
+    <button class="button button-energized icons-center icon-camera button-circle lg"></button>
+
+    <button class="button button-clear button-stable button-small ion-android-close" ng-click="closePopup()"></button>
+    </h1>
+    	{{mediaData ? ( mediaData| extractFileName) : mediaData}}
+    <button class="button button-clear button-large button-light button-block button-upload" ng-click="openUploadMedia('image')" ng-if="!mediaData">
+  		<i class="ion-android-add"></i> Upload Image in this area
+  		<!-- <input type="file" class="file-control" /> -->
+	</button>
+
+	<p class="help-block error-msg-popups" ng-show="!mediaData && popupForm.image.$submitted">Please upload a image file</p>
+
+
+	<div class="list list-popup">
+		<label class="item item-input">
+			<input name="postname" type="text" placeholder="Add Title of your image" ng-model="postData.name" required maxlength="256" >
+		</label>
+		<p ng-show="popupForm.image.postname.$error.required && (popupForm.image.postname.$touched || popupForm.image.$submitted )" class="help-block error-msg-popups">Title is required</p>
+		
+		<label class="item item-input">
+			<input name="postdiscription" type="text" placeholder="Add Description here" ng-model="postData.description"  maxlength="256">		
+		</label>
+
+		
+	
+	</div><!--/.list-->
+</div><!--/.popup-wrap-->

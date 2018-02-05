@@ -1,0 +1,84 @@
+
+<ion-view view-title="celebrityEvents" class="idea-class" ng-init="getCategory()">
+<div class="login-bg">
+<ion-header-bar class="header-lg">
+<div class="buttons buttons-left header-item">
+
+            <span class="left-buttons">
+                <button class="button button-icon button-clear ion-navicon"   ng-click="openMenu()">
+                </button>
+            </span>
+
+    	</div>
+    	<div class="title text-left">Write-Ups</div>
+    	 <div class="buttons buttons-right header-item text-right header-item-right">
+            <button class="button button-clear icons-center icon-search" ui-sref="search"></button>
+
+             <button class="button button-clear icons-center icon-bell" ng-click="showPopOver($event)"><span ng-show="notificationCount" class="badge badge-energized">{{notificationCount || 0}}</span></button>
+            <button class="button button-clear icons-center icon-grid" ng-click="openRightMenu()" ></button>
+        </div>
+    	</ion-header-bar>
+	<ion-content class="idea-bgcolor secondary-theme">		
+		<div class="idea-section">
+			<p class="text-center"><img ng-src="{{idea.image.profile_pic_path ? idea.image.profile_pic_path : './img/idea-icon.png'}}" alt="iead-img" width="124" height="107">
+			</p>
+			<p class="text-center idea-info">Share your idea, We will not share or use your Idea 
+			without your permission.</p>
+		</div>
+		<div class="idea-pad-55">
+		<form name="ideaForm" ng-submit=" ideaForm.$valid && saveIdea()" novalidate>
+			<div class="list">
+	                <label class="item item-input en-email fullName">
+	                    <input type="text" name="subjectname" ng-model="idea.subject_name" placeholder="Subject" class="" maxlength="500" required>
+	                    <p ng-if="(ideaForm.subjectname.$touched || ideaForm.$submitted) && ideaForm.subjectname.$error.required" class="help-block error-msg">Subject is required.</p>
+	                </label>
+					<div class="check-box-custom">
+			        <ion-scroll direction="y" class="">
+			            		<div class="signcheckarea clearfix">
+			               		 <div class="leftarea checkbox-wrap display-flex flex-wrap ">
+			                    <ion-checkbox class="custom-ent ideacheckbox" ng-repeat="(key, value) in category" ng-checked="checkMarked(key,value)" name="{{value}}" ng-click="addTalent(key,value)">{{value}}</ion-checkbox> 
+	                            
+			                   
+			                    <!-- <ion-checkbox name="talentOther" ng-click="showOtherTalentInput()" ng-model="idea.otherTalent">Other</ion-checkbox> -->
+                                </div>
+
+			            </div>
+
+			       </ion-scroll>
+			         <p class="help-block error-msg" ng-show="idea.talent.length < 1 && (talentsTouched || ideaForm.$submitted)">Please choose at least one talent.
+			            </p>
+			         <!-- <p class="help-block error-msg" ng-if ="!idea.image&& ( ideaForm.$submitted)">Please choose an image.</p> -->
+			        </div>
+	                <label class="item item-input en-email type2">
+	                    <input type="text" name="message" ng-model="idea.message" placeholder="Message" class="" required="">
+	                    <p ng-if="(ideaForm.message.$touched || ideaForm.$submitted) &&  (ideaForm.message.$error.required)" class="help-block error-msg">Message is required.</p>
+	                </label>
+	                <label class="item item-input en-email type2 en-password">
+	                    <input type="text" name="description" ng-model="idea.description" placeholder="What’s on your mind?" class="" required="" id="k_3" max-length="500">
+	                    <p ng-if="(ideaForm.description.$touched || ideaForm.$submitted) &&  (ideaForm.description.$error.required)" class="help-block error-msg">
+	                    Description is required. </p>
+	                </label>
+	                <div class="tc-wrap has-error no-pad-cls" ng-class="{ 'has-error' : ideaForm.termsAndCondition.$invalid && !ideaForm.termsAndCondition.$pristine }" style="">
+
+			                <label class="custom-ent item item-checkbox">
+
+			                <div class="leftarea checkbox-wrap display-flex flex-wrap checkbox checkbox-input-hidden disable-pointer-events checkbox-square">
+			                <!-- <ion-checkbox name="termsAndCondition"  ng-checked="idea.acceptance" value="on" ng-click="toggleAcceptance()" required></ion-checkbox> -->
+			                 <ion-checkbox class=" " name="termsAndCondition" ng-checked="idea.acceptance" value="on" ng-click="toggleAcceptance()" required></ion-checkbox> 
+
+			                <!-- <i class="checkbox-icon"></i> -->
+			                </div>
+			                <div class="item-content disable-pointer-events"></div></label><p class="tc have">I agree to the Terms &amp; Conditions</p>
+			               <!--  <p ng-if="(ideaForm.termsAndCondition.$touched || ideaForm.$submitted)&&(ideaForm.description.$error.required)" class="help-block error-msg">Terms & Condition is requirerd.</p> -->
+			        </div>
+	            </div>
+	            <div class="Idae-btn-section">
+		            <button type="button" class="button button-stable button-squire fixed-width-btn" ng-click="chooseImage()">UPLOAD</button>
+		            <button class="button button-energized button-squire fixed-width-btn" type="submit">SAVE</button>
+	            </div>
+	            </form>
+
+            </div>
+	</ion-content>
+	</div>
+</ion-view>

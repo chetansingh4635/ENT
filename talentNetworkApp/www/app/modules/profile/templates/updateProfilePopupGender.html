@@ -1,0 +1,46 @@
+<!-- 
+
+<div class="popup-wrap text-center" ng-form="form.updateProfile">
+<h1 class="mt-0 text-left frow h-space-between">
+    <button class="button button-energized icons-center  button-circle lg icon-edit-profile"></button>
+
+    <button class="button button-clear button-stable button-small ion-android-close" ng-click="closePopup()"></button>
+    </h1>
+
+	<ion-list class="primary-checkbox two-col">
+	
+      <ion-radio ng-model="updateProfileObject.gender" ng-value="'Male'" >Male</ion-radio>
+      <ion-radio ng-model="updateProfileObject.gender" ng-value="'Female'" >Female</ion-radio>
+    </ion-list>
+
+		
+</div>
+
+<div class="footer frow h-space-between">
+
+</div> -->
+
+<!-- saved from url=(0062)http://172.18.3.168:8080/missing/updateProfilePopupGender.html -->
+<div class="popup-wrap text-center" ng-form="form.updateProfile">
+<h4 class="mt-0 text-left frow h-space-between">
+<span class="energized">Select Gender</span>
+<button class="button button-clear button-stable button-small ion-android-close" ng-click="closePopup()"></button>
+</h4>
+<ion-list class="primary-checkbox two-col">
+             <div class="radio_container">
+            <input type="radio" name="radio-group" ng-value="'Male'" ng-model="updateProfileObject.gender" style="display: none;">
+
+            <div ng-click="updateProfileObject.gender = 'Male'" class="radio-content">
+            <i class="radio-icon disable-pointer-events icon ion-checkmark"></i><div class="item-content disable-pointer-events"><span>Male</span></div></div>
+            </div>
+
+            <div class="radio_container">
+            <input type="radio" name="radio-group" ng-value="'Female'" ng-model="updateProfileObject.gender" style="display: none;">
+
+            <div ng-click="updateProfileObject.gender = 'Female'" class="radio-content"><i class="radio-icon disable-pointer-events icon ion-checkmark"></i><div class="item-content disable-pointer-events"><span>Female</span></div></div>
+            </div>
+</ion-list>
+
+</div><!--/.popup-wrap-->
+<div class="footer frow h-space-between">
+</div>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - account/controllers/signupController.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>account/controllers/signupController.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">127.26</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">274</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">29.04</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.33</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">(function (app) {
+    app.controller(&#039;signupCtrl&#039;, signupCtrl);
+    signupCtrl.$inject = [&#039;$rootScope&#039;,&#039;$scope&#039;,&#039;$state&#039;,&#039;accountService&#039;,&#039;Config&#039;,&#039;loader&#039;,&#039;responseCodeHandling&#039;,&#039;mediaService&#039;,&#039;$cordovaDatePicker&#039;, &#039;$ionicHistory&#039;,&#039;$ionicPopup&#039;,&#039;$cordovaToast&#039;,&#039;actionSheet&#039;, &#039;messages&#039;];
+
+    function signupCtrl($rootScope,$scope,$state,accountService,Config, loader, responseCodeHandling, mediaService, $cordovaDatePicker, $ionicHistory, $ionicPopup, $cordovaToast, actionSheet, messages) {
+
+
+        $scope.user = {};
+
+        $scope.form = {};
+
+        angular.merge($scope.user, $state.params.userData);
+
+        $scope.roleImage = angular.copy(Config.roleImages);
+
+        $scope.user.talent = angular.copy([]);
+
+        $scope.openDatePicker = openDatePicker;
+
+        $scope.user.signup_type = $scope.user.signup_type ? $scope.user.signup_type : &#039;LOCAL&#039;; 
+
+        $scope.showOtherTalentInput = showOtherTalentInput;
+
+        var isTermsOpened = false;
+
+        var termsPopup;
+
+        $scope.getInitialLists = function () {
+            $scope.getCategories();
+        };
+
+        $scope.checkEmail = function(){
+
+          var successCallback = function(response){
+            if(response.code == Config.success)
+            {
+              $scope.forgotPasswordForm.email.$setValidity(&quot;email_already_exist&quot;, true);
+              $scope.form.userForm.email.$setValidity(&quot;email_already_exist&quot;, true);
+            }
+            else
+            {
+              $scope.forgotPasswordForm.email.$setValidity(&quot;email_already_exist&quot;, true);
+              $scope.form.userForm.email.$setValidity(&quot;email_already_exist&quot;, false);
+            }
+          }
+
+          var errorCallback = function(){
+
+          }
+
+
+          accountService.checkEmail(null, {email: $scope.user.email}, successCallback, errorCallback)
+        }
+
+        $scope.getCategories = function () {
+            loader.show();
+            function success(res) {
+                loader.hide();
+                if (res.code == 200) {
+                    $scope.allCategories = res.data;
+                }
+            }
+            function error(result) {
+                loader.hide();
+                //$cordovaToast.show(&#039;Something went wrong.Please try again!&#039;, &#039;short&#039;, &#039;bottom&#039;);
+            }
+            accountService.getCategories(null, null, success, error);
+        };
+
+        $scope.addRemoveTalent = function(key,value){
+
+            $scope.talentsTouched = true;
+
+            key =  parseInt(key); //Insuring key should is an Integer
+
+            if($scope.user.talent.indexOf(key) &gt; -1) $scope.user.talent.pop($scope.user.talent.indexOf(key)); //If allready added remove from array
+            else  $scope.user.talent.push(key); //else add to array
+             }
+
+        $scope.signup = signup;
+
+
+        function signup(){
+          if(window.plugins){
+            cordova.plugins.Keyboard.close();
+          }
+            loader.show();
+              var dataToSend = angular.copy($scope.user);
+            dataToSend.version_code = &#039;1.0.1&#039;,
+            dataToSend.device_id = &#039;76462846327874&#039;;
+            dataToSend.device_type = &#039;A&#039;;
+           
+
+            //Assign image object only if exist
+            angular.isDefined($scope.image) &amp;&amp; (dataToSend.image = $scope.image)
+
+
+            var errorCallback = function(error){
+                loader.hide();
+                console.log(&quot;error&quot;, error);
+            }
+
+            var seccessCallback = function(response){
+                  loader.hide();
+                  responseCodeHandling.showMessages(response.code,null,false,function(status,msg){
+                  if(status){
+                         $scope.user = {}; //clear user object
+                         $state.params.userData = {};
+                         $ionicHistory.clearHistory();
+                         $state.go(&#039;signupComplete&#039;);    
+                          $rootScope.resendEmail=$scope.user.email;                     
+                   }else{
+                       console.log(&quot;message from service  error&quot;,msg);
+                   }
+                });
+
+            }
+
+            accountService.signup(null, dataToSend, seccessCallback, errorCallback);
+          }
+
+        // //--------------------------------- Registeration -----------------------------------------------------
+        $scope.moveToSignUpSubmit = function () {
+            if($scope.user.user_type === Config.groupRole){
+              //If user is a group adding one member
+             
+              $scope.user.user_group = angular.copy([{}]);
+              $state.go(&#039;signupGroup&#039;,{userData: $scope.user});
+              
+            }                
+            else
+            {
+               
+                $state.go(&#039;signupCategory&#039;, { userData: $scope.user });
+            }
+        };
+
+        $scope.moveToChooseRole = function (isSignupFormValid) {
+          if(!isSignupFormValid){
+              return;
+          }
+            //Setting default role
+            $scope.user.user_type = Config.defaultRole;
+
+            $state.go(&#039;signupChooseRole&#039;, { userData: $scope.user });
+        };
+
+        $scope.keypressHandlerForSingup = function(event, nextIdx){
+              if(event.keyCode == 13){
+                  angular.element(
+                      document.querySelector(&#039;#k_&#039;+nextIdx))[0].focus();
+                    return false;
+        }
+      }
+
+        $scope.chooseImage = function(){
+
+             function captureSucess(imgData){
+                 
+                 //Success callback for image capture
+
+                 
+
+                 mediaService.uploadMedia(imgData,&#039;image&#039;, mediaUploadSucess, mediaUploadError );
+             }
+
+             function mediaUploadSucess(res){
+                 
+                 loader.hide();
+                 res = JSON.parse(res.response);
+                 responseCodeHandling.showMessages(res.code,null,false, function(){});
+                 $scope.image = angular.copy(res.data.file);
+                 
+
+             }
+
+            function mediaUploadError(error){
+                loader.hide();
+             }
+
+             function captureError(error){
+                 loader.hide();
+                 console.log(&quot;Error&quot;, error);
+             }
+
+             actionSheet.openUploadMedia(&#039;image&#039;, captureSucess, captureError);
+             //Getting image data
+            //mediaService.getMediaFromCamera(&#039;Image&#039;, captureSucess, captureError);
+
+        }
+
+        function openDatePicker(){
+
+          $scope.datePickerOpened = true;
+        
+           $cordovaDatePicker.show(Config.dataPikerOptions).then(function(date){
+                $scope.user.dob = moment(date).format(&#039;YYYY-MM-DD&#039;);
+                $scope.datePickerOpened = false;
+            },function(){
+              $scope.datePickerOpened = false;
+            });  
+        }
+
+        
+        $scope.openBrowser = function(){
+        window.open(&#039;http://ent.cloudzmall.com/index.php/terms&#039;, &#039;_system&#039;, &#039;location=yes&#039;);  return false;
+        }
+
+        $scope.openTermPopup = function () {
+        loader.show();
+          if(isTermsOpened) return;
+        
+          isTermsOpened = true;
+
+          function error(error){
+              console.log(&quot;Error&quot; ,error);
+            }
+            
+
+          function success(){
+            loader.hide();
+             termsPopup = $ionicPopup.show({
+                templateUrl: &#039;app/modules/account/templates/TermsConditionsPopup.html&#039;,
+                scope: $scope
+              });
+
+          }
+          accountService.getTerms(null,null,success, error);
+
+        }
+
+        $scope.iAgree = function(){
+          isTermsOpened = false;
+          $scope.user.acceptance = true;
+          termsPopup.close();
+        }
+
+        $scope.iDisAgree = function(){
+
+          isTermsOpened = false;
+          $scope.user.acceptance = false;
+          termsPopup.close();
+          //Show toaster here
+          $cordovaToast.show(Config.termsMsg, &#039;short&#039;, &#039;bottom&#039;)
+        }
+
+        $scope.addMember = function(){
+          $scope.user.user_group.push({});
+        }
+
+        $scope.removeMember = function(){
+         $scope.user.user_group.pop(); 
+        }
+
+        function showOtherTalentInput(){
+
+          if($scope.user.talentOther) $scope.user.otherTalent = [&quot;&quot;];
+          else delete $scope.user.otherTalent;
+        }
+
+        $scope.addOtherTalent = function(){
+          $scope.user.otherTalent.push(&quot;&quot;);
+        }
+
+        $scope.removeOtherTalent = function(){
+         $scope.user.otherTalent.pop(); 
+        }
+
+        
+
+
+        //--------------------------------- Registeration End-----------------------------------------------------
+    }
+})(angular.module(&#039;talentNetworkApp&#039;));</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ cyclomatic }} <br>
+    Length : {{ halstead.length }} <br>
+    Difficulty : {{ halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

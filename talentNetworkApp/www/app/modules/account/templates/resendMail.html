@@ -1,0 +1,33 @@
+<ion-view view-title="Forgot Password">
+    <ion-content class="login-bg has-back-btn">
+        <div class="back-btn-wrap">
+            <a class="button icon-left ion-ios-arrow-back button-clear button-energized back-icon" ui-sref="login"></a>
+        </div><!--/.back-btn-wrap-->
+        <div class="forget-area">
+            <div class="forget-cc">
+                <div class="forgot-inner forgot-img">
+                    <img alt="" src="img/Resend-Icon.png">
+                </div>
+            </div>
+        </div>
+        <div class="forgot-text">
+            <p class="f-head">Resend Verification email!</p>
+            <p class="f-text">
+                Enter your email below to resend verification Email
+            </p>
+        </div>
+        <form name="resendVerification" ng-submit="resendVerification.$valid && resendVerificationEmail()">
+            <div class="list">
+                <label class="item item-input en-email">
+                    <input type="email" name="email" placeholder="Your Email"  ng-model="mail.email" class="btn" required ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
+                    <p ng-if="resendVerification.email.$invalid && resendVerification.email.$touched" class="help-block error-msg">Enter a valid Email.</p>
+                </label>
+            </div>
+            <div class="en-padding mt-25 mb-25">
+                <button class="button button-block button-ent" type="submit">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

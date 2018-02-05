@@ -1,0 +1,84 @@
+<ion-view>
+    <ion-content class="login-bg has-back-btn">
+        <div class="back-btn-wrap" ui-sref="login">
+            <div class="button icon-left ion-ios-arrow-back button-clear button-energized" ></div>
+        </div><!--/.back-btn-wrap-->
+        <div class="logo">
+            <img alt="logo-ent" src="img/Logo.png">
+        </div>
+        <form name="form.userForm" ng-submit="form.userForm.$valid && moveToChooseRole(form.userForm.$valid)" novalidate>
+            <div class="list">
+                <label class="item item-input en-email fullName" >
+                    <input type="text" name="name" ng-model="user.name" placeholder="Full Name" class="btn" required id="k_1" ng-keypress="keypressHandlerForSingup($event, 2)"  maxlength="50">
+                    <p ng-if="(form.userForm.name.$touched || form.userForm.$submitted) && form.userForm.name.$error.required" class="help-block error-msg">Your name is required.</p>
+                </label>
+                <label class="item item-input en-email" >
+                    <input type="email" name="email" ng-model="user.email" placeholder="Your Email" class="btn" required ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" id="k_2" ng-keypress="keypressHandlerForSingup($event, 3)" ng-blur="checkEmail()" maxlength="100">
+                    
+                    <p ng-if="(form.userForm.email.$touched || form.userForm.$submitted) &&  (form.userForm.email.$error.email || form.userForm.email.$error.pattern || form.userForm.email.$error.required)" class="help-block error-msg">Enter a valid email.</p>
+                    <p ng-if="!(form.userForm.email.$error.email || form.userForm.email.$error.pattern || form.userForm.email.$error.required) && form.userForm.email.$error.email_already_exist"  class="help-block error-msg">Email already exist</p>
+                </label>
+                <label class="item item-input en-email en-password" >
+                    <input type="password" name="password" ng-pattern="/^((?=.*[a-z])|(?=.*[A-Z]))(?=.*[0-9])(?=.{8,})/" ng-model="user.password" placeholder="Password" class="btn" required  id="k_3" ng-keypress="keypressHandlerForSingup($event, 4)"  maxlength="50">
+                    <p ng-if="(form.userForm.password.$touched || form.userForm.$submitted) &&  (form.userForm.password.$error.email || form.userForm.password.$error.pattern || form.userForm.password.$error.required)" class="help-block error-msg">Enter at least 8 char with including 1 digit.</p>
+                </label>
+
+                <label class="item item-input en-email en-password confirm-pwd" ng-class="{ 'has-error' : form.userForm.rePassword.$invalid && !form.userForm.rePassword.$pristine }">
+                    <input type="password" match-password="password" name="rePassword" ng-pattern="/^((?=.*[a-z])|(?=.*[A-Z]))(?=.*[0-9])(?=.{8,})/" ng-model="user.confirm_password" placeholder="Confirm Password" class="btn" id="k_4" required  ng-keypress="keypressHandlerForSingup($event, 5)"  maxlength="50">
+                    <p ng-if="form.userForm.rePassword.$invalid && form.userForm.rePassword.$touched && form.userForm.password.$valid" class="help-block error-msg">Password doesn't match.</p>
+                </label>
+               
+                        <label class="item item-input en-email telephone" >
+                            <!-- <span class="tel-span"></span>  ng-pattern="/^[789]\d{9}$/"-->
+                            <input type="tel" name="mobile" mask="+99? 9999-9999-99" clean="true" ng-model="user.mobile" placeholder="(+91) 9999-9999-99" class="btn" required id="k_5" ng-keypress="keypressHandlerForSingup($event,6)">
+                            <p ng-if="(form.userForm.mobile.$touched || form.userForm.$submitted) &&  (form.userForm.mobile.$error.mask || form.userForm.mobile.$error.required)" class="help-block error-msg">Please enter valid mobile no.</p>
+                        </label>
+                <label class="item item-input en-email dd-mm">
+
+                    <input type="text" class="btn" name="dob" placeholder="Date-of-birth"  id="k_6" ng-keypress="keypressHandlerForSingup($event, 7)" readonly ng-model="user.dob" ng-click="openDatePicker()" required ng-disabled="datePickerOpened">
+                    <p ng-if="(form.userForm.dob.$touched || form.userForm.$submitted) &&  (form.userForm.dob.$error.dob ||  form.userForm.dob.$error.required)" class="help-block error-msg">Date of birth is required.</p>
+                </label>
+
+                <label class="item item-input en-email city">
+                    <input type="text" name="city" class="btn" placeholder="City" id="k_7" ng-keypress="keypressHandlerForSingup($event, 8)" ng-model="user.city" required  maxlength="50">
+                    <p ng-if="(form.userForm.city.$touched || form.userForm.$submitted) && form.userForm.city.$error.required" class="help-block error-msg" focus>City is required.</p>
+                </label>
+            </div>
+            <ion-list class="primary-checkbox padding0 two-col" ng-init="user.gender = 'MALE'">
+<!--               <ion-radio ng-model="user.gender" ng-value="'MALE'"   id="k_8" ng-keypress="keypressHandlerForSingup($event, 9)" >Male</ion-radio> -->
+   <!--            <ion-radio ng-model="user.gender" ng-value="'FEMALE'" id="k_9" ng-keypress="keypressHandlerForSingup($event, 10)">Female</ion-radio>
+ -->        
+            <div class="radio_container">
+            <input type="radio" name="radio-group" ng-value="'MALE'" ng-model="user.gender" style="display: none;">
+
+            <div ng-click="user.gender = 'MALE'" class="radio-content">
+            <i class="radio-icon disable-pointer-events icon ion-checkmark"></i><div class="item-content disable-pointer-events"><span>Male</span></div></div>
+            </div>
+
+            <div class="radio_container">
+            <input type="radio" name="radio-group" ng-value="'FEMALE'" ng-model="user.gender" style="display: none;">
+
+            <div ng-click="user.gender = 'FEMALE'" class="radio-content"><i class="radio-icon disable-pointer-events icon ion-checkmark"></i><div class="item-content disable-pointer-events"><span>Female</span></div></div>
+            </div>
+
+            </ion-list>
+
+
+            <div class="tc-wrap" ng-class="{ 'has-error' : form.userForm.termsAndCondition.$invalid && !form.userForm.termsAndCondition.$pristine }">
+                <ion-checkbox ng-required="true"  name="termsAndCondition" ng-model="user.acceptance" class="custom-ent"></ion-checkbox><p class="tc" ng-click="openTermPopup()" >I agree to the Terms & Conditions</p>
+
+
+            </div>
+            <div class="en-padding btn-wrap-signup">
+
+
+                <button class="button button-block button-ent" type="submit" ng-disabled="form.userForm.$invalid || !user.acceptance || !form.userForm.$dirty">
+                    SIGN UP
+                </button>
+                <!--<button class="button button-block button-ent" type="submit">
+                    sign up
+                </button>-->
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

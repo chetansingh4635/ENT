@@ -1,0 +1,64 @@
+<!-- notification List -->
+
+  <ion-view view-title="Notification" class="home">
+    <ion-header-bar class="header-lg">
+        <div class="buttons buttons-left header-item">
+
+            <span class="left-buttons">
+                <button class="button button-icon button-clear ion-navicon"  ng-click="openMenu()">
+                </button>
+            </span>
+        </div><!--/.header-item-->
+               <div class="title text-left">Notifications</div>
+        <div class="buttons buttons-right header-item text-right header-item-right">
+            <button class="button button-clear icons-center icon-search" ng-click="hideMenu()" ui-sref="search"></button>
+             <button class="button button-clear icons-center icon-grid" ng-click="openRightMenu()" ></button>
+        </div><!--/.buttons-right-->
+
+
+    </ion-header-bar>
+
+    <ion-content class="primary-theme">
+    <div class="primary-theme tab-des" ng-if="notificationList.length==0">
+                <div class="result-not-found frow h-center flex-wrap">
+                    <div class="box-circle display-flex v-center h-center">
+                        <img src="img/img37.png">
+                    </div>
+                    <p class="col-100">No Data</p>
+                </div>
+    </div>
+    <!-- <ion-refresher
+        pulling-text="Pull to refresh"
+        on-refresh="pullDownRefresh()">
+    </ion-refresher> -->
+    
+     <div class="notification-list" ng-init="init()">    
+            <ul>
+
+                <li ng-repeat="notification in notificationList">
+                  <div ng-click="closePopover(notification)">
+                    <div class="list-container">
+                        <div class="list-img">
+                            <img ng-src="{{notification.profile_pic_path ? notification.profile_pic_path : 'img/img7.png'}}" >
+                        </div>
+
+                        <div class="list-content">
+                        
+                            <p>{{notification.name}} {{notification.body}}</p>
+                            <p class="small-font-s">{{notification.created_at | formatDate}}</p>
+                        </div>
+
+                    </div>
+                    </div>
+                </li>
+                
+            </ul>
+         </div>
+                     <ion-infinite-scroll
+                        ng-if="hasMoreNotifications"
+                        on-infinite="loadNotification()"
+                        distance="1%">
+                      </ion-infinite-scroll>  
+
+</ion-content>
+</ion-view>

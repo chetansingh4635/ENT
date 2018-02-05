@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - profile/controllers/profileController.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>profile/controllers/profileController.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">118.39</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">683</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">58.47</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">6.34</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">(function (app) {
+    app.controller(&#039;profileCtrl&#039;, profileCtrl);
+
+    profileCtrl.$inject = [&#039;$scope&#039;, &#039;$state&#039;, &#039;$ionicPopup&#039;,&#039;profileService&#039;,&#039;loader&#039;,&#039;$ionicTabsDelegate&#039;,&#039;Config&#039;,&#039;localStorage&#039;,&#039;responseCodeHandling&#039;,&#039;actionSheet&#039;, &#039;mediaService&#039;,&#039;$http&#039;,&#039;$q&#039;,&#039;$cordovaToast&#039;,&#039;postService&#039;, &#039;messages&#039;,&#039;$cordovaDatePicker&#039;];
+
+    function profileCtrl($scope,$state, $ionicPopup,profileService,loader, $ionicTabsDelegate,Config, localStorage, responseCodeHandling, actionSheet, mediaService,$http,$q,$cordovaToast, postService, messages, $cordovaDatePicker) {
+
+
+        /* Scope internal functions*/ 
+        $scope.canDelete=false;
+        $scope.initProfile = initProfile;
+        $scope.status=true;
+        $scope.saveWebLink = saveWebLink;
+        $scope.id=&#039;&#039;;
+        $scope.saveurl;
+        $scope.limitSkips = angular.copy(Config.defatultLimitSkipPost);
+        $scope.update={};
+        $scope.tabChanged = tabChanged;
+        $scope.isMoreData = false;
+        $scope.updateProfileObject = {};
+        $scope.updateProfile = updateProfile;
+        $scope.postData = {};
+        $scope.popupForm = {};
+        $scope.media_to_delete;
+        var popupObject;
+        $scope.form={};
+        var popupTemplates = Config.uploadMediaPopUp;
+        $scope.tamporary=[];
+        $scope.talents=[];
+        $scope.otherTalents=[];
+        
+         $scope.otherCategories=function(){
+          var sucess=function(response){
+            console.log(response);
+            responseCodeHandling.showMessages(response.code,null,false,function(){
+              if(response.data ){
+                 $scope.otherCategory=response.data;
+              }
+            });
+          }
+
+          var error=function(err){
+            console.log(&quot;error for get profile&quot;,err);
+          }
+
+          profileService.getcategoryList(null,null,sucess,error);
+        }
+          $scope.addFilter = function(key,value){
+            key =  parseInt(key); //Insuring key should is an Integer
+            if ((index = $scope.temporary.indexOf(key)) !== -1)
+              $scope.temporary.splice(index, 1);
+            else
+             $scope.temporary.push(key); //else add to array
+              console.log($scope.temporary);
+             }
+         $scope.checkMarked = function(key,value)
+      {
+
+        key =  parseInt(key);
+         if( $scope.talents.indexOf(key) !== -1) 
+          return true
+         else
+          return false
+          
+      }
+        
+
+        var updatePopupTemplates = {
+          dob:{templateUrl:&#039;app/modules/profile/templates/updateProfilePopupDob.html&#039;},
+          gender:{templateUrl:&#039;app/modules/profile/templates/updateProfilePopupGender.html&#039;},
+          contact:{templateUrl:&#039;app/modules/profile/templates/updateProfilePopupContact.html&#039;},
+          category:{templateUrl:&#039;app/modules/profile/templates/updateProfilePopupCategory.html&#039;},
+          email:{templateUrl:&#039;app/modules/profile/templates/updateProfilePopupEmail.html&#039;}
+        }
+
+        var postUrlsObject = angular.copy({
+          image:{resourceName: &quot;image_post_api&quot;},
+          video:{resourceName: &quot;video_post_api&quot;},
+          audio:{resourceName: &quot;audio_post_api&quot;},
+          text:{resourceName: &quot;text_post_api&quot;}
+        });
+
+
+        // Array for post layouts
+        $scope.is_playing = false;
+        $scope.postsObject = angular.copy({
+            image: [],
+            video: [],
+            audio: [],
+            text: []
+        });
+
+
+
+        $scope.currentTab = &quot;image&quot;;
+        $scope.hasMoreData = {&quot;image&quot;:false, &quot;video&quot;: false, &quot;audio&quot;:false, &quot;text&quot;: false};
+
+        
+        /*********************handling of all popups**********************/
+        $scope.openUploadMediaPopUp = function (type) {
+           delete $scope.mediaData;
+           $scope.postData = angular.copy({});
+
+
+            popupObject = $ionicPopup.show({
+                templateUrl: popupTemplates[type],
+                scope: $scope,
+            buttons: [{ 
+                text: &#039;Submit&#039;,
+                type: &#039;button-energized button-squire&#039;,
+                onTap: function(e) {
+                  $scope.popupForm[type].$setSubmitted();
+    
+                  //Execute it if form is valid
+                  if($scope.popupForm[type].$valid) $scope.submitPost(type);
+                  else e.preventDefault();
+                 }
+                 }]
+            });
+        }
+
+        // $scope.openUploadAudioPopUp = function () {
+        //    popupObject = $ionicPopup.show({
+        //         templateUrl: &#039;app/modules/profile/templates/uploadMediaAudioPopUp.html&#039;,
+        //         scope: $scope,
+        //         buttons: [{ 
+        //         text: &#039;Submit&#039;,
+        //         type: &#039;button-energized button-squire&#039;,
+        //         onTap: function(e) {
+
+        //           $scope.popupForm.audioUpload.$setSubmitted();
+    
+        //           //Execute it if form is valid
+        //           if($scope.popupForm.audioUpload.$valid) $scope.submitPost(&#039;audio&#039;);
+        //           else e.preventDefault();
+        //          }
+        //          }]
+        //     });
+        // }
+
+        // $scope.openUploadTextPopUp = function () {
+        //     popupObject = $ionicPopup.show({
+        //         templateUrl: &#039;app/modules/profile/templates/uploadTextPopUp.html&#039;,
+        //         scope: $scope,
+        //         buttons: [{ 
+        //         text: &#039;Submit&#039;,
+        //         type: &#039;button-energized button-squire&#039;,
+        //         onTap: function(e) {
+        //           $scope.popupForm.textUpload.$setSubmitted();
+    
+        //           //Execute it if form is valid
+        //           if($scope.popupForm.textUpload.$valid) $scope.submitPost(&#039;text&#039;);
+        //           else e.preventDefault();
+        //          }
+        //          }]
+        //     });
+        // }
+        
+        // $scope.openUploadVideoPopUp = function () {
+        //     popupObject = $ionicPopup.show({
+        //         templateUrl: &#039;app/modules/profile/templates/uploadVideoPopUp.html&#039;,
+        //         scope: $scope,
+        //         buttons: [{ 
+        //         text: &#039;Submit&#039;,
+        //         type: &#039;button-energized button-squire&#039;,
+        //         onTap: function(e) {
+        //           $scope.popupForm.videoUpload.$setSubmitted();
+    
+        //           //Execute it if form is valid
+        //           if($scope.popupForm.videoUpload.$valid) $scope.submitPost(&#039;videos&#039;);
+        //           else e.preventDefault();
+        //          }
+        //          }]
+        //     });
+        // }
+
+        $scope.openUpdateProfile = function(type){
+          $scope.updateProfileObject = angular.copy({});
+
+          $scope.updateProfileObject[type] = angular.copy($scope.userProfile[type]); //Copying current value
+
+          popupObject = $ionicPopup.show({
+                templateUrl: updatePopupTemplates[type].templateUrl,
+                scope: $scope,
+                buttons: [{ 
+                text: &#039;Submit&#039;,
+                type: &#039; button-energized button-squire&#039;,
+                onTap: function(e) {
+                  $scope.updateProfile(type,e);
+                 }
+                 }]
+            });
+
+
+        }
+
+
+        $scope.openDatePicker=function(){
+
+          $scope.datePickerOpened = true;
+
+          $cordovaDatePicker.show(Config.dataPikerOptions).then(function(date){
+                $scope.updateProfileObject.dob = moment(date).format(&#039;YYYY-MM-DD&#039;);
+                $scope.datePickerOpened = false;
+            },function(){
+              $scope.datePickerOpened = false;
+            });  
+        }
+
+
+        /************end of handling of all popups******************/
+
+        function initProfile(){
+          loader.show();
+          $scope.otherCategories();
+            var sucessCallback = function(response){
+              loader.hide();
+              console.log(response);
+
+              $scope.userProfile=response.data;
+              $scope.id=$scope.userProfile.id;
+              $scope.updateProfileObject.gender=response.data.gender;
+              $scope.userProfile.profile_pic_path = $scope.userProfile.profile_pic_path ? $scope.userProfile.profile_pic_path : &quot;img/img7.png&quot;;
+              angular.forEach(response.data.category, function(value, key) {
+              $scope.talents.push(parseInt(key));
+              
+               $scope.otherTalents.push(value); 
+              console.log($scope.talents);
+          });
+              $scope.temporary=angular.copy($scope.talents);
+            }
+
+            var errorCallback = function(err){
+              loader.hide();
+              console.log(&quot;error for get profile&quot;,err);
+            }
+
+            profileService.getProfile(null,null,sucessCallback,errorCallback);
+
+        }
+
+        $scope.getMyUploads=function(type){
+            var params = {
+                limit:$scope.limitSkips[type].limit,
+                mediaType:type.toUpperCase(),
+                skip:$scope.limitSkips[type].skip,
+                id:$scope.id,
+            }
+            loader.show();
+
+            var sucessCallback = function(response){
+                loader.hide();
+                console.log(response);
+           responseCodeHandling.showMessages(response.code,null,false,function(status,msg){
+              if(status){
+
+                //changing ionic infinite scroll state if equals to page limit then enable else disable
+                $scope.hasMoreData[type] = response.data &amp;&amp; (response.data.length === $scope.limitSkips[type].limit);
+                $scope.infinteScrollEnabled = $scope.hasMoreData[$scope.currentTab];
+
+                createLayout(type,response.data);
+                }});
+            }
+
+            var errorCallback = function(error){
+                loader.hide();
+                console.log(error);
+            }
+            
+            //params = null; //As api is not complte not sending params   
+            profileService.getMyUploads(params,null,sucessCallback, errorCallback);
+        }
+
+
+        //Create layout fot diffrent type of media
+        function createLayout(type, talentArray){
+
+            if(type == &#039;image&#039;){
+                var imageLayout = {}
+            switch (talentArray.length){
+                    case 1:
+                        imageLayout.leftSidePostsImages= angular.copy(talentArray);
+                    break;
+                    case 2:
+                        imageLayout.leftSidePostsImages = angular.copy(talentArray.slice(0,1));
+                        imageLayout.rightSidePostsImages = angular.copy(talentArray.slice(1,2));
+                    break;
+                    case 3:
+                        imageLayout.leftSidePostsImages = angular.copy(talentArray.slice(0,1));
+                        imageLayout.rightSidePostsImages = angular.copy(talentArray.slice(1,3));
+                    break;
+                    case 4:
+                        imageLayout.leftSidePostsImages = angular.copy(talentArray.slice(0,2));
+                        imageLayout.rightSidePostsImages = angular.copy(talentArray.slice(2,4));
+                        
+                    break;
+                    case 5:
+                        imageLayout.leftSidePostsImages = angular.copy(talentArray.slice(0,2));
+                        imageLayout.rightSidePostsImages = angular.copy(talentArray.slice(3,5));
+                    break;
+                    case 6:
+                        imageLayout.leftSidePostsImages = angular.copy(talentArray.splice(0,2));
+                        imageLayout.rightSidePostsImages = angular.copy(talentArray.splice(3,5));
+                        imageLayout.fullScreenPostsImages = angular.copy(talentArray.splice(5,6));
+                    break;
+                }
+                $scope.postsObject[type].push(imageLayout);
+            }else 
+                angular.merge($scope.postsObject[type],talentArray);
+            
+
+        }
+
+
+
+        /*
+        *load more will be invoked when ever infinite scroll get fired
+        *type: type of tab from which it gets fired
+        */
+        $scope.loadMore = function(){
+
+            $scope.infinteScrollEnabled = $scope.hasMoreData[$scope.currentTab] = false;
+            /*Add skip to the no of post should be dispalyed 
+            * ex 0 6 || 6 6 || 12 6
+            */
+            $scope.limitSkips[$scope.currentTab].skip += $scope.limitSkips[$scope.currentTab].limit;
+
+            //Loading more data will be called from infinte scroll
+           $scope.getMyUploads($scope.currentTab);
+            $scope.$broadcast(&#039;scroll.infiniteScrollComplete&#039;);
+            
+        }
+
+        $scope.pullDownRefresh = function(){
+            //Flushing previous loaded data
+            $scope.postsObject[$scope.currentTab] = angular.copy([]);
+            $scope.limitSkips[$scope.currentTab].skip = angular.copy(Config.defatultLimitSkipPost[$scope.currentTab].skip);
+            $scope.getMyUploads($scope.currentTab);
+
+             $scope.$broadcast(&#039;scroll.refreshComplete&#039;);
+        }
+
+        function tabChanged(tab){
+            $scope.currentTab = tab;
+            $scope.infinteScrollEnabled = $scope.hasMoreData[tab];
+        }
+
+        $scope.openUploadMedia = function(type){
+
+          function successCallback(imgData){
+             $scope.mediaData  = angular.copy(imgData);
+            //Upload the media on sucess of capture
+            mediaService.uploadMedia(imgData,type, mediaUploadSucess, mediaUploadError );
+          }
+
+          function errorCallbacck(error){
+            loader.hide();
+            console.log(&quot;error&quot;, error);
+          }
+
+          function mediaUploadSucess(response){
+
+            loader.hide();
+            res = JSON.parse(response.response);
+            responseCodeHandling.showMessages(res.code,null,false, function(){});
+            
+            //On sucess media upload save object to local controller to send with submit post object
+            if(type === &#039;image&#039;) {$scope.postData.image = []; $scope.postData.image[0] = angular.copy(res.data.file);}
+            else if(type === &#039;video&#039;)  {$scope.postData.video = []; $scope.postData.video[0] = angular.copy(res.data.file);}
+          
+          }
+
+          function mediaUploadError(error){
+            loader.hide();
+            console.log(&quot;error&quot;);
+
+          }
+
+          actionSheet.openUploadMedia(type, successCallback, errorCallbacck);
+        } 
+
+        $scope.submitPost = function(type){
+            loader.show();
+            delete $scope.mediaData;
+            var is_crawl = false;
+            if($scope.weblink) is_crawl = true;
+
+          if(type === &#039;audio&#039;)
+            {
+              if(!($scope.weblink &amp;&amp; $scope.weblink.validLink)){
+                //If weblink not present or is not a vliad track link
+                loader.hide();
+                $cordovaToast.show(Config.invalidSoundCloud,&quot;short&quot;,&quot;bottom&quot;);
+                return;
+              }else{              
+              var dataToSend = {
+              name: $scope.postData.name,
+              description: $scope.postData.description,
+              crawlUrl: $scope.weblink.url,
+              crawlDescription: $scope.weblink.description + $scope.postData.description,
+              crawlImage: $scope.weblink.image,
+              crawlTitle: $scope.weblink.title
+            }
+          }
+            }else if(type === &#039;text&#039;){
+              var dataToSend = {  
+              textPost : $scope.postData.textPost,
+              is_crawl : is_crawl
+            }
+
+            if(dataToSend.is_crawl){
+              dataToSend.share_url = $scope.weblink.url;
+              dataToSend.share_image = $scope.weblink.image;
+              dataToSend.share_title =$scope.weblink.title;
+              dataToSend.share_descriptio= $scope.weblink.description;
+            }
+          }else{
+              var dataToSend = $scope.postData
+            }
+
+          function successCallback(responce){
+            loader.hide();
+            $state.reload();
+            responseCodeHandling.showMessages(responce.code,messages.post_saved,true,function(status){
+              if(status){
+                 $scope.postData =angular.copy({});
+                 $scope.mediaData = undefined;
+                $scope.weblink = undefined;
+               }
+             });
+          }
+
+          function errorCallback(error){
+            loader.hide();
+          }
+
+          postService.submitPost(postUrlsObject[type],dataToSend, successCallback, errorCallback);
+        }
+
+        function saveWebLink(weblink){
+          //Function to save weblink dat ato controller
+          $scope.weblink = weblink
+        }
+
+  $scope.startAudio = function(songurl){
+         if($scope.is_playing) 
+            {
+               if($scope.saveurl==songurl){
+                     media.pause();
+                    $scope.is_playing = false;
+                    console.log(&#039;pausing the song&#039;);}
+                  else
+                  { 
+                     media.pause();
+                     loader.show();
+                    playSong(songurl);
+                    console.log(&#039;playing new song&#039;);
+                  }
+        } 
+        else
+        {
+        loader.show();
+          playSong(songurl);
+        }
+   };
+ 
+   function playSong(songurl) {
+      // o.pauseSong();
+      console.log(songurl);
+      var defer = $q.defer();
+
+      $http({
+        method: &#039;GET&#039;,
+        url:&#039; https://api.soundcloud.com/resolve.json?url=&#039;+songurl+&#039;&amp;client_id=3bfc3fa4c66ca13a86bb55aa1edafab3&#039;
+      }).success(function(data){
+    console.log(data);
+       $scope.id=data.id;
+     console.log($scope.id);
+  
+      $http({
+        method: &#039;GET&#039;,
+        url:&#039;https://api.soundcloud.com/i1/tracks/&#039; + $scope.id + &#039;/streams?client_id=&#039; + &#039;3bfc3fa4c66ca13a86bb55aa1edafab3&#039;
+      }).success(function(response){
+    
+        // merge data into the queue
+         loader.hide();
+         console.log(response);
+        media = new Audio(response.http_mp3_128_url);
+
+        media.addEventListener(&#039;loadeddata&#039;, function(){
+          defer.resolve();
+        });
+     
+      media.play();
+      $scope.is_playing=true;
+      $scope.saveurl=songurl;
+
+    })
+    }).catch(function(responce){
+      console.log(responce);
+      responseCodeHandling.showMessages(responce.status,responce.statusText,true,function(status,msg){
+              if(status){
+                 loader.hide();
+               }
+             });
+      
+    });
+    
+    
+    
+      console.log(&#039;playing the song&#039;);
+     // return defer.promise;
+    }
+
+
+
+    function updateProfile(type,e){
+             $scope.form.updateProfile.$setSubmitted();
+             if($scope.form.updateProfile.$valid)
+               {   
+                        loader.show();
+                         if(type==&#039;category&#039;)
+                         {
+                          $scope.updateProfileObject[&#039;talent&#039;] = angular.copy($scope.temporary);
+                          $scope.talents=angular.copy($scope.temporary);
+                          $scope.otherTalents=[];
+                          $scope.temporary=[];
+                         }
+                        var errorCallback = function(error){
+                          loader.hide();
+                        }
+                    
+                       var successCallback = function(response){
+                          loader.hide();
+                          initProfile();
+                          }
+
+                        profileService.updateProfile(null,$scope.updateProfileObject,successCallback,errorCallback);
+         }
+         else e.preventDefault();
+
+          }
+
+    $scope.checkStatus=function(){
+      console.log($scope.status);
+      if($scope.status==false)
+      {
+        $scope.status=true;
+       
+      }
+     else
+        $scope.status=false;
+
+    }
+
+    $scope.chooseImage = function(){
+
+             function captureSucess(imgData){ 
+                 //Success callback for image capture
+                 mediaService.uploadMedia(imgData,&#039;image&#039;, mediaUploadSucess, mediaUploadError );
+             }
+
+             function mediaUploadSucess(res){
+                 loader.hide();
+                 res = JSON.parse(res.response);
+                 responseCodeHandling.showMessages(res.code,null,false, function(){
+
+
+                  $scope.image = angular.copy(res.data.file);
+                  $scope.user=
+                  updateProfilePic();
+                 });
+              }
+
+            function mediaUploadError(error){
+                loader.hide();
+             }
+
+             function captureError(error){
+                 loader.hide();
+                 console.log(&quot;Error&quot;, error);
+             }
+
+             actionSheet.openUploadMedia(&#039;image&#039;, captureSucess, captureError);
+        }
+
+
+        /*Updating profile pic $scope.image currently selected image from storage*/
+       
+        function updateProfilePic(){
+
+          loader.show();
+
+          var successCallback = function(response){
+            loader.hide();
+            responseCodeHandling.showMessages(response.code,messages.profile_pic_updated,true, function(){
+                $scope.userProfile.profile_pic_path = angular.copy($scope.image.profile_pic_path);
+                $scope.user.profile_pic_path = angular.copy($scope.image.profile_pic_path);
+              });
+          }
+
+          var errorCallback = function(error){
+            loader.hide();
+          }
+
+
+          profileService.updateProfilePic(null, {image: $scope.image}, successCallback, errorCallback);
+        }
+
+        $scope.showDelete = function(media_id){
+          $scope.media_to_delete = media_id;
+        }
+
+        $scope.checkDelete=function(type,post)
+        {
+          if(post.media_id === $scope.media_to_delete)
+            $scope.media_to_delete=undefined;
+          else
+            { 
+              if(type==&#039;image&#039;)
+                 $state.go(&#039;postDescription&#039;,{data:JSON.stringify(post)});
+               else
+               {}
+          }
+        }
+
+        $scope.deletePost=function(type,post)
+        {
+         
+         loader.show();
+         var dataToSend={
+            &quot;media_id&quot;:parseInt(post.media_id),
+            &quot;status&quot;:&quot;my_profile&quot;
+          }
+          var successCallback = function(response){
+            loader.hide();
+           $state.reload();
+                 $scope.media_to_delete=undefined;
+            responseCodeHandling.showMessages(response.code,messages.profile_pic_updated,false, function(){
+                 
+              });
+          }
+
+          var errorCallback = function(error){
+            loader.hide();
+            $scope.media_to_delete=undefined;
+          }
+
+
+          profileService.deletePost(null, dataToSend, successCallback, errorCallback);
+
+        }
+        $scope.closePopup = function(){
+          $scope.temporary=[];
+          popupObject.close();
+        }
+
+        $scope.closeEditProfile = function(type){
+          delete $scope.updateProfileObject[type];
+          popupObject.close();
+        }
+
+        $scope.closeUploadPost = function(type){
+          delete $scope.mediaData;
+          delete $scope.postsObject[type];
+          popupObject.close();
+        }
+
+        $scope.delete = function(media_to_delete){
+          debugger;
+        }
+
+
+
+// $scope.$on(&#039;$locationChangeStart&#039;, function (event, next, current) {
+//                if($scope.is_playing)
+//                     media.pause();
+//                 console.log(current);
+//       });
+}
+
+
+})(angular.module(&#039;talentNetworkApp&#039;));</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ cyclomatic }} <br>
+    Length : {{ halstead.length }} <br>
+    Difficulty : {{ halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

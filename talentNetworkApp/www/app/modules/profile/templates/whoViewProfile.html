@@ -1,0 +1,133 @@
+<ion-view view-title="Who Viewed MyProfile" class="my-fan tabs-top-primary">
+    <ion-header-bar>
+
+    	<div class="buttons buttons-left header-item">
+            <span class="left-buttons">
+                <button class="button button-icon button-clear ion-navicon"  ng-click="openMenu()">
+                </button>
+            </span>
+    	</div><!--/.header-item-->
+    	<div class="title text-left">Who Viewed My Profile </div>
+        <div class="buttons buttons-right header-item text-right header-item-right">
+            <button class="button button-clear icons-center icon-search" ui-sref="search"></button>
+
+            <button class="button button-clear icons-center icon-bell" ng-click="showPopOver($event)"><span ng-show="notificationCount" class="badge badge-energized">{{notificationCount || 0}}</span></button>
+            <button class="button button-clear icons-center icon-grid"  ng-click="openRightMenu()" ></button>
+        </div>
+    	
+    </ion-header-bar>
+
+
+
+        <ion-tabs tabs-swipable class="tabs-striped tabs-top tabs-background-dark tabs-color-energized">
+
+   <ion-tab title="Celebs list" class="tab-item-active" on-select="onTabSelected(0)">
+                <ion-content class="tab-des primary-theme">
+                 <div class="primary-theme tab-des" ng-if="result2.length==0">
+                <div class="result-not-found frow h-center flex-wrap">
+                    <div class="box-circle display-flex v-center h-center">
+                        <img src="img/img37.png">
+                    </div>
+                    <p class="col-100">No Data</p>
+                </div>
+            </div>
+                <ion-refresher
+                        pulling-text="Pull to refresh"
+                        on-refresh="pullDownRefresh('celebviewed')">
+                      </ion-refresher>
+                    <div class="list primary" ng-init="getcelebList()">
+                        <div class="item item-avatar" ng-repeat="celeb in result2">
+                            <img ng-if="celeb.profile_pic_path!==''"ng-src="{{celeb.profile_pic_path}}" />
+                            <img ng-if="celeb.profile_pic_path===''" ng-src="img/img7.png">
+                            <div class="frow">
+                                <div class="col-50 col-left" ui-sref="userProfile({id:'{{celeb.id}}'})">
+                                    <h2 class="light-color">{{celeb.name}}</h2>
+                                    <p>{{celeb.category}}</p>
+                                    <p>{{celeb.about_my_talent}}</p>
+                                </div>
+                               <div class="col-50 col-right text-right" ng-click="fun_Unfanceleb(celeb)" ng-class="{'un-fan-theme':celeb.fan_status==0 && celeb.fan_status==false}">
+                                     <p class="right-spacer energized">{{celeb.user_fans}}</p>
+                                      <span class="star-bg ion-star" ng-class="{'isFan': celeb.fan_status}">
+                                      <span class="fans">Fans</span>
+                                      </span>
+                                </div>
+                                
+                            </div>
+                             <p class="frow h-space-between">
+                  <a href="" class="rating td-none">
+                     {{celeb.last_viewed}}
+                  </a>
+
+                  
+              </p>
+                       
+                          
+                </div>
+
+                </div>
+                    <ion-infinite-scroll
+                        ng-if="hasMoreCelebView"
+                        on-infinite="loadMore('celebviewed')"
+                        distance="1%">
+                    </ion-infinite-scroll>
+                </ion-content>
+            </ion-tab>
+
+            <ion-tab title="User List" on-select="onTabSelected(1)">
+               <ion-content class="tab-des primary-theme">
+              <div class="primary-theme tab-des" ng-if="result1.length==0">
+                <div class="result-not-found frow h-center flex-wrap">
+                    <div class="box-circle display-flex v-center h-center">
+                        <img src="img/img37.png">
+                    </div>
+                    <p class="col-100">No Data</p>
+                </div>
+            </div>
+               <ion-refresher
+                        pulling-text="Pull to refresh"
+                        on-refresh="pullDownRefresh('userviewed')">
+                      </ion-refresher>
+                    <div class="list primary" ng-init="getuserList()">
+                        <div class="item item-avatar" ng-repeat="user in result1">
+                            <img ng-if="user.profile_pic_path!==''"ng-src="{{user.profile_pic_path}}" />
+                            <img ng-if="user.profile_pic_path===''" ng-src="img/img7.png"/>
+                            <div class="frow" >
+                                <div class="col-50 col-left" ui-sref="userProfile({id:'{{user.id}}'})">
+                                    <h2 class="light-color">{{user.name}}</h2>
+                                    <p>{{user.category}}</p>
+                                </div>
+                               <div class="col-50 col-right text-right" ng-click="fan_unfan_user(user)" ng-class="{'un-fan-theme':user.fan_status==0 && user.fan_status==false}">
+                                     <p class="right-spacer energized">{{user.user_fans}}</p>
+                                      <span class="star-bg ion-star" >
+                                      <span class="fans">Fans</span>
+                                      </span>
+                                </div>
+                                </div>
+                                <p class="frow h-space-between">
+                                        <a href="" class="rating td-none">
+                                           {{user.last_viewed}}
+                                        </a>
+
+                  
+                                </p>
+                       
+                            </div><!--/.frow-->
+                            
+                   
+                </div><!--/.tab-description-->
+
+
+                    <ion-infinite-scroll
+                        ng-if="hasMoreUserView"
+                        on-infinite="loadMore('userviewed')"
+                        distance="1%">
+                    </ion-infinite-scroll>
+                </ion-content>
+
+
+            </ion-tab>
+        </ion-tabs><!--/.tabs-striped-->
+        
+
+
+</ion-view>

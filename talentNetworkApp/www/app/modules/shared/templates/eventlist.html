@@ -1,0 +1,86 @@
+  <ion-view view-title="EventList" class="EventList">
+    <ion-header-bar class="header-lg">
+    	<div class="buttons buttons-left header-item" ng-init="init()">
+
+            <span class="left-buttons">
+
+                <button class="button button-icon button-clear ion-navicon" ng-click="openMenu()" >
+                </button>
+            </span>
+
+    	</div><!--/.header-item-->
+<div class="title text-left">Events List</div>
+
+        <div class="buttons buttons-right header-item text-right header-item-right">
+            <button class="button button-clear icons-center icon-search" ui-sref="search"></button>
+
+            <button class="button button-clear icons-center icon-bell" ng-click="popover.show($event)"><span class="badge badge-energized">{{notificationCount || 0}}</span></button>
+            <button class="button button-clear icons-center icon-grid" menu-toggle="right" ></button>
+        </div>
+
+         
+
+          
+    </ion-header-bar>
+
+    <ion-content class="primary-theme">
+    <div class="primary-theme tab-des" ng-if="events.length==0">
+                <div class="result-not-found frow h-center flex-wrap">
+                    <div class="box-circle display-flex v-center h-center">
+                        <img src="img/img37.png">
+                    </div>
+                    <p class="col-100">No Data</p>
+                </div>
+            </div>
+  <!--   <ion-refresher
+                        pulling-text="Pull to refresh"
+                        on-refresh="pullDownRefresh('mosttrending')">
+                      </ion-refresher> -->
+        <div class="list primary" ng-init="geteventList()">
+         
+         
+         
+            
+            <div  ng-repeat="event in events">
+                  <div  class="list card primary" >
+        <div class="item ">
+        
+             
+             <div class="detail"><h2>{{event.description}}</h2>
+                    <p>{{event.created_at.date | formatTime}}</p>
+                    <!-- | </span>  01:40 PM -->
+             </div>
+         </div>
+         
+                
+         <div class="item item-body overfolw-initial">
+            <div class="remove-gspace" ui-sref="eventDescription">
+                <img  class="full-image img-middle" ng-src="{{event.image}}" />
+                   
+              </div>
+
+              <p class="frow h-space-between">
+                  <span style="color:#f2b618">Start Date:</span>
+                  <span style="color:white">{{event.start_date | formatDate}}</span>
+                  
+
+                  <span ><button ng-click="" style="background-color: #f2b618" ui-sref="eventDescription({eventId: '7'})">Show More</button></span>
+              </p>
+              
+            
+        </div>
+</div>
+                </div>            
+                            
+                         
+                          
+               
+                </div>
+              
+                </ion-content>
+               
+
+      
+
+       
+</ion-view>

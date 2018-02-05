@@ -1,0 +1,81 @@
+
+<ion-view ng-init="getInitialLists()">
+    <ion-content class="login-bg">
+     <div class="back-btn-wrap" ui-sref="login">
+            <div class="button icon-left ion-ios-arrow-back button-clear button-energized" ></div>
+        </div>
+    <form name="form.signupGroup" ng-submit="form.signupGroup.$valid && signup()" novalidate>
+        <div class="forget-area">
+        
+            <div class="forget-cc edit-cc su-category">
+                <div class="forgot-inner contact edit-inner">
+                    <img alt="" ng-src="{{image.profile_pic_path ? image.profile_pic_path : 'img/signupCategory.png'}}">
+                </div>
+                <div class="edit-image" ng-click="chooseImage()">
+                    <img alt="" src="img/edit.png">
+                </div>
+            </div>
+
+           </div>
+        <div class="signupcategory">
+            <p class="talented group">Group Information</p>
+            <p class="talented">We are Talented In!!</p>
+        </div>
+        <ion-scroll direction="y" class="checkbox-outerWrap">
+            <div class="signcheckarea clearfix">
+                <div class="leftarea checkbox-wrap display-flex flex-wrap">
+                    <ion-checkbox class="custom-ent" ng-repeat="(key, value) in allCategories" name="{{value}}" ng-model="talent[$index]" ng-change="addRemoveTalent(key,value)">{{value}}</ion-checkbox>
+                    <!--<ion-checkbox name="talentPhotography" ng-model="user.talentPhotography">Photography</ion-checkbox>-->
+                    <ion-checkbox class="custom-ent" name="talentOther" ng-click="showOtherTalentInput()" ng-model="user.talentOther">Other</ion-checkbox>
+                </div>
+            </div>
+        </ion-scroll>
+
+        <div class="rel">
+        <p class="help-block error-msg"  ng-show="(user.talent.length+user.otherTalent.length) < 1 && (talentsTouched || form.signupcategory.$submitted)">Please choose at list one talent.</p>
+        </div>
+
+
+        <div class="textarea" ng-form="othertalents" ng-repeat="talent in user.otherTalent track by $index">
+                <label class="item item-input otherTalent" >
+                    <input type="text" name="talent" ng-model="user.otherTalent[$index]" placeholder="Othet talent {{$index + 1}}" class="btn" required maxlength="50">
+                    <p ng-if="(othertalents.talent.$touched || form.signupGroup.$submitted) && othertalents.talent.$error.required" class="help-block error-msg" >Please enter a talent.</p>
+                </label>
+
+        </div>
+
+        
+         <div class="list" ng-repeat="member in user.user_group" ng-form name="userMember">
+
+            <label class="item item-input en-email fullName" >
+                <input type="text" name="name" ng-model="member.name" placeholder="Full Name" class="btn" required id="k_1" ng-keypress="keypressHandlerForSingup($event, 2)"  maxlength="50">
+                <p ng-if="(userMember.name.$touched || form.signupGroup.$submitted) && userMember.name.$error.required" class="help-block error-msg">Your name is required.</p>
+            </label>
+            <label class="item item-input en-email" >
+                <input type="email" name="email" ng-model="member.email" placeholder="Your Email" class="btn" required ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" id="k_2" ng-keypress="keypressHandlerForSingup($event, 3)"  maxlength="100">
+                <p ng-if="(userMember.email.$touched || form.signupGroup.$submitted) &&  (userMember.email.$error.email || userMember.email.$error.pattern || userMember.email.$error.required)" class="help-block error-msg">Enter a valid email.</p>
+            </label>
+            <label class="item item-input en-email telephone" >
+                            <!-- <span class="tel-span"></span>  ng-pattern="/^[789]\d{9}$/"-->
+            <input type="tel" name="mobile" mask="+99? 9999-9999-99" clean="true" ng-model="member.mobile" placeholder="(+91) 9999-9999-99" class="btn" required id="k_5" ng-keypress="keypressHandlerForSingup($event,6)">
+            <p ng-if="(userMember.mobile.$touched || userMember.$submitted) &&  (userMember.mobile.$error.mask || userMember.mobile.$error.required)" class="help-block error-msg">Please enter valid mobile no.</p>
+            </label>
+        </div>
+        <div class="text-center">
+            <button type="button" class="button button-clear mb-15" ng-click="addMember()"><i class="ion-ios-plus-outline primary-color" style="font-size: 32px;"></i></button>
+
+            <button type="button" class="button button-clear mb-15" ng-click="removeMember()" ng-if="user.user_group.length > 1"><i class="ion-ios-minus-outline primary-color" style="font-size: 32px;"></i></button>
+        </div>
+        <div class="textarea mt-25 mb-10">
+            <textarea name="aboutYourself" required ng-model="user.about" placeholder="About yourself: Achievements and experience" maxlength="500"></textarea>
+            <div class="rel">
+              <p ng-show="(form.signupGroup.$submitted || form.signupGroup.aboutYourself.$touched) && form.signupGroup.aboutYourself.$error.required" class="help-block error-msg">Plesae enter something about your group</p>
+              </div>
+        </div>
+
+        <div class="text-center mb-25">
+            <button type="submit" class="yellow-btn text-uppercase">Save</button>
+        </div>
+        </form>
+    </ion-content>
+</ion-view>

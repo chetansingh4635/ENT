@@ -1,0 +1,12 @@
+﻿<div class="popup-wrap text-center filter-popup">
+    <h1 class="mt-0 text-left frow h-space-between">
+    	<span class="energized">Select Category</span>
+    	<button class="button button-clear button-stable button-small ion-android-close" ng-click="cancelFilters()"></button>
+    </h1>
+   <div class="remove-gspace">
+	<ion-list class="secondary-checkbox">
+
+		<ion-checkbox  ng-repeat="(key, value) in filterOptions" ng-checked="checkMarked(key,value)" name="{{value}}" ng-click="addFilter(key,value)">{{value}}</ion-checkbox>
+	</ion-list>
+	</div>
+</div><!--/.popup-wrap-->

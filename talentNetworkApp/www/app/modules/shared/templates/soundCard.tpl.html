@@ -1,0 +1,61 @@
+<!--Template for sound card will be shared in all home posts and profile -->
+
+<div class="list card primary mb-lg ">
+  <!-- <div  class="item item-thumbnail-left item-thumbnail-left-lg r-space" >
+        <img ui-sref="userProfile({id:'{{data.user_id}}'})" ng-src="{{data.profile_pic_path ? data.profile_pic_path : 'img/img7.png'}}" class="image-rounded"/>
+            <div class="detail" ui-sref="userProfile({id:'{{data.user_id}}'})">
+                <h2>{{data.talent_name}} | {{data.name}}   </h2>
+                <p>{{data.created_at.date  ? (data.created_at.date  | formatDate):( data.created_at | formatDate) }} </p>
+            </div>
+            
+            <div class="sub-list frow">
+                <div class="col-33 rating">
+                </div>
+            
+                <div class="col-33 time">
+                    <p class="span primary-color">{{data.time | formatTime}}</p>
+                </div>
+                <div class="col-33 date">
+                    <p class="span primary-color">{{data.createdAt | formatDate}}</p>
+            	</div>
+            </div>
+            
+            <button class="button button-clear button-right button-small wide icons-center icon-play-rounded mr-sm" ng-class="{'icon-pause-rounded':is_playing,'icon-play-rounded':!is_playing}" ng-click="toggleAudio()"></button>
+                      
+           <div class="detail" ng-click="openNewWindow(data.media_url)" >
+                <a class="no-decoration">{{(data.media_url).slice(0,25)}}</a>
+           </div>
+    </div> -->
+                    <div class="item item-thumbnail-left item-thumbnail-left-lg r-space">
+                       <img ui-sref="userProfile({id:'{{data.user_id}}'})" ng-src="{{data.profile_pic_path ? data.profile_pic_path : 'img/img7.png'}}" class="image-rounded"/>
+                        <div class="detail">
+                            <h2>{{data.talent_name}} </h2>
+                            <p class="white">by {{data.name}} </p>
+                        </div>
+                        <div class="sub-list frow">
+                            <div class="col-33 rating">
+                                <p class="span ion-ios-star-outline"> {{ data.user_fans}}</p>
+                            </div>
+                            <div class="col-33 time">
+                                <p class="span primary-color">{{data.created_at | soundFormatTime}}</p>
+                            </div>
+                            <div>
+                                <p class="span primary-color">{{data.created_at | timeInterval}}</p>
+                            </div>
+                           
+                        </div>
+                        <button class="button button-clear button-right button-small wide icons-center icon-play-rounded mr-sm" ng-click="toggleAudio()"></button>
+                    </div><!--/.item-->
+
+    <!-- <div class="item item-body overfolw-initial mysound-space">
+
+              <p class="frow h-space-between">
+                  <a href="" class="rating td-none">
+                     <i class="ion-star mr-10"></i> {{ data.user_fans}} Fans
+                  </a>
+
+                 <span></span><a  ng-click="likePost(data)"  class="like td-none icons-left icon-thumbup" ng-class="{'icon-thumbup-color':data.fan_status!=0}" >
+                  {{data.fan_count}} Likes</a>
+              </p>
+           </div> -->
+           </div>

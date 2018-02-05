@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for account/controllers/loginController.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">account/controllers/</a> loginController.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">10.58% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>11/104</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">3.13% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/32</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">11% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>11/100</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">(function (app) {
+    app.controller('loginCtrl', loginCtrl);
+    loginCtrl.$inject = ['$rootScope','$scope', '$state','accountService','localStorage','responseCodeHandling','$ionicLoading','$q','$cordovaSplashscreen','$ionicHistory','$cordovaToast', 'messages'];
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function loginCtrl($rootScope,$scope,$state,accountService,localStorage,responseCodeHandling,$ionicLoading,$q,$cordovaSplashscreen,$ionicHistory,$cordovaToast, messages) {</span>
+      // console.log("controller");
+      //    console.log("splash screen",$cordovaSplashscreen);
+      // if(!angular.isUndefined($cordovaSplashscreen) &amp;&amp; $cordovaSplashscreen){
+      //   $cordovaSplashscreen.hide();
+      // }
+<span class="cstat-no" title="statement not covered" >       var d = document.getElementsByTagName("body");</span>
+<span class="cstat-no" title="statement not covered" >            console.log(d);</span>
+<span class="cstat-no" title="statement not covered" >             d[0].className = d[0].className.replace(" userTheme", ""); </span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        $scope.loginObject={};</span>
+<span class="cstat-no" title="statement not covered" >        $scope.form={};</span>
+<span class="cstat-no" title="statement not covered" >        var fbSignupObject = {}</span>
+        /*
+         * loader is used to indicate activity while blocking user interaction.
+         */
+<span class="fstat-no" title="function not covered" >        function loader() {</span>
+<span class="cstat-no" title="statement not covered" >          $ionicLoading.show({</span>
+            template: '&lt;ion-spinner icon="ios"&gt;&lt;/ion-spinner&gt;',
+          });
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        $scope.resendVerificationEmail = <span class="fstat-no" title="function not covered" >function(){</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          var successCallback = <span class="fstat-no" title="function not covered" >function(response){</span></span>
+<span class="cstat-no" title="statement not covered" >            responseCodeHandling.showMessages(response.code,messages.login.verification,true,<span class="fstat-no" title="function not covered" >function(status,msg){</span></span>
+<span class="cstat-no" title="statement not covered" >           if(status){</span>
+               
+&nbsp;
+            }else{
+<span class="cstat-no" title="statement not covered" >                console.log("message from service  error",msg);</span>
+            }
+         });
+          }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          var errorCallback = <span class="fstat-no" title="function not covered" >function(){</span></span>
+&nbsp;
+          }
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          accountService.getVerificationEmail(null, {email: $rootScope.resendEmail}, successCallback, errorCallback)</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        $scope.moveToForgotPassword = <span class="fstat-no" title="function not covered" >function () {</span></span>
+  
+<span class="cstat-no" title="statement not covered" >            $state.go('forgotPassword');</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        $scope.moveToRegister = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >            $state.go('signUp', { reload: true });</span>
+        }
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function loginSuccess(response) {</span>
+<span class="cstat-no" title="statement not covered" >           $ionicLoading.hide();</span>
+<span class="cstat-no" title="statement not covered" >           responseCodeHandling.showMessages(response.code,messages.login.loginSuccess,true,<span class="fstat-no" title="function not covered" >function(status,msg){</span></span>
+<span class="cstat-no" title="statement not covered" >           if(status){</span>
+<span class="cstat-no" title="statement not covered" >                $ionicHistory.clearHistory();</span>
+<span class="cstat-no" title="statement not covered" >                localStorage.set("activeUser",response.data.email);</span>
+<span class="cstat-no" title="statement not covered" >                localStorage.set("role",response.data.role);</span>
+<span class="cstat-no" title="statement not covered" >                if(response.data.admin_verified==='0')</span>
+<span class="cstat-no" title="statement not covered" >                localStorage.set("admin_verified",false);</span>
+                else
+<span class="cstat-no" title="statement not covered" >                localStorage.set("admin_verified",true);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                localStorage.set("sessionId",response.data.session_id);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    console.log("session id",localStorage.get('sessionId'));</span>
+                    
+<span class="cstat-no" title="statement not covered" >                    if (response.data.role === '3' || response.data.role === '5') {</span>
+<span class="cstat-no" title="statement not covered" >                     var d = document.getElementsByTagName("body");</span>
+<span class="cstat-no" title="statement not covered" >                      d[0].className +=" userTheme";</span>
+                    } else {
+<span class="cstat-no" title="statement not covered" >                      var d = document.getElementsByTagName("body");</span>
+<span class="cstat-no" title="statement not covered" >                      d[0].className = d[0].className.replace(" userTheme", "");</span>
+                    }
+                    
+<span class="cstat-no" title="statement not covered" >                    $state.go('home');</span>
+&nbsp;
+            }else{
+<span class="cstat-no" title="statement not covered" >                console.log("message from service  error",msg);</span>
+            }
+         });
+&nbsp;
+        }
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function loginError(err) {</span>
+<span class="cstat-no" title="statement not covered" >            $ionicLoading.hide();</span>
+<span class="cstat-no" title="statement not covered" >             console.log("loginError",err);</span>
+        }
+&nbsp;
+        //Normal login
+<span class="cstat-no" title="statement not covered" >         $scope.login = <span class="fstat-no" title="function not covered" >function(isLoginFormValid) {</span></span>
+<span class="cstat-no" title="statement not covered" >           if(!isLoginFormValid){</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                return;</span>
+           }
+<span class="cstat-no" title="statement not covered" >           if(window.plugins){</span>
+<span class="cstat-no" title="statement not covered" >              cordova.plugins.Keyboard.close();</span>
+           }
+<span class="cstat-no" title="statement not covered" >            loader();</span>
+<span class="cstat-no" title="statement not covered" >            var dataToSend = {</span>
+                email : $scope.loginObject.email,
+                password : $scope.loginObject.password
+            };
+            
+<span class="cstat-no" title="statement not covered" >            accountService.login(null, dataToSend, loginSuccess, loginError);</span>
+        };
+&nbsp;
+        // facebook login goig on
+        /* Getting face book profile info*/
+<span class="cstat-no" title="statement not covered" >        var getFacebookProfileInfo = <span class="fstat-no" title="function not covered" >function(authResponse) {</span></span>
+<span class="cstat-no" title="statement not covered" >              var info = $q.defer();</span>
+<span class="cstat-no" title="statement not covered" >              facebookConnectPlugin.api('/me?fields=email,first_name,last_name&amp;access_token=' + authResponse.accessToken, null,</span>
+<span class="fstat-no" title="function not covered" >                function(response) {</span>
+                  /**Responce object will contain
+                  *email
+                  *first_name
+                  *Last Name
+                  *id
+                  */
+<span class="cstat-no" title="statement not covered" >                  info.resolve(response);</span>
+                },
+<span class="fstat-no" title="function not covered" >                function(error) {</span>
+<span class="cstat-no" title="statement not covered" >                  info.reject(error);</span>
+                });
+<span class="cstat-no" title="statement not covered" >              return info.promise;</span>
+            };
+&nbsp;
+          //fbError callback
+<span class="fstat-no" title="function not covered" >          function fbError(err){</span>
+<span class="cstat-no" title="statement not covered" >            console.log("err",err);</span>
+          }
+&nbsp;
+          //fbSuccess callback
+<span class="fstat-no" title="function not covered" >          function fbSuccess(response){</span>
+            //Storing access token
+<span class="cstat-no" title="statement not covered" >            fbSignupObject.socialMediaAccessToken = angular.copy(response.authResponse.accessToken);</span>
+<span class="cstat-no" title="statement not covered" >            getFacebookProfileInfo(response.authResponse).then(<span class="fstat-no" title="function not covered" >function(profileInfo){</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >              var fbUser={</span>
+                facebookId: profileInfo.id,
+              }
+              //Storing user information from fb
+<span class="cstat-no" title="statement not covered" >              fbSignupObject.socialMediaUserId = angular.copy(profileInfo.id);</span>
+<span class="cstat-no" title="statement not covered" >              fbSignupObject.fb_email = angular.copy(profileInfo.email);</span>
+<span class="cstat-no" title="statement not covered" >              fbSignupObject.email = angular.copy(profileInfo.email);</span>
+<span class="cstat-no" title="statement not covered" >              fbSignupObject.name = angular.copy(profileInfo.first_name + " " + profileInfo.last_name);</span>
+                    
+              //Social id to do local login
+<span class="cstat-no" title="statement not covered" >              accountService.login(null, fbUser, doFbRegisterSuccess, doFbRegisterError);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >              facebookConnectPlugin.logout(<span class="fstat-no" title="function not covered" >function(res){<span class="cstat-no" title="statement not covered" ></span>console.log("res logout",res);}</span>,<span class="fstat-no" title="function not covered" >function(err){<span class="cstat-no" title="statement not covered" ></span>console.log("res logout",err);}</span>);</span>
+            },<span class="fstat-no" title="function not covered" >function(err){</span>
+<span class="cstat-no" title="statement not covered" >              console.log("Facebook error while fetching infor from facebook");</span>
+            });
+          };
+&nbsp;
+<span class="fstat-no" title="function not covered" >          function doFbRegisterSuccess(response){</span>
+<span class="cstat-no" title="statement not covered" >            responseCodeHandling.showMessages(response.code,messages.login.loginSuccess,true,<span class="fstat-no" title="function not covered" >function(status,msg){</span></span>
+<span class="cstat-no" title="statement not covered" >                if(status){</span>
+                    //Successfully logged in
+<span class="cstat-no" title="statement not covered" >                    localStorage.set("activeUser",response.data.email);</span>
+<span class="cstat-no" title="statement not covered" >                    localStorage.set("sessionId",response.data.session_id);</span>
+<span class="cstat-no" title="statement not covered" >                    $state.go('home');</span>
+<span class="cstat-no" title="statement not covered" >                    console.log("user logged in with facebook sucessfully");</span>
+                }else{
+                  //Not a valid fb account do a signup
+<span class="cstat-no" title="statement not covered" >                  $state.go('signUp', {userData: fbSignupObject});</span>
+                }
+             });
+<span class="cstat-no" title="statement not covered" >            console.log("response facebok",response);</span>
+           }
+&nbsp;
+           //doFbRegisterError
+<span class="fstat-no" title="function not covered" >           function doFbRegisterError(err){</span>
+<span class="cstat-no" title="statement not covered" >            console.log("errrrrrr",err);</span>
+           }
+        /**
+          *connectWithFacebook function used to fetch user info from facebook
+          *
+          **/
+<span class="cstat-no" title="statement not covered" >        $scope.facebookLogin = <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >            facebookConnectPlugin.getLoginStatus(<span class="fstat-no" title="function not covered" >function(success) {</span></span>
+<span class="cstat-no" title="statement not covered" >             if (success.status === 'connected') {</span>
+<span class="cstat-no" title="statement not covered" >              fbSignupObject.socialMediaAccessToken = angular.copy(success.authResponse.accessToken);</span>
+<span class="cstat-no" title="statement not covered" >              fbSignupObject.signup_type = 'FB';</span>
+<span class="cstat-no" title="statement not covered" >                  getFacebookProfileInfo(success.authResponse).then(<span class="fstat-no" title="function not covered" >function(profileInfo) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    var fbUser={</span>
+                      facebookId: profileInfo.id,
+                    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    facebookConnectPlugin.logout(<span class="fstat-no" title="function not covered" >function(res){<span class="cstat-no" title="statement not covered" ></span>console.log("res logout",res);}</span>,<span class="fstat-no" title="function not covered" >function(err){<span class="cstat-no" title="statement not covered" ></span>console.log("res logout",err);}</span>);</span>
+<span class="cstat-no" title="statement not covered" >                    accountService.login(null, fbUser, doFbRegisterSuccess, doFbRegisterError);</span>
+                  }, <span class="fstat-no" title="function not covered" >function(fail) {</span>
+<span class="cstat-no" title="statement not covered" >                    console.log('error while fetch info of connect user',fail);</span>
+                  });
+                } else {
+<span class="cstat-no" title="statement not covered" >            facebookConnectPlugin.login(['email', 'public_profile'], fbSuccess, fbError);</span>
+          }
+        });
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        $scope.keypressHandler = <span class="fstat-no" title="function not covered" >function(event, nextIdx){</span></span>
+<span class="cstat-no" title="statement not covered" >          var id=document.querySelector('#f_'+nextIdx).id</span>
+<span class="cstat-no" title="statement not covered" >              if(event.keyCode == 13 &amp;&amp; id !== "f_3"){</span>
+<span class="cstat-no" title="statement not covered" >                event.preventDefault();</span>
+<span class="cstat-no" title="statement not covered" >                  angular.element(</span>
+                      document.querySelector('#f_'+nextIdx))[0].focus();
+<span class="cstat-no" title="statement not covered" >                  return false;</span>
+                }
+              // }else if(event.keyCode == 13 &amp;&amp; id === "f_3"){
+              //     $scope.form.loginForm.$submitted=true;
+              //     $scope.login($scope.form.loginForm.$valid);
+              //    return true;
+              // }
+  }
+&nbsp;
+    }
+})(angular.module('talentNetworkApp'));
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Nov 03 2016 22:37:24 GMT+0530 (IST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+ <ion-side-menus enable-menu-with-back-views="false" class="primary-theme" ng-init="init()" cache-view="false" >
+
+<ion-side-menu-content ion-side-menu-content drag-content="false"  >
+
+    <ion-nav-view name="menuContent" animation="slide"></ion-nav-view>
+  
+
+</ion-side-menu-content>
+
+    <!-- Left side menu-->
+   <ion-side-menu side="left">
+        <ion-header-bar class=" side-menu-header" ng-init="initProfile()">
+            <div class="fcolumn text-center" >
+                <img ng-src="{{user.profile_pic_path ? user.profile_pic_path : 'img/img7.png'}}"  class="user-pic" menu-close ui-sref="profile">
+
+                <h3 class="name mt-10"><span class="energized">{{user.name}}</span>
+                <span class="energized" ng-if="(role== '4' && !$root.admin_verified) ||(role== 8 && !$root.admin_verified) ">(Verification in Progress)</span></h3>
+                <button class="button button-icon button-clear icons-center icon-close" ng-click="closeMenu()"></button>
+            </div>
+        </ion-header-bar>
+
+
+        <ion-content class="has-logout-button">
+                
+            <ion-list>
+
+                <ion-item menu-close ui-sref="home">
+                    <span class="icons-center icon-home"></span>Home
+                </ion-item>
+
+                 <ion-item menu-close ui-sref="haveAnIdea" ng-if="role==3 || role==5 ">
+                    <span class="icons-center icon-cl"></span>Write-Ups
+               </ion-item>
+               <!--<ion-item menu-close ui-sref="createEvent" ng-if="role==4 || role==8 ">
+                    <span class="icons-center icon-cl"></span>Create Event
+               </ion-item>-->
+
+                <ion-item menu-close ui-sref="celebsList">
+                    <span class="icons-center icon_entertainment"></span>Celebrities 
+                </ion-item>
+                 <ion-item menu-close ui-sref="users" ng-if="role == 3 || role == 5">
+                    <span class="icons-center icon_celeb"></span>Entertainers
+                </ion-item>
+                <ion-item menu-close ui-sref="productionHouseList">
+                    <span class="icons-center icon_production"></span>Production House 
+                </ion-item>
+
+                <ion-item menu-close ui-sref="myFan">
+                    <span class="icons-center icon_fans"></span>My Fans
+                </ion-item>
+
+                <ion-item menu-close ui-sref="fanof">
+                    <span class="icons-center icon-fan-of"></span>I Follow
+                </ion-item>
+
+                <ion-item menu-close ui-sref="whoviewprofile">
+                    <span class="icons-center icon-profile" ></span>Who Viewed My Profile
+                </ion-item>
+
+                <!--<ion-item menu-close ui-sref="celebrityEvents" ng-if="role == 3 || role == 5">
+                    <span class="icons-center icon-evt"></span>Events
+                </ion-item>-->
+
+                <ion-item menu-close ui-sref="aboutUs">
+                    <span class="icons-center icon-about"></span>About Us
+                </ion-item>
+
+                <ion-item menu-close ui-sref="contactUs">
+                    <span class="icons-center icon-phone"></span>Contact Us
+                </ion-item>
+
+                <ion-item menu-close ui-sref="celebrityInvite">
+                    <span class="icons-center icon-invite"></span>Invite
+                </ion-item>
+
+
+                <!-- List of users  -->
+               
+
+                <!-- List of Contact requested  -->
+                <ion-item menu-close ui-sref="users" ng-if="role == 4 || role == 8">
+                    <span class="icons-center icon-fans"></span>Contact Requested
+                </ion-item>
+
+                <!-- List of Live Events  -->
+                <ion-item menu-close ui-sref="celebrityEvents" ng-if="role == 4 || role == 8">
+                   <span class="icons-center icon-cl"></span>
+                    Live Event
+                </ion-item>
+
+                <ion-item menu-close ui-sref="changePassword">
+                    <span class="icons-center icon-setting"></span>Settings
+                </ion-item>
+
+
+            </ion-list>
+        </ion-content>
+        <a  class="button button-energized logout icons-center icon-logout" ng-click="logout()">Logout</a>
+    </ion-side-menu>
+
+
+    <ion-side-menu side="right" class="categories menu-right">
+
+        <ion-header-bar class="side-menu-header right-header-bar">
+        <div class="buttons buttons-left header-item">
+            <button class="button button-icon button-clear icons-center icon-grid-color"  menu-toggle="right"></button>
+        </div>
+        <div class="title energized">{{ (role == 4 || role == 8) ? 'Looking For' : 'Categories'}}</div>
+        </ion-header-bar>
+
+        <ion-content class="">
+            <ion-list>
+
+                <ion-item menu-close ng-if="role == 3 || role== 5 " ng-repeat="cat in category" ui-sref="category({id: '{{cat}}'})">
+                    {{cat}}
+                </ion-item>
+
+
+                <ion-item menu-close ng-if="role == 4 || role == 8" ng-repeat="cat in category | limitTo : 9" ui-sref="newTalent({id: '{{cat}}'})">
+                    {{cat}}
+                </ion-item>
+
+                <ion-item menu-close ng-if="(role == 4 || role == 8) && othersCatShown" class="item-content" ng-click="getOtherCategories()" >
+                    Others
+                </ion-item>
+
+                <ion-item menu-close ng-if="(role =='4' ||role =='8')&& !othersCatShown"
+                 ng-repeat="cat in otherCategory" ui-sref="newTalent({id: '{{cat.category}}'})">
+                    {{cat.category}}
+                </ion-item>
+                 
+                
+            </ion-list>
+        </ion-content>
+
+    </ion-side-menu>
+
+</ion-side-menus>
+<!--  -->
+
+<!--  -->
+    
+ 
+<!-- Right Side Menu -->

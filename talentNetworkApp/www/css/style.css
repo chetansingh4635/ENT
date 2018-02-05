@@ -1,0 +1,309 @@
+
+
+.videogular-container {
+    width: 100%;
+    height: 320px;
+    margin: auto;
+    overflow: hidden;
+}
+
+@media (min-width: 1200px) {
+    .videogular-container {
+        width: 1170px;
+        height: 658.125px;
+    }
+
+    .videogular-container.audio {
+        width: 1170px;
+        height: 50px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .videogular-container {
+        width: 940px;
+        height: 528.75px;
+    }
+
+    .videogular-container.audio {
+        width: 940px;
+        height: 50px;
+    }ge
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .videogular-container {
+        width: 728px;
+        height: 409.5px;
+    }
+
+    .videogular-container.audio {
+        width: 728px;
+        height: 50px;
+    }
+}
+
+.icon_celeb:before{
+    background: url("../img/celebrity.png");
+    width: 75%;
+    height: 75%;
+    background-size: 100% 100%;
+}
+
+.icon_entertainment:before{
+    background: url("../img/entertainment.png");
+    width: 75%;
+    height: 75%;
+    background-size: 100% 100%;
+}
+.icon_fans:before{
+    background: url("../img/fans.png");
+    width: 75%;
+    height: 75%;
+    background-size: 100% 100%;
+}
+.icon_production:before{
+    background: url("../img/production.png");
+    width: 75%;
+    height: 75%;
+    background-size: 100% 100%;
+}
+.icon_whats-in-ur-mind:before{
+    background: url("../img/whats-in-ur-mind.png");
+    width: 75%;
+    height: 75%;
+    background-size: 100% 100%;
+}
+.left-buttons{
+    margin-left:7px;
+}
+.ideacheckbox .checkbox-icon:before{
+    margin:0px;
+}
+.ideacheckbox .checkbox-icon:after{
+   top:25%;
+}
+.back-icon
+{
+    margin-left: 10px;
+}
+
+.upload-icon{
+    margin-bottom:33px;
+}
+.have{
+    margin-top: 17px;
+    }
+.image-size{
+    height:50px;
+    width:50%;
+}
+.no-decoration{
+    text-decoration:none;
+}
+.preview-white{
+    color:white;
+}
+.all-textpost{
+    overflow:scroll;
+}
+
+.loading{
+    padding: 0px !important;
+}
+
+vg-poster > img{
+    height: 75% !important;
+    width: 100% !important;
+}
+.swiper-slide img{
+    /*width: 100% !important;   */
+}
+
+.radio_container{
+    position: relative;
+    width: 50%;
+}
+
+
+
+.radio-content{
+    position: relative;
+}
+.radio-content > i{
+    position: absolute;
+    padding-top: 11px 
+}
+
+.radio-content > div{
+    padding-top: 11px;
+    padding-bottom: 16px 
+}
+
+
+.loading{
+padding: 0px !important;
+}
+
+.height_auto{
+    height:auto !important;
+    padding-bottom:50px;
+       
+}
+
+.icon_entertainment:before{
+    background: url("../img/entertainer.png");
+    width: 37%;
+    height: 75%;
+    background-size: 100% 100%;
+}
+
+.mysound-space{
+    top:-11px;
+}
+.followers {
+  border-top: 1px solid #545454;
+  padding-top: 10px;
+  margin-top: 5px; 
+  margin: 0 0 15px;
+}
+.other-profile{
+    margin-top:0px;
+}
+.link-prewiew{
+    color:#337ab7;
+}
+
+.event-background{
+    top:-8px;
+}
+
+.postdescription{
+    position: absolute;
+    /*width: 100%;*/
+    height: 100%;
+}
+.postdescription .img-middle {
+   
+}
+.postdescription .scroll{
+    height: 100%;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.postdescription img{
+    max-height: 100%;
+    max-width: 100%;
+    align-self: center;
+    height:auto;
+    vertical-align:middle;
+    object-fit: cover;
+}
+
+
+.create-event-bg{
+        max-width: 100%;
+    max-height: 300px;
+}
+.custom-arrow {
+    font-size: 30px;
+}
+
+.overlayPlayContainer .play:before {
+    content: "\e000";
+}
+.box-circle2 {
+    width: 150px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.08);
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+.box-circle2 > img{
+    width: 150px;
+    height: 150px;
+}
+
+.image-loader-container {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-color: #e5e5e5;
+  
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: stretch;
+  align-items: center;
+}
+.terms{
+    color:gray;
+}
+
+.right-header-bar{
+   
+}
+.large-Modal .modal-content{
+  top:30% !important; bottom:30% !important;
+  position: absolute;
+  
+}
+.dropbtn {
+    /*background-color: #f2b618;*/
+    color: #f2b618;
+    padding: 0px;
+    font-size: 30px;
+    border: none;
+    background:transparent;
+    cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+    /*background-color: #f2b618;*/
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    /*min-width: 160px;*/
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: #f2b618;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;
+/*background:transparent;*/
+color:#f2b618;}
+
+.event-participate{
+    position: fixed !important;
+    top: 49px !important;
+    left: 0 !important;
+    z-index: 10 !important;
+    width: 100% !important;
+    height: 90% !important;
+}

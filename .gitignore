@@ -1,0 +1,4 @@
+lib
+/talentNetworkApp/www/css/ionic.app.css
+/talentNetworkApp/www/css/ionic.app.min.css
+/talentNetworkApp/www/app/modules/shared/controllers/categoryController.js

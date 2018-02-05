@@ -1,0 +1,72 @@
+<ion-view class="choose-role">
+    <ion-content class="login-bg">
+    <div class="back-btn-wrap" ui-sref="login">
+            <div class="button icon-left ion-ios-arrow-back button-clear button-energized" ></div>
+        </div>
+        <div class="forget-area">
+            <div class="forget-cc">
+                <div class="forgot-inner group">
+                    <img alt="" ng-src="img/{{roleImage[user.user_type]}}">
+                </div>
+            </div>
+        </div>
+        <div>
+            <p class="signName">Hey, I'M</p>
+        </div>
+         <div ng-click="user.user_type = 3" class="clearfix radio-area-ind">
+            <div class="pull-left">
+                <p class="radio-text">USER</p>
+            </div>
+            <span class="pull-right">
+            <div class="radio_container">
+            <input type="radio" name="radio-group" ng-value="3" ng-model="user.user_type" style="display: none;">
+
+            <div  class="radio-content"><i class="radio-icon disable-pointer-events icon ion-checkmark"></i><div class="item-content disable-pointer-events"></div></div>
+            </div>
+            </span>
+        </div>
+        <div  ng-click="user.user_type = 4" class="clearfix radio-area">
+            <div class="pull-left">
+                <p class="radio-text">CELEBRITY</p>
+            </div>
+            <span class="pull-right">
+            <div class="radio_container">
+            <input type="radio" name="radio-group" ng-value="4" ng-model="user.user_type" style="display: none;">
+
+            <div class="radio-content"><i class="radio-icon disable-pointer-events icon ion-checkmark"></i><div class="item-content disable-pointer-events"></div></div>
+            </div>
+            </span>
+        </div>
+       
+        <div ng-click="user.user_type = 5" class="clearfix radio-area-group">
+            <div class="pull-left">
+                <p class="radio-text">GROUP </p>
+            </div>
+            <span class="pull-right">
+
+            <div class="radio_container">
+            <input type="radio" name="radio-group" ng-value="5" ng-model="user.user_type" style="display: none;">
+
+            <div class="radio-content"><i class="radio-icon disable-pointer-events icon ion-checkmark"></i><div class="item-content disable-pointer-events"></div></div>
+            </div>
+
+            </span>
+        </div>
+        <div ng-click="user.user_type = 8" class="clearfix icons-center icon-phouse">
+            <div class="pull-left">
+                <p class="radio-text">PRODUCTION/CASTING HOUSE</p>
+            </div>
+            <span class="pull-right">
+
+            <div class="radio_container">
+            <input type="radio" name="radio-group" ng-value="8" ng-model="user.user_type" style="display: none;">
+
+            <div class="radio-content"><i class="radio-icon disable-pointer-events icon ion-checkmark"></i><div class="item-content disable-pointer-events"></div></div>
+            </div>
+            </span>
+        </div>
+        <div class="pull-right mbtm20 top-spacer">
+            <a ng-click="moveToSignUpSubmit()" class="next">Next</a>
+        </div>
+    </ion-content>
+</ion-view>

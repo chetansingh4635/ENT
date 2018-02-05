@@ -1,0 +1,13 @@
+{
+  "name": "talentNetworkApp",
+  "app_id": "",
+   "gulpStartupTasks": [
+   "sass",
+   "watch"
+   ],
+   "proxies":[
+ 	 {
+  		"path":"/api/",
+  		"proxyUrl":"http://ent.cloudzmall.com/index.php/api/"
+  }]
+}

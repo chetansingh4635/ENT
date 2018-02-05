@@ -1,0 +1,37 @@
+﻿<div class="popup-wrap text-center" ng-form="popupForm.audio">
+ 	
+ 	<h1 class="mt-0 text-left frow h-space-between">
+     <button class="button button-energized icons-center icon-audio button-circle lg mb-20"></button>
+
+    <button class="button button-clear button-stable button-small ion-android-close" ng-click="closePopup()"></button>
+    </h1>
+
+    <!-- <button type="button" class="button button-clear button-large button-light button-block button-upload">
+  		<i class="ion-android-add"></i> Upload Sound in this area 
+  		<input type="file" class="file-control" />
+	</button> -->
+	<web-link value="postData.description" ng-model="webLink" save-web-link="saveWebLink(data)"></web-link>
+  <!--  <button class="button button-clear button-large button-light button-block button-upload" ng-click="openUploadMedia('video')" ng-if="!mediaData &&  !postData.description">
+  		 Upload Mp3 in this area
+  		
+	</button> -->
+
+	<div class="list list-popup">
+		<label class="item item-input">
+			<input type="text" placeholder="Add Title to your sound" ng-model="postData.name" name="title" maxlength="256" required>
+		</label>
+		 <p ng-show="popupForm.audio.title.$error.required && (popupForm.audio.title.$touched || popupForm.audio.$submitted )"  class="help-block error-msg-popups">Please enter audio title</p>
+		<label class="item item-input">
+			<input type="text" placeholder="Add Sound Cloud Link " ng-model="postData.description"  ng-model-options={debounce:1000} name="description">
+		</label>
+
+		 <p ng-show="popupForm.audio.description.$error.required && (popupForm.audio.description.$touched || popupForm.audio.$submitted )" class="help-block error-msg-popups">Please enter sound cloud link</p>
+		  <p ng-show="weblink.validLink== false" class="help-block error-msg-popups">Please enter valid sound cloud link!!</p>
+
+
+	</div><!--/.list-->
+</div><!--/.popup-wrap-->
+
+	<div class="footer frow h-space-between">
+
+ 	</div>

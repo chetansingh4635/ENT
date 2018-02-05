@@ -1,0 +1,95 @@
+<ion-view view-title="celebrityEvents">
+	<ion-content class="celebrityEvents login-bg create-event">
+				<div class="item item-body overfolw-initial">
+			        <div class="remove-gspace" >
+			          <img class="full-image img-middle create-event-bg" ng-src="{{event.image.profile_pic_path ? event.image.profile_pic_path:'img/celeb-bg.jpg'}}" />
+			          <div class="celebevent-bg display-flex v-center" >
+			   <p class="foot-image">Evolution</p>
+			   <button style="right:0px;" class="button button-clear button-add icons-center icon-add event-background"  ng-click="chooseImage()"></button>
+			</div>
+			          
+			          </div>
+			    </div>
+		
+		<form name="createEventForm" ng-submit="createEventForm.$valid && addEvent()" novalidate>
+			<div class="list mb-25">
+                <label class="item item-input en-email fullName" >
+                    <input type="text" name="name" ng-model="event.name" placeholder="Full Name" class="btn ng-binding" required id="k_1" ng-keypress="keypressHandlerForSingup($event, 2)"  maxlength="50">
+                    <p ng-show="(createEventForm.name.$touched || createEventForm.$submitted) && createEventForm.name.$error.required" class="help-block error-msg">name is required.</p>
+
+                </label>
+
+                <label class="item item-input textarea" >
+                   	<textarea class="btn ng-binding" placeholder="Description ...."
+                   	 name="description" ng-model="event.description" maxlength="500" required></textarea>
+                    <p ng-show="(createEventForm.description.$touched || createEventForm.$submitted) && createEventForm.description.$error.required" class="help-block error-msg">description is required.</p>
+                </label>
+
+                <label class="item item-input item-input-primary icons-right icon-address">
+                    <input type="text" name="address" placeholder="Address" class="btn ng-binding"  ng-model="event.address" required>
+                    <p ng-show="(createEventForm.address.$touched || createEventForm.$submitted) && createEventForm.address.$error.required" class="help-block error-msg">address is required.</p>
+                </label>
+
+                <label class="item item-input item-input-primary icons-right icon-pin">
+                    <input type="text" name="pincode" placeholder="Pincode" class="btn ng-binding" ng-model="event.pincode" minlength="6" maxlength="6" required >
+                    <p ng-show="(createEventForm.pincode.$touched || createEventForm.$submitted) && createEventForm.pincode.$error.required" class="help-block error-msg">pincode is required.</p>
+                </label>
+
+				<div class="input-hrizontal frow">
+					<div class="col-50 left">
+						<label class="item item-input en-email city">
+		                    <input type="text" name="city" class="btn ng-binding" placeholder="City" id="k_7" ng-keypress="keypressHandlerForSingup($event, 8)" ng-model="event.city" required  maxlength="50">
+		                    <p ng-show="(createEventForm.city.$touched || createEventForm.$submitted) && createEventForm.city.$error.required" class="help-block error-msg">City is required.</p>
+		                </label>
+					</div>
+					<div class="col-50 right">
+						<label class="item item-input en-email city">
+		                    <input type="text" name="state" class="btn ng-binding" placeholder="State" id="k_7" ng-keypress="keypressHandlerForSingup($event, 8)" ng-model="event.state" required  maxlength="50">
+		                    <p ng-show="(createEventForm.state.$touched || createEventForm.$submitted) && createEventForm.state.$error.required" class="help-block error-msg">State is required.</p>
+		                </label>
+					</div>
+				</div><!--/.input-hrizontal-->
+
+                <label class="item item-input item-input-primary icons-right icon-flag">
+                    <input type="text" placeholder="Country" name="country"class="btn ng-binding" ng-model="event.country" required>
+                    <p ng-show="(createEventForm.country.$touched || createEventForm.$submitted) && createEventForm.country.$error.required" class="help-block error-msg">country name is required.</p>
+                </label>
+
+                <div class="input-hrizontal frow">
+					<div class="col-50 left">
+						<label class="item item-input item-input-primary icons-right icon-cal">
+		                    <input type="text" name="start_date" placeholder="Start Date" class="btn ng-binding" ng-model="event.start_date" ng-click="openDatePicker('start_date', 'date')" required>
+		                    <p ng-show="(createEventForm.start_date.$touched || createEventForm.$submitted) && createEventForm.start_date.$error.required" class="help-block error-msg">start Date is required.</p>
+		                </label>
+					</div>
+					<div class="col-50 right">
+						<label class="item item-input item-input-primary icons-right icon-cal">
+		                    <input type="text" name="end_date"placeholder="End Date" class="btn ng-binding" ng-model="event.end_date" ng-click="openDatePicker('end_date', 'date')" required>
+		                    <p ng-show="(createEventForm.end_date.$touched || createEventForm.$submitted) && createEventForm.end_date.$error.required" class="help-block error-msg">end Date is required.</p>
+		                </label>
+					</div>
+				</div><!--/.input-hrizontal-->
+
+				<div class="input-hrizontal frow">
+					<div class="col-50 left">
+						<label class="item item-input item-input-primary icons-right icon-watch">
+		                    <input type="text" name="start_time" placeholder="Start Time" class="btn ng-binding" ng-model="event.start_time" ng-click="openDatePicker('start_time', 'time')" required>
+		                    <p ng-show="(createEventForm.start_time.$touched || createEventForm.$submitted) && createEventForm.start_time.$error.required" class="help-block error-msg">start time is required.</p>
+		                </label> 
+					</div>
+					<div class="col-50 right">
+						<label class="item item-input item-input-primary icons-right icon-watch">
+		                    <input type="text" name="end_time"placeholder="End Time" class="btn ng-binding" ng-model="event.end_time" ng-click="openDatePicker('end_time', 'time')" required>
+		                    <p ng-show="(createEventForm.end_time.$touched || createEventForm.$submitted) && createEventForm.end_time.$error.required" class="help-block error-msg">end time is required.</p>
+		                </label>
+					</div>
+				</div><!--/.input-hrizontal-->
+
+            </div>
+            <div class="text-center mt-25 mb-20 padding-bottom">
+				<button type="submit" class="button button-energized text-uppercase button-squire"
+				>Save</button>
+			</div>
+		</form>
+	</ion-content>
+</ion-view>

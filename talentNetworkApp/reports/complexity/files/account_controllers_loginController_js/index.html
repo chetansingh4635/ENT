@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - account/controllers/loginController.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>account/controllers/loginController.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">127.84</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">223</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">27.56</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.04</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">(function (app) {
+    app.controller(&#039;loginCtrl&#039;, loginCtrl);
+    loginCtrl.$inject = [&#039;$rootScope&#039;,&#039;$scope&#039;, &#039;$state&#039;,&#039;accountService&#039;,&#039;localStorage&#039;,&#039;responseCodeHandling&#039;,&#039;$ionicLoading&#039;,&#039;$q&#039;,&#039;$cordovaSplashscreen&#039;,&#039;$ionicHistory&#039;,&#039;$cordovaToast&#039;, &#039;messages&#039;];
+
+    function loginCtrl($rootScope,$scope,$state,accountService,localStorage,responseCodeHandling,$ionicLoading,$q,$cordovaSplashscreen,$ionicHistory,$cordovaToast, messages) {
+      // console.log(&quot;controller&quot;);
+      //    console.log(&quot;splash screen&quot;,$cordovaSplashscreen);
+      // if(!angular.isUndefined($cordovaSplashscreen) &amp;&amp; $cordovaSplashscreen){
+      //   $cordovaSplashscreen.hide();
+      // }
+       var d = document.getElementsByTagName(&quot;body&quot;);
+            console.log(d);
+             d[0].className = d[0].className.replace(&quot; userTheme&quot;, &quot;&quot;); 
+
+        $scope.loginObject={};
+        $scope.form={};
+        var fbSignupObject = {}
+        /*
+         * loader is used to indicate activity while blocking user interaction.
+         */
+        function loader() {
+          $ionicLoading.show({
+            template: &#039;&lt;ion-spinner icon=&quot;ios&quot;&gt;&lt;/ion-spinner&gt;&#039;,
+          });
+        }
+
+        $scope.resendVerificationEmail = function(){
+
+          var successCallback = function(response){
+            responseCodeHandling.showMessages(response.code,messages.login.verification,true,function(status,msg){
+           if(status){
+               
+
+            }else{
+                console.log(&quot;message from service  error&quot;,msg);
+            }
+         });
+          }
+
+          var errorCallback = function(){
+
+          }
+
+
+          accountService.getVerificationEmail(null, {email: $rootScope.resendEmail}, successCallback, errorCallback)
+        }
+
+        $scope.moveToForgotPassword = function () {
+  
+            $state.go(&#039;forgotPassword&#039;);
+        }
+
+        $scope.moveToRegister = function() {
+            $state.go(&#039;signUp&#039;, { reload: true });
+        }
+
+        function loginSuccess(response) {
+           $ionicLoading.hide();
+           responseCodeHandling.showMessages(response.code,messages.login.loginSuccess,true,function(status,msg){
+           if(status){
+                $ionicHistory.clearHistory();
+                localStorage.set(&quot;activeUser&quot;,response.data.email);
+                localStorage.set(&quot;role&quot;,response.data.role);
+                if(response.data.admin_verified===&#039;0&#039;)
+                localStorage.set(&quot;admin_verified&quot;,false);
+                else
+                localStorage.set(&quot;admin_verified&quot;,true);
+
+                localStorage.set(&quot;sessionId&quot;,response.data.session_id);
+
+                    console.log(&quot;session id&quot;,localStorage.get(&#039;sessionId&#039;));
+                    
+                    if (response.data.role === &#039;3&#039; || response.data.role === &#039;5&#039;) {
+                     var d = document.getElementsByTagName(&quot;body&quot;);
+                      d[0].className +=&quot; userTheme&quot;;
+                    } else {
+                      var d = document.getElementsByTagName(&quot;body&quot;);
+                      d[0].className = d[0].className.replace(&quot; userTheme&quot;, &quot;&quot;);
+                    }
+                    
+                    $state.go(&#039;home&#039;);
+
+            }else{
+                console.log(&quot;message from service  error&quot;,msg);
+            }
+         });
+
+        }
+
+        function loginError(err) {
+            $ionicLoading.hide();
+             console.log(&quot;loginError&quot;,err);
+        }
+
+        //Normal login
+         $scope.login = function(isLoginFormValid) {
+           if(!isLoginFormValid){
+
+                return;
+           }
+           if(window.plugins){
+              cordova.plugins.Keyboard.close();
+           }
+            loader();
+            var dataToSend = {
+                email : $scope.loginObject.email,
+                password : $scope.loginObject.password
+            };
+            
+            accountService.login(null, dataToSend, loginSuccess, loginError);
+        };
+
+        // facebook login goig on
+        /* Getting face book profile info*/
+        var getFacebookProfileInfo = function(authResponse) {
+              var info = $q.defer();
+              facebookConnectPlugin.api(&#039;/me?fields=email,first_name,last_name&amp;access_token=&#039; + authResponse.accessToken, null,
+                function(response) {
+                  /**Responce object will contain
+                  *email
+                  *first_name
+                  *Last Name
+                  *id
+                  */
+                  info.resolve(response);
+                },
+                function(error) {
+                  info.reject(error);
+                });
+              return info.promise;
+            };
+
+          //fbError callback
+          function fbError(err){
+            console.log(&quot;err&quot;,err);
+          }
+
+          //fbSuccess callback
+          function fbSuccess(response){
+            //Storing access token
+            fbSignupObject.socialMediaAccessToken = angular.copy(response.authResponse.accessToken);
+            getFacebookProfileInfo(response.authResponse).then(function(profileInfo){
+
+              var fbUser={
+                facebookId: profileInfo.id,
+              }
+              //Storing user information from fb
+              fbSignupObject.socialMediaUserId = angular.copy(profileInfo.id);
+              fbSignupObject.fb_email = angular.copy(profileInfo.email);
+              fbSignupObject.email = angular.copy(profileInfo.email);
+              fbSignupObject.name = angular.copy(profileInfo.first_name + &quot; &quot; + profileInfo.last_name);
+                    
+              //Social id to do local login
+              accountService.login(null, fbUser, doFbRegisterSuccess, doFbRegisterError);
+
+              facebookConnectPlugin.logout(function(res){console.log(&quot;res logout&quot;,res);},function(err){console.log(&quot;res logout&quot;,err);});
+            },function(err){
+              console.log(&quot;Facebook error while fetching infor from facebook&quot;);
+            });
+          };
+
+          function doFbRegisterSuccess(response){
+            responseCodeHandling.showMessages(response.code,messages.login.loginSuccess,true,function(status,msg){
+                if(status){
+                    //Successfully logged in
+                    localStorage.set(&quot;activeUser&quot;,response.data.email);
+                    localStorage.set(&quot;sessionId&quot;,response.data.session_id);
+                    $state.go(&#039;home&#039;);
+                    console.log(&quot;user logged in with facebook sucessfully&quot;);
+                }else{
+                  //Not a valid fb account do a signup
+                  $state.go(&#039;signUp&#039;, {userData: fbSignupObject});
+                }
+             });
+            console.log(&quot;response facebok&quot;,response);
+           }
+
+           //doFbRegisterError
+           function doFbRegisterError(err){
+            console.log(&quot;errrrrrr&quot;,err);
+           }
+        /**
+          *connectWithFacebook function used to fetch user info from facebook
+          *
+          **/
+        $scope.facebookLogin = function(){
+            facebookConnectPlugin.getLoginStatus(function(success) {
+             if (success.status === &#039;connected&#039;) {
+              fbSignupObject.socialMediaAccessToken = angular.copy(success.authResponse.accessToken);
+              fbSignupObject.signup_type = &#039;FB&#039;;
+                  getFacebookProfileInfo(success.authResponse).then(function(profileInfo) {
+                    var fbUser={
+                      facebookId: profileInfo.id,
+                    }
+
+                    facebookConnectPlugin.logout(function(res){console.log(&quot;res logout&quot;,res);},function(err){console.log(&quot;res logout&quot;,err);});
+                    accountService.login(null, fbUser, doFbRegisterSuccess, doFbRegisterError);
+                  }, function(fail) {
+                    console.log(&#039;error while fetch info of connect user&#039;,fail);
+                  });
+                } else {
+            facebookConnectPlugin.login([&#039;email&#039;, &#039;public_profile&#039;], fbSuccess, fbError);
+          }
+        });
+}
+
+        $scope.keypressHandler = function(event, nextIdx){
+          var id=document.querySelector(&#039;#f_&#039;+nextIdx).id
+              if(event.keyCode == 13 &amp;&amp; id !== &quot;f_3&quot;){
+                event.preventDefault();
+                  angular.element(
+                      document.querySelector(&#039;#f_&#039;+nextIdx))[0].focus();
+                  return false;
+                }
+              // }else if(event.keyCode == 13 &amp;&amp; id === &quot;f_3&quot;){
+              //     $scope.form.loginForm.$submitted=true;
+              //     $scope.login($scope.form.loginForm.$valid);
+              //    return true;
+              // }
+  }
+
+    }
+})(angular.module(&#039;talentNetworkApp&#039;));</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ cyclomatic }} <br>
+    Length : {{ halstead.length }} <br>
+    Difficulty : {{ halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

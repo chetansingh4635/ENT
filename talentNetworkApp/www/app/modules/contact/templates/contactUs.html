@@ -1,0 +1,27 @@
+<ion-view view-title="Contact us" ng-init="init()" class="contact-us">
+    <ion-content class="login-bg ">
+ 
+        <div class="btn-wrap text-right" ui-sref="home">
+            <button class="button button-clear button-dark button-small ion-android-close"></button>
+        </div><!--/.btn-wrap-->
+
+        <div class="forget-area">
+            <div class="forget-cc">
+                <div class="forgot-inner contact">
+                    <img alt="" src="img/contactus.png">
+                    <div class="contact-bulb">
+                        <img alt="" src="img/contactBulb.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contact-us" ng-if="contactUs">
+            <p class="contact-text">Contact Us</p>
+            <p class="cstxt mbtm20">{{contactUs.title}}</p>
+            <p class="cstxt mbtm20">info@entnetwrk.com</p>
+            <div class="pdng-gap">
+                <button class="yellow-btn" ng-click="queryPopUp()">SEND QUERY</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

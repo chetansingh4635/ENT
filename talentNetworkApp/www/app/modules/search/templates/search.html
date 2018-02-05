@@ -1,0 +1,151 @@
+  <ion-view view-title="search" class="home">
+    <ion-header-bar class="header-lg" >
+    	 <div class="buttons buttons-left header-item">
+
+            <span class="left-buttons">
+                <button  class="button button-icon button-clear ion-navicon"
+                ng-click="openMenu()">
+                </button>
+            </span>
+        </div><!--/.header-item-->
+      <div class="item-input-wrapper item-input-search">
+                <input type="search"   placeholder="Type here to search.." ng-model="name" 
+                    ng-enter="getSearch()" >
+                 <div class="button button-clear icons-center icon-search" ng-click="getSearch()" ></div>
+      </div>    
+    </ion-header-bar>
+
+    <ion-tabs tabs-swipable class="tabs-striped tabs-top tabs-background-dark tabs-color-energized">
+
+        <ion-tab title="Users" class="tab-item-active" on-select="onTabSelected(0)">
+                <ion-content class="primary-theme tab-des overflow-y height_auto">
+                        <div class="primary-theme tab-des" ng-if="!users.length">
+                               <div class="result-not-found frow h-center flex-wrap">
+                                    <div class="box-circle display-flex v-center h-center">
+                                        <img src="img/img37.png">
+                                    </div>
+                                    <p class="col-100">Search Result Found(0)</p>
+                               </div>
+                        </div>
+                
+                        <div class="list primary" >
+                              <div class="item item-avatar" ng-repeat="user in users">
+                                  <img ui-sref="userProfile({id:'{{user.user_id}}'})" ng-if="user.profile_pic_path!==''" ng-src="{{user.profile_pic_path}}">
+                                    <img ui-sref="userProfile({id:'{{user.user_id}}'})" ng-if="user.profile_pic_path==''" ng-src="img/img7.png">
+                                <div class="frow">
+                                      <div class="col-50 col-left" ui-sref="userProfile({id:'{{user.user_id}}'})">
+                                          <h2 class="light-color">{{user.user_name}}</h2>
+                                          <p>{{user.about_my_talent}}</p>
+                                      </div>
+                                    <div class="col-50 col-right text-right " ng-click="fun_Unfan(user)" ng-class="{'un-fan-theme':user.fan_status==0 && user.fan_status==false}">
+                                        <p class="right-spacer energized">{{user.user_fans}}</p>
+                                        <span class="star-bg ion-star" ng-class="{'isFan': user.fan_status}">
+                                        <span class="fans">Fans</span>
+                                        </span>
+                                    </div>
+                                </div><!--/.frow-->
+                             </div>
+                        </div>
+
+              </ion-content>
+       </ion-tab>
+
+        <ion-tab title="Talents" on-select="onTabSelected(1)" class="tabs-striped tabs-top tabs-background-dark tabs-color-energized">
+              <ion-content class="primary-theme tab-des overflow-y height_auto">
+                       <div class="primary-theme tab-des" ng-if="!talents.length">
+                            <div class="result-not-found frow h-center flex-wrap">
+                                <div class="box-circle display-flex v-center h-center">
+                                    <img src="img/img37.png">
+                                </div>
+                                <p class="col-100">Search Result Found(0)</p>
+                            </div>
+                        </div>
+
+  <home-post type=post.media_type data=post ng-repeat="post in talents"></home-post>
+           
+      </ion-content>
+  </ion-tab>
+
+       <!--  <ion-tab title="Events" on-select="onTabSelected(2)">
+                <ion-content class="primary-theme tab-des overflow-y height_auto">
+         
+                       <div class="primary-theme tab-des" ng-if="!events.length">
+                            <div class="result-not-found frow h-center flex-wrap">
+                                <div class="box-circle display-flex v-center h-center">
+                                    <img src="img/img37.png">
+                                </div>
+                                <p class="col-100">Search Result Found(0)</p>
+                            </div>
+                        </div>
+             <div class="list primary" ng-init="geteventList()">
+            <div  ng-repeat="event in events" class="event-list">   
+              <div class="date-strip display-flex">
+                <div class="date-box display-flex h-center v-center">
+                  <div class="text-center">
+                    <span >{{event.start_date | date:'dd MMMM'}}</span>
+                  </div>
+                </div>
+                <div class="col decription-box ng-binding" ui-sref="eventDescription({event_id:event.event_id})">
+                  <p> {{event.name}}</p>
+                  <p >{{event.description}}</p>
+
+                </div>
+                <div class="col col-10 energized" ui-sref="eventDescription({event_id:'{{event.event_id}}'})">
+                  &gt;
+                </div>
+              </div>
+
+              
+          </div>
+        </div>            
+              
+     </ion-content>
+  </ion-tab> -->
+
+        <ion-tab title="Texts" on-select="onTabSelected(3)">
+
+            <!-- <ion-content> -->
+          <ion-content class="primary-theme tab-des overflow-y height_auto">
+         <div class="primary-theme tab-des" ng-if="!TextPost.length">
+                            <div class="result-not-found frow h-center flex-wrap">
+                                <div class="box-circle display-flex v-center h-center">
+                                    <img src="img/img37.png">
+                                </div>
+                                <p class="col-100">Search Result Found(0)</p>
+                            </div>
+                        </div>
+                        
+          <div>
+               <div class="list card primary bottom-space" ng-repeat="textPost in TextPost">
+                                            <div class="item item-thumbnail-left" >
+                                                <img  ui-sref="userProfile({id:'{{textPost.user_id}}'})" ng-src="{{textPost.profile_pic_path ? textPost.profile_pic_path  : 'img/img7.png'}}">
+                                                <div class="frow v-center mh">
+                                                    <div class="detail tb" ui-sref="userProfile({id:'{{textPost.user_id}}'})">
+                                                        <h2>{{textPost.user_name}}</h2>
+                                                        <p class="primary-color">{{textPost.created_at.date| formatDate}}   </p>
+
+                                                    </div>
+
+                                                </div><!--/.vertical-center-->
+                                                
+                                                <div class="rlp">
+                                                 <h2>{{textPost.user_text}}</h2>
+                                                   <div class="item padding0 " ng-if="textPost.share_url">
+                                                        <p class="overflow-initial">{{textPost.share_title}}</p>
+                                                        <div  ng-click="openNewWindow(textPost.share_url)" class="padding-top padding-bottom gspace primary-theme mt-5 overflow-initial">
+                                                       
+                                                           <p class="overflow-initial light-dark">{{textPost.share_description}}</p>
+                                                           <a href="#" class="light-dark td-none">{{textPost.share_url}}</a>
+                                                          </div>
+                                                    </div>
+                                                </div><!--/.rlp-->
+                                            </div><!--/.item-->
+
+                                        </div><!--/.list--> 
+
+          </div>            
+                 </ion-content>
+        </ion-tab>
+    </ion-tabs>
+
+</ion-view>

@@ -1,0 +1,2111 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for profile/controllers/profileController.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">profile/controllers/</a> profileController.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">6.89% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>21/305</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/56</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">1.45% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/69</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">7.02% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>21/299</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">﻿(function (app) {
+    app.controller('profileCtrl', profileCtrl);
+&nbsp;
+    profileCtrl.$inject = ['$scope', '$state', '$ionicPopup','profileService','loader','$ionicTabsDelegate','Config','localStorage','responseCodeHandling','actionSheet', 'mediaService','$http','$q','$cordovaToast','postService', 'messages','$cordovaDatePicker'];
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function profileCtrl($scope,$state, $ionicPopup,profileService,loader, $ionicTabsDelegate,Config, localStorage, responseCodeHandling, actionSheet, mediaService,$http,$q,$cordovaToast, postService, messages, $cordovaDatePicker) {</span>
+&nbsp;
+&nbsp;
+        /* Scope internal functions*/ 
+<span class="cstat-no" title="statement not covered" >        $scope.canDelete=false;</span>
+<span class="cstat-no" title="statement not covered" >        $scope.initProfile = initProfile;</span>
+<span class="cstat-no" title="statement not covered" >        $scope.status=true;</span>
+<span class="cstat-no" title="statement not covered" >        $scope.saveWebLink = saveWebLink;</span>
+<span class="cstat-no" title="statement not covered" >        $scope.id='';</span>
+<span class="cstat-no" title="statement not covered" >        $scope.saveurl;</span>
+<span class="cstat-no" title="statement not covered" >        $scope.limitSkips = angular.copy(Config.defatultLimitSkipPost);</span>
+<span class="cstat-no" title="statement not covered" >        $scope.update={};</span>
+<span class="cstat-no" title="statement not covered" >        $scope.tabChanged = tabChanged;</span>
+<span class="cstat-no" title="statement not covered" >        $scope.isMoreData = false;</span>
+<span class="cstat-no" title="statement not covered" >        $scope.updateProfileObject = {};</span>
+<span class="cstat-no" title="statement not covered" >        $scope.updateProfile = updateProfile;</span>
+<span class="cstat-no" title="statement not covered" >        $scope.postData = {};</span>
+<span class="cstat-no" title="statement not covered" >        $scope.popupForm = {};</span>
+<span class="cstat-no" title="statement not covered" >        $scope.media_to_delete;</span>
+<span class="cstat-no" title="statement not covered" >        var popupObject;</span>
+<span class="cstat-no" title="statement not covered" >        $scope.form={};</span>
+<span class="cstat-no" title="statement not covered" >        var popupTemplates = Config.uploadMediaPopUp;</span>
+<span class="cstat-no" title="statement not covered" >        $scope.tamporary=[];</span>
+<span class="cstat-no" title="statement not covered" >        $scope.talents=[];</span>
+<span class="cstat-no" title="statement not covered" >        $scope.otherTalents=[];</span>
+        
+<span class="cstat-no" title="statement not covered" >         $scope.otherCategories=<span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >          var sucess=<span class="fstat-no" title="function not covered" >function(response){</span></span>
+<span class="cstat-no" title="statement not covered" >            console.log(response);</span>
+<span class="cstat-no" title="statement not covered" >            responseCodeHandling.showMessages(response.code,null,false,<span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >              if(response.data ){</span>
+<span class="cstat-no" title="statement not covered" >                 $scope.otherCategory=response.data;</span>
+              }
+            });
+          }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          var error=<span class="fstat-no" title="function not covered" >function(err){</span></span>
+<span class="cstat-no" title="statement not covered" >            console.log("error for get profile",err);</span>
+          }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          profileService.getcategoryList(null,null,sucess,error);</span>
+        }
+<span class="cstat-no" title="statement not covered" >          $scope.addFilter = <span class="fstat-no" title="function not covered" >function(key,value){</span></span>
+<span class="cstat-no" title="statement not covered" >            key =  parseInt(key); </span>//Insuring key should is an Integer
+<span class="cstat-no" title="statement not covered" >            if ((index = $scope.temporary.indexOf(key)) !== -1)</span>
+<span class="cstat-no" title="statement not covered" >              $scope.temporary.splice(index, 1);</span>
+            else
+<span class="cstat-no" title="statement not covered" >             $scope.temporary.push(key); </span>//else add to array
+<span class="cstat-no" title="statement not covered" >              console.log($scope.temporary);</span>
+             }
+<span class="cstat-no" title="statement not covered" >         $scope.checkMarked = <span class="fstat-no" title="function not covered" >function(key,value)</span></span>
+      {
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        key =  parseInt(key);</span>
+<span class="cstat-no" title="statement not covered" >         if( $scope.talents.indexOf(key) !== -1) </span>
+<span class="cstat-no" title="statement not covered" >          return true</span>
+         else
+<span class="cstat-no" title="statement not covered" >          return false</span>
+          
+      }
+        
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var updatePopupTemplates = {</span>
+          dob:{templateUrl:'app/modules/profile/templates/updateProfilePopupDob.html'},
+          gender:{templateUrl:'app/modules/profile/templates/updateProfilePopupGender.html'},
+          contact:{templateUrl:'app/modules/profile/templates/updateProfilePopupContact.html'},
+          category:{templateUrl:'app/modules/profile/templates/updateProfilePopupCategory.html'},
+          email:{templateUrl:'app/modules/profile/templates/updateProfilePopupEmail.html'}
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var postUrlsObject = angular.copy({</span>
+          image:{resourceName: "image_post_api"},
+          video:{resourceName: "video_post_api"},
+          audio:{resourceName: "audio_post_api"},
+          text:{resourceName: "text_post_api"}
+        });
+&nbsp;
+&nbsp;
+        // Array for post layouts
+<span class="cstat-no" title="statement not covered" >        $scope.is_playing = false;</span>
+<span class="cstat-no" title="statement not covered" >        $scope.postsObject = angular.copy({</span>
+            image: [],
+            video: [],
+            audio: [],
+            text: []
+        });
+&nbsp;
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        $scope.currentTab = "image";</span>
+<span class="cstat-no" title="statement not covered" >        $scope.hasMoreData = {"image":false, "video": false, "audio":false, "text": false};</span>
+&nbsp;
+        
+        /*********************handling of all popups**********************/
+<span class="cstat-no" title="statement not covered" >        $scope.openUploadMediaPopUp = <span class="fstat-no" title="function not covered" >function (type) {</span></span>
+<span class="cstat-no" title="statement not covered" >           delete $scope.mediaData;</span>
+<span class="cstat-no" title="statement not covered" >           $scope.postData = angular.copy({});</span>
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            popupObject = $ionicPopup.show({</span>
+                templateUrl: popupTemplates[type],
+                scope: $scope,
+            buttons: [{ 
+                text: 'Submit',
+                type: 'button-energized button-squire',
+                onTap: <span class="fstat-no" title="function not covered" >function(e) {</span>
+<span class="cstat-no" title="statement not covered" >                  $scope.popupForm[type].$setSubmitted();</span>
+    
+                  //Execute it if form is valid
+<span class="cstat-no" title="statement not covered" >                  if($scope.popupForm[type].$valid) <span class="cstat-no" title="statement not covered" >$scope.submitPost(type);</span></span>
+                  else <span class="cstat-no" title="statement not covered" >e.preventDefault();</span>
+                 }
+                 }]
+            });
+        }
+&nbsp;
+        // $scope.openUploadAudioPopUp = function () {
+        //    popupObject = $ionicPopup.show({
+        //         templateUrl: 'app/modules/profile/templates/uploadMediaAudioPopUp.html',
+        //         scope: $scope,
+        //         buttons: [{ 
+        //         text: 'Submit',
+        //         type: 'button-energized button-squire',
+        //         onTap: function(e) {
+&nbsp;
+        //           $scope.popupForm.audioUpload.$setSubmitted();
+    
+        //           //Execute it if form is valid
+        //           if($scope.popupForm.audioUpload.$valid) $scope.submitPost('audio');
+        //           else e.preventDefault();
+        //          }
+        //          }]
+        //     });
+        // }
+&nbsp;
+        // $scope.openUploadTextPopUp = function () {
+        //     popupObject = $ionicPopup.show({
+        //         templateUrl: 'app/modules/profile/templates/uploadTextPopUp.html',
+        //         scope: $scope,
+        //         buttons: [{ 
+        //         text: 'Submit',
+        //         type: 'button-energized button-squire',
+        //         onTap: function(e) {
+        //           $scope.popupForm.textUpload.$setSubmitted();
+    
+        //           //Execute it if form is valid
+        //           if($scope.popupForm.textUpload.$valid) $scope.submitPost('text');
+        //           else e.preventDefault();
+        //          }
+        //          }]
+        //     });
+        // }
+        
+        // $scope.openUploadVideoPopUp = function () {
+        //     popupObject = $ionicPopup.show({
+        //         templateUrl: 'app/modules/profile/templates/uploadVideoPopUp.html',
+        //         scope: $scope,
+        //         buttons: [{ 
+        //         text: 'Submit',
+        //         type: 'button-energized button-squire',
+        //         onTap: function(e) {
+        //           $scope.popupForm.videoUpload.$setSubmitted();
+    
+        //           //Execute it if form is valid
+        //           if($scope.popupForm.videoUpload.$valid) $scope.submitPost('videos');
+        //           else e.preventDefault();
+        //          }
+        //          }]
+        //     });
+        // }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        $scope.openUpdateProfile = <span class="fstat-no" title="function not covered" >function(type){</span></span>
+<span class="cstat-no" title="statement not covered" >          $scope.updateProfileObject = angular.copy({});</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          $scope.updateProfileObject[type] = angular.copy($scope.userProfile[type]); </span>//Copying current value
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          popupObject = $ionicPopup.show({</span>
+                templateUrl: updatePopupTemplates[type].templateUrl,
+                scope: $scope,
+                buttons: [{ 
+                text: 'Submit',
+                type: ' button-energized button-squire',
+                onTap: <span class="fstat-no" title="function not covered" >function(e) {</span>
+<span class="cstat-no" title="statement not covered" >                  $scope.updateProfile(type,e);</span>
+                 }
+                 }]
+            });
+&nbsp;
+&nbsp;
+        }
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        $scope.openDatePicker=<span class="fstat-no" title="function not covered" >function(){</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          $scope.datePickerOpened = true;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          $cordovaDatePicker.show(Config.dataPikerOptions).then(<span class="fstat-no" title="function not covered" >function(date){</span></span>
+<span class="cstat-no" title="statement not covered" >                $scope.updateProfileObject.dob = moment(date).format('YYYY-MM-DD');</span>
+<span class="cstat-no" title="statement not covered" >                $scope.datePickerOpened = false;</span>
+            },<span class="fstat-no" title="function not covered" >function(){</span>
+<span class="cstat-no" title="statement not covered" >              $scope.datePickerOpened = false;</span>
+            });  
+        }
+&nbsp;
+&nbsp;
+        /************end of handling of all popups******************/
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function initProfile(){</span>
+<span class="cstat-no" title="statement not covered" >          loader.show();</span>
+<span class="cstat-no" title="statement not covered" >          $scope.otherCategories();</span>
+<span class="cstat-no" title="statement not covered" >            var sucessCallback = <span class="fstat-no" title="function not covered" >function(response){</span></span>
+<span class="cstat-no" title="statement not covered" >              loader.hide();</span>
+<span class="cstat-no" title="statement not covered" >              console.log(response);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >              $scope.userProfile=response.data;</span>
+<span class="cstat-no" title="statement not covered" >              $scope.id=$scope.userProfile.id;</span>
+<span class="cstat-no" title="statement not covered" >              $scope.updateProfileObject.gender=response.data.gender;</span>
+<span class="cstat-no" title="statement not covered" >              $scope.userProfile.profile_pic_path = $scope.userProfile.profile_pic_path ? $scope.userProfile.profile_pic_path : "img/img7.png";</span>
+<span class="cstat-no" title="statement not covered" >              angular.forEach(response.data.category, <span class="fstat-no" title="function not covered" >function(value, key) {</span></span>
+<span class="cstat-no" title="statement not covered" >              $scope.talents.push(parseInt(key));</span>
+              
+<span class="cstat-no" title="statement not covered" >               $scope.otherTalents.push(value); </span>
+<span class="cstat-no" title="statement not covered" >              console.log($scope.talents);</span>
+          });
+<span class="cstat-no" title="statement not covered" >              $scope.temporary=angular.copy($scope.talents);</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            var errorCallback = <span class="fstat-no" title="function not covered" >function(err){</span></span>
+<span class="cstat-no" title="statement not covered" >              loader.hide();</span>
+<span class="cstat-no" title="statement not covered" >              console.log("error for get profile",err);</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            profileService.getProfile(null,null,sucessCallback,errorCallback);</span>
+&nbsp;
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        $scope.getMyUploads=<span class="fstat-no" title="function not covered" >function(type){</span></span>
+<span class="cstat-no" title="statement not covered" >            var params = {</span>
+                limit:$scope.limitSkips[type].limit,
+                mediaType:type.toUpperCase(),
+                skip:$scope.limitSkips[type].skip,
+                id:$scope.id,
+            }
+<span class="cstat-no" title="statement not covered" >            loader.show();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            var sucessCallback = <span class="fstat-no" title="function not covered" >function(response){</span></span>
+<span class="cstat-no" title="statement not covered" >                loader.hide();</span>
+<span class="cstat-no" title="statement not covered" >                console.log(response);</span>
+<span class="cstat-no" title="statement not covered" >           responseCodeHandling.showMessages(response.code,null,false,<span class="fstat-no" title="function not covered" >function(status,msg){</span></span>
+<span class="cstat-no" title="statement not covered" >              if(status){</span>
+&nbsp;
+                //changing ionic infinite scroll state if equals to page limit then enable else disable
+<span class="cstat-no" title="statement not covered" >                $scope.hasMoreData[type] = response.data &amp;&amp; (response.data.length === $scope.limitSkips[type].limit);</span>
+<span class="cstat-no" title="statement not covered" >                $scope.infinteScrollEnabled = $scope.hasMoreData[$scope.currentTab];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                createLayout(type,response.data);</span>
+                }});
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            var errorCallback = <span class="fstat-no" title="function not covered" >function(error){</span></span>
+<span class="cstat-no" title="statement not covered" >                loader.hide();</span>
+<span class="cstat-no" title="statement not covered" >                console.log(error);</span>
+            }
+            
+            //params = null; //As api is not complte not sending params   
+<span class="cstat-no" title="statement not covered" >            profileService.getMyUploads(params,null,sucessCallback, errorCallback);</span>
+        }
+&nbsp;
+&nbsp;
+        //Create layout fot diffrent type of media
+<span class="fstat-no" title="function not covered" >        function createLayout(type, talentArray){</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if(type == 'image'){</span>
+<span class="cstat-no" title="statement not covered" >                var imageLayout = {}</span>
+<span class="cstat-no" title="statement not covered" >            switch (talentArray.length){</span>
+                    case 1:
+<span class="cstat-no" title="statement not covered" >                        imageLayout.leftSidePostsImages= angular.copy(talentArray);</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                    case 2:
+<span class="cstat-no" title="statement not covered" >                        imageLayout.leftSidePostsImages = angular.copy(talentArray.slice(0,1));</span>
+<span class="cstat-no" title="statement not covered" >                        imageLayout.rightSidePostsImages = angular.copy(talentArray.slice(1,2));</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                    case 3:
+<span class="cstat-no" title="statement not covered" >                        imageLayout.leftSidePostsImages = angular.copy(talentArray.slice(0,1));</span>
+<span class="cstat-no" title="statement not covered" >                        imageLayout.rightSidePostsImages = angular.copy(talentArray.slice(1,3));</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                    case 4:
+<span class="cstat-no" title="statement not covered" >                        imageLayout.leftSidePostsImages = angular.copy(talentArray.slice(0,2));</span>
+<span class="cstat-no" title="statement not covered" >                        imageLayout.rightSidePostsImages = angular.copy(talentArray.slice(2,4));</span>
+                        
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                    case 5:
+<span class="cstat-no" title="statement not covered" >                        imageLayout.leftSidePostsImages = angular.copy(talentArray.slice(0,2));</span>
+<span class="cstat-no" title="statement not covered" >                        imageLayout.rightSidePostsImages = angular.copy(talentArray.slice(3,5));</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                    case 6:
+<span class="cstat-no" title="statement not covered" >                        imageLayout.leftSidePostsImages = angular.copy(talentArray.splice(0,2));</span>
+<span class="cstat-no" title="statement not covered" >                        imageLayout.rightSidePostsImages = angular.copy(talentArray.splice(3,5));</span>
+<span class="cstat-no" title="statement not covered" >                        imageLayout.fullScreenPostsImages = angular.copy(talentArray.splice(5,6));</span>
+<span class="cstat-no" title="statement not covered" >                    break;</span>
+                }
+<span class="cstat-no" title="statement not covered" >                $scope.postsObject[type].push(imageLayout);</span>
+            }else 
+<span class="cstat-no" title="statement not covered" >                angular.merge($scope.postsObject[type],talentArray);</span>
+            
+&nbsp;
+        }
+&nbsp;
+&nbsp;
+&nbsp;
+        /*
+        *load more will be invoked when ever infinite scroll get fired
+        *type: type of tab from which it gets fired
+        */
+<span class="cstat-no" title="statement not covered" >        $scope.loadMore = <span class="fstat-no" title="function not covered" >function(){</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            $scope.infinteScrollEnabled = $scope.hasMoreData[$scope.currentTab] = false;</span>
+            /*Add skip to the no of post should be dispalyed 
+            * ex 0 6 || 6 6 || 12 6
+            */
+<span class="cstat-no" title="statement not covered" >            $scope.limitSkips[$scope.currentTab].skip += $scope.limitSkips[$scope.currentTab].limit;</span>
+&nbsp;
+            //Loading more data will be called from infinte scroll
+<span class="cstat-no" title="statement not covered" >           $scope.getMyUploads($scope.currentTab);</span>
+<span class="cstat-no" title="statement not covered" >            $scope.$broadcast('scroll.infiniteScrollComplete');</span>
+            
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        $scope.pullDownRefresh = <span class="fstat-no" title="function not covered" >function(){</span></span>
+            //Flushing previous loaded data
+<span class="cstat-no" title="statement not covered" >            $scope.postsObject[$scope.currentTab] = angular.copy([]);</span>
+<span class="cstat-no" title="statement not covered" >            $scope.limitSkips[$scope.currentTab].skip = angular.copy(Config.defatultLimitSkipPost[$scope.currentTab].skip);</span>
+<span class="cstat-no" title="statement not covered" >            $scope.getMyUploads($scope.currentTab);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >             $scope.$broadcast('scroll.refreshComplete');</span>
+        }
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function tabChanged(tab){</span>
+<span class="cstat-no" title="statement not covered" >            $scope.currentTab = tab;</span>
+<span class="cstat-no" title="statement not covered" >            $scope.infinteScrollEnabled = $scope.hasMoreData[tab];</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        $scope.openUploadMedia = <span class="fstat-no" title="function not covered" >function(type){</span></span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >          function successCallback(imgData){</span>
+<span class="cstat-no" title="statement not covered" >             $scope.mediaData  = angular.copy(imgData);</span>
+            //Upload the media on sucess of capture
+<span class="cstat-no" title="statement not covered" >            mediaService.uploadMedia(imgData,type, mediaUploadSucess, mediaUploadError );</span>
+          }
+&nbsp;
+<span class="fstat-no" title="function not covered" >          function errorCallbacck(error){</span>
+<span class="cstat-no" title="statement not covered" >            loader.hide();</span>
+<span class="cstat-no" title="statement not covered" >            console.log("error", error);</span>
+          }
+&nbsp;
+<span class="fstat-no" title="function not covered" >          function mediaUploadSucess(response){</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            loader.hide();</span>
+<span class="cstat-no" title="statement not covered" >            res = JSON.parse(response.response);</span>
+<span class="cstat-no" title="statement not covered" >            responseCodeHandling.showMessages(res.code,null,false, <span class="fstat-no" title="function not covered" >function(){</span>});</span>
+            
+            //On sucess media upload save object to local controller to send with submit post object
+<span class="cstat-no" title="statement not covered" >            if(type === 'image') {<span class="cstat-no" title="statement not covered" >$scope.postData.image = []; <span class="cstat-no" title="statement not covered" ></span>$scope.postData.image[0] = angular.copy(res.data.file);}</span></span>
+            else <span class="cstat-no" title="statement not covered" >if(type === 'video')  {<span class="cstat-no" title="statement not covered" >$scope.postData.video = []; <span class="cstat-no" title="statement not covered" ></span>$scope.postData.video[0] = angular.copy(res.data.file);}</span></span>
+          
+          }
+&nbsp;
+<span class="fstat-no" title="function not covered" >          function mediaUploadError(error){</span>
+<span class="cstat-no" title="statement not covered" >            loader.hide();</span>
+<span class="cstat-no" title="statement not covered" >            console.log("error");</span>
+&nbsp;
+          }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          actionSheet.openUploadMedia(type, successCallback, errorCallbacck);</span>
+        } 
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        $scope.submitPost = <span class="fstat-no" title="function not covered" >function(type){</span></span>
+<span class="cstat-no" title="statement not covered" >            loader.show();</span>
+<span class="cstat-no" title="statement not covered" >            delete $scope.mediaData;</span>
+<span class="cstat-no" title="statement not covered" >            var is_crawl = false;</span>
+<span class="cstat-no" title="statement not covered" >            if($scope.weblink) <span class="cstat-no" title="statement not covered" >is_crawl = true;</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          if(type === 'audio')</span>
+            {
+<span class="cstat-no" title="statement not covered" >              if(!($scope.weblink &amp;&amp; $scope.weblink.validLink)){</span>
+                //If weblink not present or is not a vliad track link
+<span class="cstat-no" title="statement not covered" >                loader.hide();</span>
+<span class="cstat-no" title="statement not covered" >                $cordovaToast.show(Config.invalidSoundCloud,"short","bottom");</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+              }else{              
+<span class="cstat-no" title="statement not covered" >              var dataToSend = {</span>
+              name: $scope.postData.name,
+              description: $scope.postData.description,
+              crawlUrl: $scope.weblink.url,
+              crawlDescription: $scope.weblink.description + $scope.postData.description,
+              crawlImage: $scope.weblink.image,
+              crawlTitle: $scope.weblink.title
+            }
+          }
+            }else <span class="cstat-no" title="statement not covered" >if(type === 'text'){</span>
+<span class="cstat-no" title="statement not covered" >              var dataToSend = {  </span>
+              textPost : $scope.postData.textPost,
+              is_crawl : is_crawl
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if(dataToSend.is_crawl){</span>
+<span class="cstat-no" title="statement not covered" >              dataToSend.share_url = $scope.weblink.url;</span>
+<span class="cstat-no" title="statement not covered" >              dataToSend.share_image = $scope.weblink.image;</span>
+<span class="cstat-no" title="statement not covered" >              dataToSend.share_title =$scope.weblink.title;</span>
+<span class="cstat-no" title="statement not covered" >              dataToSend.share_descriptio= $scope.weblink.description;</span>
+            }
+          }else{
+<span class="cstat-no" title="statement not covered" >              var dataToSend = $scope.postData</span>
+            }
+&nbsp;
+<span class="fstat-no" title="function not covered" >          function successCallback(responce){</span>
+<span class="cstat-no" title="statement not covered" >            loader.hide();</span>
+<span class="cstat-no" title="statement not covered" >            $state.reload();</span>
+<span class="cstat-no" title="statement not covered" >            responseCodeHandling.showMessages(responce.code,messages.post_saved,true,<span class="fstat-no" title="function not covered" >function(status){</span></span>
+<span class="cstat-no" title="statement not covered" >              if(status){</span>
+<span class="cstat-no" title="statement not covered" >                 $scope.postData =angular.copy({});</span>
+<span class="cstat-no" title="statement not covered" >                 $scope.mediaData = undefined;</span>
+<span class="cstat-no" title="statement not covered" >                $scope.weblink = undefined;</span>
+               }
+             });
+          }
+&nbsp;
+<span class="fstat-no" title="function not covered" >          function errorCallback(error){</span>
+<span class="cstat-no" title="statement not covered" >            loader.hide();</span>
+          }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          postService.submitPost(postUrlsObject[type],dataToSend, successCallback, errorCallback);</span>
+        }
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function saveWebLink(weblink){</span>
+          //Function to save weblink dat ato controller
+<span class="cstat-no" title="statement not covered" >          $scope.weblink = weblink</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  $scope.startAudio = <span class="fstat-no" title="function not covered" >function(songurl){</span></span>
+<span class="cstat-no" title="statement not covered" >         if($scope.is_playing) </span>
+            {
+<span class="cstat-no" title="statement not covered" >               if($scope.saveurl==songurl){</span>
+<span class="cstat-no" title="statement not covered" >                     media.pause();</span>
+<span class="cstat-no" title="statement not covered" >                    $scope.is_playing = false;</span>
+<span class="cstat-no" title="statement not covered" >                    console.log('pausing the song');}</span>
+                  else
+                  { 
+<span class="cstat-no" title="statement not covered" >                     media.pause();</span>
+<span class="cstat-no" title="statement not covered" >                     loader.show();</span>
+<span class="cstat-no" title="statement not covered" >                    playSong(songurl);</span>
+<span class="cstat-no" title="statement not covered" >                    console.log('playing new song');</span>
+                  }
+        } 
+        else
+        {
+<span class="cstat-no" title="statement not covered" >        loader.show();</span>
+<span class="cstat-no" title="statement not covered" >          playSong(songurl);</span>
+        }
+   };
+ 
+<span class="fstat-no" title="function not covered" >   function playSong(songurl) {</span>
+      // o.pauseSong();
+<span class="cstat-no" title="statement not covered" >      console.log(songurl);</span>
+<span class="cstat-no" title="statement not covered" >      var defer = $q.defer();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      $http({</span>
+        method: 'GET',
+        url:' https://api.soundcloud.com/resolve.json?url='+songurl+'&amp;client_id=3bfc3fa4c66ca13a86bb55aa1edafab3'
+      }).success(<span class="fstat-no" title="function not covered" >function(data){</span>
+<span class="cstat-no" title="statement not covered" >    console.log(data);</span>
+<span class="cstat-no" title="statement not covered" >       $scope.id=data.id;</span>
+<span class="cstat-no" title="statement not covered" >     console.log($scope.id);</span>
+  
+<span class="cstat-no" title="statement not covered" >      $http({</span>
+        method: 'GET',
+        url:'https://api.soundcloud.com/i1/tracks/' + $scope.id + '/streams?client_id=' + '3bfc3fa4c66ca13a86bb55aa1edafab3'
+      }).success(<span class="fstat-no" title="function not covered" >function(response){</span>
+    
+        // merge data into the queue
+<span class="cstat-no" title="statement not covered" >         loader.hide();</span>
+<span class="cstat-no" title="statement not covered" >         console.log(response);</span>
+<span class="cstat-no" title="statement not covered" >        media = new Audio(response.http_mp3_128_url);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        media.addEventListener('loadeddata', <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >          defer.resolve();</span>
+        });
+     
+<span class="cstat-no" title="statement not covered" >      media.play();</span>
+<span class="cstat-no" title="statement not covered" >      $scope.is_playing=true;</span>
+<span class="cstat-no" title="statement not covered" >      $scope.saveurl=songurl;</span>
+&nbsp;
+    })
+    }).catch(<span class="fstat-no" title="function not covered" >function(responce){</span>
+<span class="cstat-no" title="statement not covered" >      console.log(responce);</span>
+<span class="cstat-no" title="statement not covered" >      responseCodeHandling.showMessages(responce.status,responce.statusText,true,<span class="fstat-no" title="function not covered" >function(status,msg){</span></span>
+<span class="cstat-no" title="statement not covered" >              if(status){</span>
+<span class="cstat-no" title="statement not covered" >                 loader.hide();</span>
+               }
+             });
+      
+    });
+    
+    
+    
+<span class="cstat-no" title="statement not covered" >      console.log('playing the song');</span>
+     // return defer.promise;
+    }
+&nbsp;
+&nbsp;
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function updateProfile(type,e){</span>
+<span class="cstat-no" title="statement not covered" >             $scope.form.updateProfile.$setSubmitted();</span>
+<span class="cstat-no" title="statement not covered" >             if($scope.form.updateProfile.$valid)</span>
+               {   
+<span class="cstat-no" title="statement not covered" >                        loader.show();</span>
+<span class="cstat-no" title="statement not covered" >                         if(type=='category')</span>
+                         {
+<span class="cstat-no" title="statement not covered" >                          $scope.updateProfileObject['talent'] = angular.copy($scope.temporary);</span>
+<span class="cstat-no" title="statement not covered" >                          $scope.talents=angular.copy($scope.temporary);</span>
+<span class="cstat-no" title="statement not covered" >                          $scope.otherTalents=[];</span>
+<span class="cstat-no" title="statement not covered" >                          $scope.temporary=[];</span>
+                         }
+<span class="cstat-no" title="statement not covered" >                        var errorCallback = <span class="fstat-no" title="function not covered" >function(error){</span></span>
+<span class="cstat-no" title="statement not covered" >                          loader.hide();</span>
+                        }
+                    
+<span class="cstat-no" title="statement not covered" >                       var successCallback = <span class="fstat-no" title="function not covered" >function(response){</span></span>
+<span class="cstat-no" title="statement not covered" >                          loader.hide();</span>
+<span class="cstat-no" title="statement not covered" >                          initProfile();</span>
+                          }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        profileService.updateProfile(null,$scope.updateProfileObject,successCallback,errorCallback);</span>
+         }
+         else <span class="cstat-no" title="statement not covered" >e.preventDefault();</span>
+&nbsp;
+          }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    $scope.checkStatus=<span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >      console.log($scope.status);</span>
+<span class="cstat-no" title="statement not covered" >      if($scope.status==false)</span>
+      {
+<span class="cstat-no" title="statement not covered" >        $scope.status=true;</span>
+       
+      }
+     else
+<span class="cstat-no" title="statement not covered" >        $scope.status=false;</span>
+&nbsp;
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    $scope.chooseImage = <span class="fstat-no" title="function not covered" >function(){</span></span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >             function captureSucess(imgData){ </span>
+                 //Success callback for image capture
+<span class="cstat-no" title="statement not covered" >                 mediaService.uploadMedia(imgData,'image', mediaUploadSucess, mediaUploadError );</span>
+             }
+&nbsp;
+<span class="fstat-no" title="function not covered" >             function mediaUploadSucess(res){</span>
+<span class="cstat-no" title="statement not covered" >                 loader.hide();</span>
+<span class="cstat-no" title="statement not covered" >                 res = JSON.parse(res.response);</span>
+<span class="cstat-no" title="statement not covered" >                 responseCodeHandling.showMessages(res.code,null,false, <span class="fstat-no" title="function not covered" >function(){</span></span>
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                  $scope.image = angular.copy(res.data.file);</span>
+<span class="cstat-no" title="statement not covered" >                  $scope.user=</span>
+                  updateProfilePic();
+                 });
+              }
+&nbsp;
+<span class="fstat-no" title="function not covered" >            function mediaUploadError(error){</span>
+<span class="cstat-no" title="statement not covered" >                loader.hide();</span>
+             }
+&nbsp;
+<span class="fstat-no" title="function not covered" >             function captureError(error){</span>
+<span class="cstat-no" title="statement not covered" >                 loader.hide();</span>
+<span class="cstat-no" title="statement not covered" >                 console.log("Error", error);</span>
+             }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >             actionSheet.openUploadMedia('image', captureSucess, captureError);</span>
+        }
+&nbsp;
+&nbsp;
+        /*Updating profile pic $scope.image currently selected image from storage*/
+       
+<span class="fstat-no" title="function not covered" >        function updateProfilePic(){</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          loader.show();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          var successCallback = <span class="fstat-no" title="function not covered" >function(response){</span></span>
+<span class="cstat-no" title="statement not covered" >            loader.hide();</span>
+<span class="cstat-no" title="statement not covered" >            responseCodeHandling.showMessages(response.code,messages.profile_pic_updated,true, <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >                $scope.userProfile.profile_pic_path = angular.copy($scope.image.profile_pic_path);</span>
+<span class="cstat-no" title="statement not covered" >                $scope.user.profile_pic_path = angular.copy($scope.image.profile_pic_path);</span>
+              });
+          }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          var errorCallback = <span class="fstat-no" title="function not covered" >function(error){</span></span>
+<span class="cstat-no" title="statement not covered" >            loader.hide();</span>
+          }
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          profileService.updateProfilePic(null, {image: $scope.image}, successCallback, errorCallback);</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        $scope.showDelete = <span class="fstat-no" title="function not covered" >function(media_id){</span></span>
+<span class="cstat-no" title="statement not covered" >          $scope.media_to_delete = media_id;</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        $scope.checkDelete=<span class="fstat-no" title="function not covered" >function(type,post)</span></span>
+        {
+<span class="cstat-no" title="statement not covered" >          if(post.media_id === $scope.media_to_delete)</span>
+<span class="cstat-no" title="statement not covered" >            $scope.media_to_delete=undefined;</span>
+          else
+            { 
+<span class="cstat-no" title="statement not covered" >              if(type=='image')</span>
+<span class="cstat-no" title="statement not covered" >                 $state.go('postDescription',{data:JSON.stringify(post)});</span>
+               else
+               {}
+          }
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        $scope.deletePost=<span class="fstat-no" title="function not covered" >function(type,post)</span></span>
+        {
+         
+<span class="cstat-no" title="statement not covered" >         loader.show();</span>
+<span class="cstat-no" title="statement not covered" >         var dataToSend={</span>
+            "media_id":parseInt(post.media_id),
+            "status":"my_profile"
+          }
+<span class="cstat-no" title="statement not covered" >          var successCallback = <span class="fstat-no" title="function not covered" >function(response){</span></span>
+<span class="cstat-no" title="statement not covered" >            loader.hide();</span>
+<span class="cstat-no" title="statement not covered" >           $state.reload();</span>
+<span class="cstat-no" title="statement not covered" >                 $scope.media_to_delete=undefined;</span>
+<span class="cstat-no" title="statement not covered" >            responseCodeHandling.showMessages(response.code,messages.profile_pic_updated,false, <span class="fstat-no" title="function not covered" >function(){</span></span>
+                 
+              });
+          }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          var errorCallback = <span class="fstat-no" title="function not covered" >function(error){</span></span>
+<span class="cstat-no" title="statement not covered" >            loader.hide();</span>
+<span class="cstat-no" title="statement not covered" >            $scope.media_to_delete=undefined;</span>
+          }
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          profileService.deletePost(null, dataToSend, successCallback, errorCallback);</span>
+&nbsp;
+        }
+<span class="cstat-no" title="statement not covered" >        $scope.closePopup = <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >          $scope.temporary=[];</span>
+<span class="cstat-no" title="statement not covered" >          popupObject.close();</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        $scope.closeEditProfile = <span class="fstat-no" title="function not covered" >function(type){</span></span>
+<span class="cstat-no" title="statement not covered" >          delete $scope.updateProfileObject[type];</span>
+<span class="cstat-no" title="statement not covered" >          popupObject.close();</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        $scope.closeUploadPost = <span class="fstat-no" title="function not covered" >function(type){</span></span>
+<span class="cstat-no" title="statement not covered" >          delete $scope.mediaData;</span>
+<span class="cstat-no" title="statement not covered" >          delete $scope.postsObject[type];</span>
+<span class="cstat-no" title="statement not covered" >          popupObject.close();</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        $scope.delete = <span class="fstat-no" title="function not covered" >function(media_to_delete){</span></span>
+<span class="cstat-no" title="statement not covered" >          debugger;</span>
+        }
+&nbsp;
+&nbsp;
+&nbsp;
+// $scope.$on('$locationChangeStart', function (event, next, current) {
+//                if($scope.is_playing)
+//                     media.pause();
+//                 console.log(current);
+//       });
+}
+&nbsp;
+&nbsp;
+})(angular.module('talentNetworkApp'));</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Nov 03 2016 22:37:24 GMT+0530 (IST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

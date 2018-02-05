@@ -1,0 +1,268 @@
+<ion-view view-title="profile" class="profile" ng-init="initProfile()">
+   <div ng-if="showProfile"style="
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: black;
+    z-index: 99;
+    
+                ">
+    </div>
+                 <div  ng-if="showProfile" ng-click="toggleProfile()" style="
+                    position: absolute;
+                    height: 80%;
+                    width: 100%;
+                    z-index: 100;
+                    
+                     margin-top: 15%;
+                    text-align: center;
+                ">
+                    <div style="position: relative;height:100%;width:100%;background-size: cover;background-position: center;"  ng-if="showProfile" ng-style="{'background-image': 'url(' +profile_pic_path + ')'}">
+                    </div>
+                </div>
+    <ion-content  class="primary-theme " lazy-scroll >
+         <div class="user-detail " ng-style="{'background-image': 'url(' + userProfile.profile_pic_path + ')'}">
+            
+        </div><!--/.usder-detail-->
+        <div class="fcolumn v-center text-center user-detail-block">
+        <div class="pic-wrap">
+           <img style="object-fit:cover;" ng-src="{{userProfile.profile_pic_path? userProfile.profile_pic_path : 'img/img7.png'}}"  on-hold="chooseImage();$event.stopPropagation();" ng-click="toggleProfile()"/>
+            </div>
+            <h4>{{userProfile.name}}</h4>
+            <div class="fan-count">
+                Number of Fans<span class="divider">|</span>
+                <span class="ion-star mr-sm">{{ userProfile.user_fans}}</span>
+            </div><!--/.fan-count-->
+            
+        </div>
+
+        <div class="tab-wrap">
+            
+
+            <ion-tabs tabs-swipable class="tabs-top tabs-background-dark tabs-color-energized secondary" >
+
+                <ion-tab title="My Uploads" class="tab-item-active" on-select="upperTabChanged('uploads')">
+                    <div class="tab-description overflow-y height_auto">
+                     <div class="list card primary">
+                           <!--  <div class="item mt-5" ng-if="role== '4' || role== '8'" >
+                                <p class="sub-list sub-list-secondary frow">
+                                    <a href="#" class="facebook icons-left icon-facebook col-33">0</a>
+                                    <a href="#" class="twitter icons-left icon-twitter col-33">0</a>
+                                    <a href="#" class="instagram icons-left icon-instagram col-33">0</a>
+                                </p>
+                            </div> -->
+                        </div><!--/.card-->
+                         <div class="tab-wrap tab-wrap-inner mt-15">
+                            <ion-tabs tabs-swipable class="tabs-top tabs-background-dark tabs-color-energized tabs-inner">
+                                <ion-tab title="IMAGE" class="tab-item-active" on-select="tabChanged('image')" ng-init="getMyUploads('image')">
+                                
+                                    <div class="tab-description height_auto">
+                                    <div class="primary-theme tab-des" ng-if="postsObject.image.length==0">
+                                      <div class="result-not-found frow h-center flex-wrap">
+                                          <div class="box-circle2 display-flex v-center h-center">
+                                              <img src="img/img37.png">
+                                          </div>
+                                          <p class="col-100">No Data</p>
+                                      </div>
+                                    </div>
+                                        <div class="row flex-wrap pic-list" ng-repeat="imagePost in postsObject.image  ">
+                                            <div class="col col-67 col-big">
+                                                <div class="thumbnail" ng-repeat="leftSidePost in imagePost.leftSidePostsImages  "  >
+                                                    <img style="object-fit:cover;" image-lazy-src={{leftSidePost.media_url}}  image-lazy-loader="bubbles" image-lazy-loader="lines" image-lazy-distance-from-bottom-to-load="-200" on-hold="showDelete(leftSidePost.media_id);$event.stopPropagation();" ng-click="checkDelete('image',leftSidePost)"/>
+                                                    <!-- <button ng-show="media_to_delete == leftSidePost. media_id" class="button button-clear button-delete-post icons-center icon-delete"></button> -->
+                                                    
+                                                    <div ng-if="media_to_delete == leftSidePost.media_id" >
+                                                    <div class="pic-delete icon-delete-circle" ng-click="deletePost('image',leftSidePost)">
+                                                     </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col col-33 col-small">
+                                                <div class="thumbnail" ng-repeat="rightSidePost in imagePost.rightSidePostsImages  "  >
+                                                    <img style="object-fit:cover;" image-lazy-src={{rightSidePost.media_url}}  image-lazy-loader="bubbles" image-lazy-loader="lines" image-lazy-distance-from-bottom-to-load="-200" alt="" on-hold="showDelete(rightSidePost.media_id);$event.stopPropagation();" ng-click="checkDelete('image',rightSidePost)"/>
+                                                    <!-- <button ng-show="media_to_delete == rightSidePost. media_id" class="button button-clear button-delete-post icons-center icon-delete"></button> -->
+                                                    <div ng-if="media_to_delete == rightSidePost.media_id" class="pic-delete icon-delete-circle"
+                                                     ng-click="deletePost('image',rightSidePost)">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                          <div class="col col-100" >
+                                                <div class="thumbnail" ng-repeat="fullScreenPost in imagePost.fullScreenPostsImages  " >
+                                                    <img style="object-fit:cover;" image-lazy-src={{fullScreenPost.media_url}} image-lazy-loader="bubbles" image-lazy-loader="lines" image-lazy-distance-from-bottom-to-load="-200" class="full-image" alt="" on-hold="showDelete(fullScreenPost.media_id);$event.stopPropagation();" ng-click="checkDelete('image',fullScreenPost)"/>
+                                                    <div ng-if="media_to_delete == fullScreenPost.media_id" class="pic-delete icon-delete-circle"
+                                                     ng-click="deletePost('image',fullScreenPost)">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </ion-tab>
+
+                                <ion-tab title="Video" ng-init="getMyUploads('video')" on-select="tabChanged('video')">
+                                     <div class="tab-description height_auto">
+                                     <div class="primary-theme tab-des" ng-if="postsObject.video.length==0">
+                                      <div class="result-not-found frow h-center flex-wrap">
+                                          <div class="box-circle2 display-flex v-center h-center">
+                                              <img src="img/img37.png">
+                                          </div>
+                                          <p class="col-100">No Data</p>
+                                      </div>
+                                    </div>
+                                        <div class="row flex-wrap pic-list video-list">
+                                            <div class="col col-big" ng-repeat="video in postsObject.video  " ng-if="video.media_type=='VIDEO' || video.media_type=='YOUTUBE' ">
+                                                 <div class="thumbnail icons-center icon-play" on-hold="showDelete(video.media_id);$event.stopPropagation();" ng-click="checkDelete('video',video)" >
+                                                    <!-- <img src="img/img26.jpg" alt="" /> -->
+
+                                                   <img ng-if="video.media_type=='VIDEO'" ng-src="{{video.media_url | findVideoPreview}}">
+                                                    <img ng-if="video.media_type=='YOUTUBE'" video-thumbnail url={{video.media_url}}>      
+                                                    <div ng-if="media_to_delete == video.media_id" ng-click="deletePost('video',video)"
+                                                     class="icon-delete-circle">
+                                                     </div>
+                                                    
+                                                    
+                                                     <!-- <button ng-show="video. media_id == media_to_delete" class="button button-clear button-delete-post icons-center icon-delete"></button> -->
+                                                    
+                                                </div>
+                                            </div>
+                                                                                        
+                                        </div>
+                                    </div>
+                                </ion-tab>
+
+                                <ion-tab on-select="tabChanged('audio')" title="Sound" ng-init="getMyUploads('audio')">
+                                <div class="tab-description height_auto"   can-swipe="true" >
+                                 <div class="primary-theme tab-des" ng-if="postsObject.audio.length==0">
+                                      <div class="result-not-found frow h-center flex-wrap">
+                                          <div class="box-circle2 display-flex v-center h-center">
+                                              <img src="img/img37.png">
+                                          </div>
+                                          <p class="col-100">No Data</p>
+                                      </div>
+                                </div>
+
+                                <ion-list scroll="true" show-reorder="false" show-delete="false" can-swipe="true">
+                                    <ion-item  ng-repeat="sound in postsObject.audio  " class="mysound-tab">
+
+                                       <sound-card-directive data="sound"></sound-card-directive>
+
+                                       <ion-option-button class="button-info icons-center"
+                                           ng-click="deletePost('sound',sound)" >
+                                        </ion-option-button>
+                                    </ion-item>
+
+                                </ion-list>
+
+                               
+                                </div>
+                                                                                
+                                </ion-tab>
+
+                                <ion-tab  ng-if="role=='4' || role=='8'"on-select="tabChanged('text')" title="TEXT" ng-init="getMyUploads('text')">
+                                    <div class="tab-description  height_auto" >
+                                    <div class="primary-theme tab-des" ng-if="postsObject.text.length==0">
+                                      <div class="result-not-found frow h-center flex-wrap">
+                                          <div class="box-circle2 display-flex v-center h-center">
+                                              <img src="img/img37.png">
+                                          </div>
+                                          <p class="col-100">No Data</p>
+                                      </div>
+                                  </div>
+                                         <div class="list card primary bottom-space" ng-repeat="textPost in postsObject.text  "  >
+                                           <div class="item item-thumbnail-left"  on-hold="showDelete(textPost.media_id)" ng-click="checkDelete('text',textPost)">
+                                            
+                                                <img ng-src="{{textPost.profile_pic_path ? textPost.profile_pic_path  : 'img/img7.png'}}">
+                                                <div class="frow v-center mh">
+                                                    <div class="detail tb">
+                                                        <h2>{{textPost.user_name}}</h2>
+                                                        <p class="primary-color">{{textPost.created_at| formatDate}} <!--  <span class="divider"> | </span> {{textPost.created_at.date| formatTime}}  --></p>
+                                                         
+                                                    </div>
+                                                   <button ng-if="media_to_delete == textPost.media_id"  ng-click="deletePost('text',textPost)"class="button button-clear button-delete-post icons-center icon-delete text-delete"></button>
+                                                </div><!--/.vertical-center-->
+                                                 
+                                                <div class="rlp">
+                                                 <h2>{{textPost.user_text}}</h2>
+                                                    <div class="item padding0" ng-if="textPost.share_url">
+                                                        <p class="overflow-initial">{{textPost.share_title}}</p>
+                                                        <div ng-click="openNewWindow(textPost.share_url)" class="padding-top padding-bottom gspace primary-theme mt-5 overflow-initial">
+                                                       
+                                                           <p class="overflow-initial light-dark preview-white">{{textPost.share_description}}</p>
+                                                           <h2  class="light-dark td-none energized">{{textPost.share_url}}</h2>
+                                                          </div>
+                                                    </div>
+                                                </div><!--/.rlp-->
+                                            </div><!--/.item-->
+
+                                        </div><!--/.list-->
+                                    </div>
+                                </ion-tab>
+                            </ion-tabs><!--/.tabs-striped-->
+                        </div><!--/.tab-wrap-->
+                    </div>
+
+                </ion-tab>
+
+                <ion-tab title="Basic Information" on-select="upperTabChanged('basicInfo')">
+                    <div class="tab-description b-info">
+                        <ul class="list primary has-border has-height mb-0">
+                            <li class="item item-divider mt-10">About</li>
+                            <li class="item icons-right icons-left2 icon-degi">
+                                 <p class="white tb">{{otherTalents}}</p>
+                                  <button class="button button-clear button-small icons-center icon-edit button-right" ng-click="openUpdateProfile('category')"></button>
+                            </li>
+                            <li class="item icons-right icons-left2 icon-gender">
+                                <p class="white tb">{{userProfile.gender }}</p>
+                                <button class="button button-clear button-small icons-center icon-edit button-right" ng-click="openUpdateProfile('gender')"></button>
+                            </li>
+                            <li class="item icons-right icons-left2 icon-dob">
+                                <p class="white tb">{{userProfile.dob}}</p>
+                                <button class="button button-clear button-small icons-center icon-edit button-right" ng-click="openUpdateProfile('dob')"></button>
+                            </li>
+
+                            <li class="item icons-left2 icon-phone">
+   <!--  <input style="background-color: transparent;color:white" type="text" ng-readonly="status" value="{{userProfile.contact}}" aria-label="Readonly field" ng-model="userProfile.contact"/>  -->
+                            <p class="white tb">{{userProfile.contact}}</p>
+                             <button class="button button-clear button-small icons-center icon-edit button-right" ng-click="openUpdateProfile('contact')"></button>
+                            </li>
+                            <li class="item icons-left2 icon-email">
+                                <p class="white tb">{{userProfile.email}}</p>
+                            </li>
+
+                            <li ng-if="role== '3' || role == '5'" class="item icons-left2 icon-storage">
+                                <p class="white tb">{{userProfile.useData}}</p>
+                               
+                            </li>
+
+                            <li class="item">
+
+                            </li>
+                        </ul><!--/.list-->
+
+                    </div><!--/.tab-description-->
+                </ion-tab>
+            </ion-tabs><!--/.tabs-striped-->
+
+
+        </div><!--/.tab-wrap-->
+        <ion-infinite-scroll
+            ng-if="infinteScrollEnabled"
+            on-infinite="loadMore()"
+            distance="3%"
+            >
+        </ion-infinite-scroll>
+
+        <!-- <div style="color: red; height: 10px; width: 10px;">
+        </div> -->
+
+    </ion-content>
+    
+    <button ng-hide="hideUpload" ng-if="((role== '4' || role== '8') && $root.admin_verified && currentTab == 'image') || ((role== '3' || role== '5') && currentTab == 'image')"class="button button-energized icons-center icon-upload button-bottom shadow  upload-icon" ng-click="openUploadMediaPopUp('image')"></button>
+    <button ng-hide="hideUpload" ng-if="((role== '4' || role== '8') && $root.admin_verified && currentTab == 'audio') || ((role== '3' || role== '5')&& currentTab == 'audio')" class="button button-energized icons-center icon-upload button-bottom shadow upload-icon" ng-click="openUploadMediaPopUp('audio')" ></button>
+    <button ng-hide="hideUpload" ng-if="((role== '4' || role== '8') && $root.admin_verified && currentTab == 'text') || ((role== '3' || role== '5')&& currentTab == 'text')"class="button button-energized icons-center icon-upload button-bottom shadow upload-icon" ng-click="openUploadMediaPopUp('text')" ></button>
+    <button ng-hide="hideUpload" ng-if="((role== '4' || role== '8') && $root.admin_verified && currentTab == 'video') || ((role== '3' || role== '5')&& currentTab == 'video')"class="button button-energized icons-center icon-upload button-bottom shadow upload-icon" ng-click="openUploadMediaPopUp('video')" ></button>
+
+</ion-view>

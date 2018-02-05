@@ -1,0 +1,43 @@
+
+<ion-view view-title="celebrityEvents">
+	<ion-content class="celebrityEvents secondary-theme">
+		<div class="celebevent-bg display-flex v-center" ng-style="{'background-image':'url('+  eventObject.image +')'}">
+		   <p class="foot-image">{{eventObject.description}}</p>
+		
+		</div>
+		<div class="date-strip display-flex">
+			<div class="date-box display-flex h-center v-center">
+				<div class="text-center">
+				{{eventObject.end_date}}
+					<!-- <span>27</span><br />
+					<span>Sept</span> -->
+				</div>
+			</div>
+			<div class="decription-box">
+				<h2 class="light">{{eventObject.name}}</h2>
+				<p class="light-color">{{eventObject.address}}</p><!--Event location-->
+				<p class="light-color">{{eventObject.city}} {{eventObject.state}} {{eventObject.country}}</p>
+
+			</div><!--/decription-box-->
+		</div><!--/.date-strip-->
+
+		<div class="date-time-strip row light text-center">
+			<div class="col-50 v-divider">
+				<p class="">{{eventObject.start_date}}</p>
+				<p>to</p>
+				<p>{{eventObject.end_date}}</p> 
+			</div>
+			<div class="col-50">
+				<p>{{eventObject.start_time}}</p>
+				<p>to</p>
+				<p>{{eventObject.end_date}}</p> 
+			</div>
+		</div>
+		<div class="text-center">
+			<button class="button button-energized button-circle icons-center icon-location"></button>
+		</div>
+		<div class="text-center mt-20 mb-20 padding-bottom">
+			<button class="button button-energized text-uppercase button-squire">{{eventObject.event_participate ? 'Already Participated' : 'Participate' }}</button>
+		</div>
+	</ion-content>
+</ion-view>

@@ -1,0 +1,19 @@
+﻿
+<div class="popup-wrap ">
+	<button class="button button-energized icons-center icon-location button-circle lg"></button>
+
+	<div class="list pop-list mt-20 text-center">
+	<form name="query.form" ng-submit="query.form.$valid && sendQuery()" novalidate>
+	    <label class="item item-input item-stacked-label text-left">
+                              
+	    	<!--<span class="input-label">Query*</span>-->
+	    	<textarea placeholder="Enter Your Query Here(max 500)" 
+	    	ng-model="query.data" name="name" maxlength="500" required >
+
+</textarea>
+			
+	    </label>
+	    <p ng-show="query.form.name.$error.required && (query.form.$submitted || query.form.name.$touched )">Please enter Query.</p>
+	    </form>
+	      </div>
+</div><!--/.popup-wrap-->

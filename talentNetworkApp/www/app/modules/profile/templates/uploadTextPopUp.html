@@ -1,0 +1,19 @@
+﻿<ion-scroll class="popup-wrap text-center" ng-form="popupForm.text">
+
+    <h1 class="mt-0 text-left frow h-space-between">
+    <button class="button button-energized icons-center icon-Tfile button-circle lg"></button>
+    <button class="button button-clear button-stable button-small ion-android-close" ng-click="closePopup()"></button>
+    </h1>
+
+  	<web-link value="postData.crawUrl" ng-model="webLink" save-web-link="saveWebLink(data)"></web-link>
+
+   
+    
+    <label class="item item-input">
+			<input type="text" placeholder="Add textpost or share link." ng-model="postData.crawUrl" 
+            name="crawUrl" maxlength="500" required >
+		</label>
+         <p ng-show="popupForm.text.crawUrl.$error.required && (popupForm.text.crawUrl.$touched || popupForm.text.$submitted )" class="help-block error-msg-popups">Please enter some text</p>
+    
+
+</ion-scroll><!--/.popup-wrap-->

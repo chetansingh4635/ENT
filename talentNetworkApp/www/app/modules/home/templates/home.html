@@ -1,0 +1,110 @@
+  <ion-view view-title="home" class="home" >
+
+    
+      <ion-header-bar>
+        <div class="buttons buttons-left header-item">
+
+            <span class="left-buttons">
+                <button class="button button-icon button-clear ion-navicon"
+                ng-click="openMenu()">
+                </button>
+            </span>
+        </div><!--/.header-item-->
+        <div class="title text-left">Home</div>
+
+        <div class="buttons buttons-right header-item text-right header-item-right">
+            <button class="button button-clear icons-center icon-search"  ui-sref="search"></button>
+
+            <button class="button button-clear icons-center icon-bell" ng-click="showPopOver($event)"><span ng-show="notificationCount" class="badge badge-energized">{{notificationCount}}</span></button>
+
+            <button class="button button-clear icons-center icon-grid" ng-click="openRightMenu()"  ></button>
+        </div><!--/.buttons-right-->
+
+
+    </ion-header-bar>
+
+    <ion-tabs tabs-swipable class="tabs-striped tabs-top tabs-background-dark tabs-color-energized">
+
+        <ion-tab title="Most Trending" class="tab-item-active" on-select="onTabSelected('mostTrending')">
+          <!-- <ion-content> -->
+
+            <ion-content class="primary-theme tab-des overflow-y height_auto" lazy-scroll>
+                      <ion-refresher
+                        pulling-text="Pull to refresh"
+                        on-refresh="pullDownRefresh('mostTrending')">
+                      </ion-refresher>
+                   <div class="primary-theme tab-des" ng-if="homePosts.mostTrending.length==0 && isLoaded">
+                                      <div class="result-not-found frow h-center flex-wrap">
+                                          <div class="box-circle display-flex v-center h-center">
+                                              <img src="img/img37.png">
+                                          </div>
+                                          <p class="col-100">No Data</p>
+                                      </div>
+                    </div>
+                      <!-- <div ng-repeat="post in mostTrendingPosts track by $index">{{post}}</div> -->
+
+                      <home-post type=post.media_type data=post ng-repeat="post in homePosts.mostTrending track by $index"></home-post>
+
+             
+                    
+                    <ion-infinite-scroll
+                        ng-if="postsType.mostTrending.hasMoreData"
+                        on-infinite="loadMore('mostTrending')"
+                        distance="1%">
+                    </ion-infinite-scroll>
+
+            </ion-content>
+        </ion-tab>
+
+  <ion-tab title="Celebrity Post" on-select="onTabSelected('celebPosts')">
+    <ion-content class="primary-theme tab-des overflow-y height_auto" lazy-scroll>
+          <!-- start text card -->
+     
+          <ion-refresher
+            pulling-text="Pull to refresh"
+            on-refresh="pullDownRefresh('celebPosts')">
+          </ion-refresher>
+          
+             <div class="primary-theme tab-des" ng-if="homePosts.celebPosts.length==0 && isLoaded">
+                                      <div class="result-not-found frow h-center flex-wrap">
+                                          <div class="box-circle display-flex v-center h-center">
+                                              <img src="img/img37.png">
+                                          </div>
+                                          <p class="col-100">No Data</p>
+                                      </div>
+            </div>
+
+
+      <home-post type=post.media_type data=post ng-repeat="post in homePosts.celebPosts track by $index" ></home-post>
+
+
+          <!--end image card  -->
+          <ion-infinite-scroll
+            ng-if="postsType.celebPosts.hasMoreData"
+            on-infinite="loadMore('celebPosts')"
+            distance="1%">
+          </ion-infinite-scroll>
+
+    </ion-content>
+</ion-tab>
+</ion-tabs>
+    
+</ion-view>
+
+<div  ng-if="((role== '4' || role== '8') && $root.admin_verified) || role== '3' || role== '5'" ng-class="checkUpload ? 'home-backdrop' : ''" ng-click="toggleUpload()" >
+  <div class="post-tab">
+   <button ng-if="role=='4'||role=='8' " class="button button-light button-cirlce icons-center icon-text-color" ng-click="openUploadMediaPopUp('text')">
+      <span class="title">Text</span>
+    </button>
+    <button class="button button-light button-cirlce icons-center icon-audio-color" ng-click="openUploadMediaPopUp('audio')">
+      <span class="title">Sound</span>
+    </button>
+    <button class="button button-light button-cirlce icons-center icon-video-color" ng-click="openUploadMediaPopUp('video')">
+      <span class="title">Video</span>
+    </button>
+    <button class="button button-light button-cirlce icons-center icon-camera-color" ng-click="openUploadMediaPopUp('image')">
+      <span class="title">Image</span>
+    </button>
+  </div><!--/.post-tab-->
+  <button class="button button-energized icons-center icon-plus button-add upload-icon" ></button>
+</div>

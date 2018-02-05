@@ -1,0 +1,64 @@
+  <ion-view view-title="EventList" class="EventList">
+    <ion-header-bar class="header-lg">
+    	<div class="buttons buttons-left header-item" ng-init="init()">
+
+            <span class="left-buttons">
+
+                <button class="button button-icon button-clear ion-navicon"  ng-click="openMenu()" >
+                </button>
+            </span>
+
+    	</div><!--/.header-item-->
+      <div class="title text-left">Events List</div>
+
+                  <div class="buttons buttons-right header-item text-right header-item-right">
+                      <button class="button button-clear icons-center icon-search" ng-click="hideMenu()" ui-sref="search"></button>
+
+                      <button class="button button-clear icons-center icon-bell" ng-click="showPopOver($event)"><span ng-show="notificationCount" class="badge badge-energized">{{notificationCount || 0}}</span></button>
+                      <button class="button button-clear icons-center icon-grid" ng-click="openRightMenu()" ></button>
+                  </div>
+     </ion-header-bar>
+
+    <ion-content class="primary-theme">
+                  <ion-refresher
+                        pulling-text="Pull to refresh"
+                        on-refresh="pullDownRefresh()">
+                  </ion-refresher>
+                  <div class="primary-theme tab-des" ng-if="events.length==0">
+                                      <div class="result-not-found frow h-center flex-wrap">
+                                          <div class="box-circle display-flex v-center h-center">
+                                              <img src="img/img37.png">
+                                          </div>
+                                          <p class="col-100">No Data</p>
+                                      </div>
+                    </div>
+        <div class="list primary" ng-init="geteventList()">
+            <div  ng-repeat="event in events" class="event-list">   
+                        <div class="date-strip display-flex">
+                <div class="date-box display-flex h-center v-center">
+                  <div class="text-center">
+                    <span >{{event.start_date | date:'dd MMMM'}}</span>
+                  </div>
+                </div>
+                <div class="col decription-box ng-binding" ui-sref="eventDescription({event_id:event.id})">
+                  <p> {{event.name}}</p>
+                  <p >{{event.description}}</p>
+
+                </div><!--/decription-box-->
+                <div class="col col-10 energized display-flex v-center" ui-sref="eventDescription(event.id)">
+                  <span class="custom-arrow">&gt;</span>
+                </div>
+              </div><!--/.back-btn-wrap-->
+
+              
+          </div><!--/.date-strip-->
+        </div>            
+              
+               <ion-infinite-scroll
+                        ng-if="hasMoreList"
+                        on-infinite="loadMore()"
+                        distance="1%">
+                      </ion-infinite-scroll>
+
+                </ion-content>
+  </ion-view>

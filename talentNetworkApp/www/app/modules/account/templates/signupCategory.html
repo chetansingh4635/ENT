@@ -1,0 +1,60 @@
+<ion-view ng-init="getInitialLists()">
+    <ion-content class="login-bg">
+    <div class="back-btn-wrap" ui-sref="login">
+            <div class="button icon-left ion-ios-arrow-back button-clear button-energized" ></div>
+        </div>
+        <div class="forget-area">
+            <div class="forget-cc edit-cc su-category">
+                <div class="forgot-inner contact edit-inner">
+                    <img alt="" ng-src="{{image.profile_pic_path ? image.profile_pic_path : 'img/signupCategory.png'}}">
+                </div>
+                <div class="edit-image" ng-click="chooseImage()">
+                    <img alt="" src="img/edit.png">
+                </div>
+            </div>
+        </div>
+        <div class="signupcategory">
+            <p class="talented">I m Talented In!!</p>
+        </div>
+        <form name="form.signupcategory" novalidate>
+        <ion-scroll direction="y" class="checkbox-outerWrap">
+            <div class="signcheckarea clearfix">
+                <div class="leftarea checkbox-wrap display-flex flex-wrap">
+                    <ion-checkbox class="custom-ent" ng-repeat="(key, value) in allCategories" name="{{value}}" ng-model="talent[$index]" ng-change="addRemoveTalent(key,value)">{{value}}</ion-checkbox>
+                    <ion-checkbox class="custom-ent" ng-click="showOtherTalentInput()" name="talentOther" ng-model="user.talentOther">Other</ion-checkbox>
+                </div>
+           </div>
+        </ion-scroll>
+        
+       
+
+        <div class="textarea" ng-form="othertalents" ng-repeat="talent in user.otherTalent track by $index">
+                <label class="item item-input otherTalent" >
+                    <input type="text" name="talent" ng-model="user.otherTalent[$index]" placeholder="Othet talent {{$index + 1}}" class="btn" required maxlength="50">
+                    <p ng-if="(othertalents.talent.$touched || form.signupcategory.$submitted) && othertalents.talent.$error.required" class="help-block error-msg" >Please enter a talent.</p>
+                </label>
+
+        </div>
+        <div class="rel">
+         <p class="help-block error-msg" ng-show="(user.talent.length+user.otherTalent.length) < 1 && (talentsTouched || form.signupcategory.$submitted)">Please choose at least one talent.</p>
+         </div>
+
+        <div class="text-center" ng-if="user.talentOther">
+            <button type="button" class="button button-clear mb-15" ng-click="addOtherTalent()"><i class="ion-ios-plus-outline primary-color" style="font-size: 32px;"></i></button>
+
+            <button type="button" class="button button-clear mb-15" ng-click="removeOtherTalent()" ng-if="user.otherTalent.length > 1"><i class="ion-ios-minus-outline primary-color" style="font-size: 32px;"></i></button>
+        </div>
+
+        <div class="textarea">
+            <textarea name="aboutYourself" ng-model="user.about" placeholder="About yourself: Achievements and experience" maxlength="500" required></textarea>
+            <div class="rel">
+            <p ng-show="(form.signupcategory.$submitted || form.signupcategory.aboutYourself.$touched) && form.signupcategory.aboutYourself.$error.required" class="help-block error-msg">Plesae enter something about yourself</p>
+            </div>
+
+        </div>
+        <div class="text-center mb-25">
+            <button class="yellow-btn" ng-click="(user.talent.length+user.otherTalent.length) >0 && form.signupcategory.$valid && signup()">SUBMIT</button>
+        </div>
+        </form>
+    </ion-content>
+</ion-view>

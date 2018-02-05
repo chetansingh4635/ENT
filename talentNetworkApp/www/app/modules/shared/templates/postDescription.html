@@ -1,0 +1,118 @@
+
+<ion-view style="background-color:#292929">
+   <ion-content style="background-color:#292929" ng-class="isZommed.value ? 'isZommed' : ''"  class="postdescription" ng-init="mediaDescription()" scroll="false">
+   <ion-slides slider="slider" options="{ loop: false, effect: 'fade', speed: 500}"><ion-slide-page ng-repeat="description in descriptions">
+      <div  class="list card primary" style="height:100%; position: relative; margin-top: 0px;" >
+        <!--  <div ng-if="show" class="item item-thumbnail-left frow v-center header" style="top: 0px; position: absolute; z-index: 3">
+            <img ng-src="{{description.profile_pic_path? description.profile_pic_path : 'img/img7.png'}}" />
+            <div class="detail" ui-sref="userProfile({id:'{{description.user_id}}'})">
+               <h2>{{ description.talent_name}}</h2>
+               <p>{{description.created_at?(description.created_at | formatDate):null }} </p>
+              
+            </div>
+         </div> -->
+         <div ng-show="show" class="text-right" style="top:2%;right:0%;position:absolute;z-index:10;" ng-click="goBack()">
+            <button class="button button-clear button-dark button-small ion-android-close"></button>
+        </div>
+         <div  ng-if="show" class="footer" style="bottom: 0%; left:2%;padding-right:2%;position: absolute; width: 100%; z-index: 3;">
+          <span class="frow"><h5 class="like">{{ description.talent_name }} &nbsp;at</h5>
+               <h5 class="like">&nbsp;{{ description.created_at ? ( description.created_at | formatDate):null }} </h5></span>
+                <div class="decription-box">
+               <p class="light-color">
+                  <hm-read-more
+                    hm-text="{{ description.description }}" 
+                    hm-limit="25" 
+                    hm-more-text="Read more" 
+                    hm-less-text="Read less"
+                    hm-dots-class="dots"
+                    hm-link-class="links">
+            </hm-read-more>
+               </p>
+            </div>
+            <p  class="frow h-space-between">
+               <a href="" class="rating td-none">
+               <i class="ion-star mr-10"></i>Fans {{description.user_fans}}
+               </a>
+               <a  ng-click="media_fan_unfan(description)"  class="like td-none icons-left icon-thumbup" ng-class="{'icon-thumbup-color':description.fan_status!=0}" >
+               Likes {{description.fan_count}}</a>
+            </p>
+           
+          </div>
+
+
+         <ion-scroll ng-click="showDetail()" style="height:100%;width: 100%;" on-scroll="checkZommedOrNot()" class="postdescription" delegate-handle="Handle" zooming="true" direction="xy" max-zoom="3" min-zoom="1" overflow-scroll="false" ng-if="description.media_type == 'VIDEO' || description.media_type == 'IMAGE' || description.media_type == 'YOUTUBE'"class="item item-body overfolw-initial">
+            <!-- <div class="remove-gspace" > -->
+               <img  ng-if="description.media_type == 'IMAGE'" image-lazy-loader="bubbles" image-lazy-loader="lines" image-lazy-distance-from-bottom-to-load="-200" image-lazy-src="{{description.media_url}}" />
+               <videogular  style="height:50%;"ng-if="description.media_type == 'VIDEO'" class="full-image img-middle" vg-auto-play="'true'" vg-theme="'http://www.videogular.com/styles/themes/default/latest/videogular.css'" vg-update-state="onUpdateState($state, description.talent_id)" vg-player-ready="onInit($API, description.talent_id)">
+                  <vg-media  vg-src="[{src:description.media_url,type:'video/mp4'}]" >
+                  </vg-media>
+                  <vg-controls>
+                     <vg-play-pause-button></vg-play-pause-button>
+                     <vg-time-display>{{ currentTime | date:'mm:ss':'+0000' }}</vg-time-display>
+                     <vg-scrub-bar>
+                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                     </vg-scrub-bar>
+                     <vg-time-display>{{ timeLeft | date:'mm:ss':'+0000' }}</vg-time-display>
+                     <vg-time-display>{{ totalTime | date:'mm:ss':'+0000' }}</vg-time-display>
+                     <vg-volume>
+                        <vg-mute-button></vg-mute-button>
+                        <vg-volume-bar></vg-volume-bar>
+                     </vg-volume>
+                     <vg-fullscreen-button></vg-fullscreen-button>
+                  </vg-controls>
+                    <vg-overlay-play></vg-overlay-play>
+                    <vg-poster vg-url="description.media_url | findVideoPreview"></vg-poster>
+               </videogular>
+               <videogular  style="height:50%;" ng-if="description.media_type =='YOUTUBE'" ng-click="showDetail()" vg-theme="'http://www.videogular.com/styles/themes/default/latest/videogular.css'" vg-update-state="onUpdateState($state, description.talent_id)" vg-player-ready="onInit($API, description.talent_id)" >
+                  <vg-media  vg-src="[{src:description.media_url}]" vg-youtube="rel=1;showinfo=1" >
+                  </vg-media>
+                  <vg-controls>
+                     <vg-play-pause-button></vg-play-pause-button>
+                     <vg-time-display>{{ currentTime | date:'mm:ss':'+0000' }}</vg-time-display>
+                     <vg-scrub-bar>
+                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                     </vg-scrub-bar>
+                     <vg-time-display>{{ timeLeft | date:'mm:ss':'+0000' }}</vg-time-display>
+                     <vg-time-display>{{ totalTime | date:'mm:ss':'+0000' }}</vg-time-display>
+                     <vg-volume>
+                        <vg-mute-button></vg-mute-button>
+                        <vg-volume-bar></vg-volume-bar>
+                     </vg-volume>
+                     <vg-fullscreen-button></vg-fullscreen-button>
+                  </vg-controls>
+               </videogular>
+           <!--  </div> -->
+        
+         </ion-scroll>
+         <div ng-if="type == 'text'" class="item item-thumbnail-left" style="margin-top: 50%;width:100%;">
+            <img ng-src={{description.user_text}}>
+            <div class="frow v-center mh">
+               <div class="detail tb">
+                  <h2>{{description.share_title}}</h2>
+                  <p class="primary-color">{{description.created_at | formatDate}}<span class="divider">  </span>  </p>
+               </div>
+            </div>
+            <!--/.vertical-center-->
+            <div class="rlp">
+               <h2>{{description.share_description}}</h2>
+               <div class="item padding0" ng-if="textPost.share_url">
+                  <p class="overflow-initial">{{description.share_title}}</p>
+                  <div class="padding-top padding-bottom gspace primary-theme mt-5">
+                     <img ng-src="{{description.share_image}}" class="image-size" alt="no image"/>
+                     <p class="overflow-initial light-dark">{{description.share_description}}</p>
+                     <a href="#" class="light-dark td-none">{{description.share_url}}</a>
+                  </div>
+               </div>
+            </div>
+            <!--/.rlp-->
+         </div>
+         <!--/.item-->
+       
+         <sound-card-directive class="postdescription" style="margin-top: 50%;width:100%;" ng-if="description.media_type == 'AUDIO'" data="description">
+      </sound-card-directive>
+     
+      </div>
+       
+      </ion-slide-page></ion-slides>
+   </ion-content>
+</ion-view>

@@ -1,0 +1,56 @@
+<ion-view view-title="Celebrity Invite" class="invite">
+
+    <!-- <ion-header-bar class="header-lg">
+        <div class="buttons buttons-left header-item">
+
+            <span class="left-buttons">
+                <button class="button button-icon button-clear ion-navicon" ng-click="openMenu()">
+                </button>
+            </span>
+
+                  </div>
+        <div class="title text-left">Invite</div>
+
+        <div class="buttons buttons-right header-item text-right header-item-right">
+            <button class="button button-clear icons-center icon-search" ui-sref="search"></button>
+            <button class="button button-clear icons-center icon-bell" ng-click="showPopOver($event)"><span ng-show="notificationCount" class="badge badge-energized">{{notificationCount || 0}}</span></button>
+            <button class="button button-clear icons-center icon-grid" ng-click="openRightMenu()" ></button>
+        </div>
+        
+    </ion-header-bar> -->
+
+    <ion-content class="login-bg">
+    <div class="btn-wrap text-right" ui-sref="home">
+            <button class="button button-clear button-dark button-small ion-android-close"></button>
+        </div>
+        <div class="forget-area">
+            <div class="forget-cc">
+                <div class="forgot-inner contact">
+                    <img alt="" src="img/celebrity-invite.png">
+                </div>
+            </div>
+        </div>
+        <div class="contact-us">
+            <p class="invite-text">Invite Your Friend!!</p>
+           <!--  <div class="dropdown" style="position:absolute;z-index:10;left:-3%;top:5%;"> 
+                  <ion-icon ng-click="myFunction()" class="dropbtn ion-android-share-alt" ></ion-icon>
+                     <div ng-class="{'show':toggle}" class="dropdown-content" style="right:0%;">
+                    <a href="#" ng-click="share('fb')" style="font-size: 25px;" class="ion-social-facebook"></a>
+                    <a href="#" ng-click="share('twitter')" style="font-size: 25px;" class="ion-social-twitter"></a>
+                   
+                  </div>
+             </div>  -->
+            <form name="form.celebInviteForm" ng-submit="form.celebInviteForm.$valid && sendCelebInvite(form.celebInviteForm.$valid)" autocomplete="off">
+                <div class="list">
+                    <label class="item item-input en-email" ng-class="{ 'has-error' : celebInviteForm.email.$invalid && !celebInviteForm.email.$pristine }">
+                        <input type="email" name="email" placeholder="Enter Email" ng-model="celebInviteObject.email" class="btn" required ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
+                        <p ng-if="(form.celebInviteForm.email.$touched || form.celebInviteForm.$submitted) &&  (form.celebInviteForm.email.$error.email || form.celebInviteForm.email.$error.pattern || form.celebInviteForm.email.$error.required)" class="help-block error-msg">Enter a valid email.</p>
+                    </label>
+                </div>
+                <div class="pdng-gap mt-25">
+                    <button class="yellow-btn" type="submit" >SEND INVITATION</button>
+                </div>
+            </form>
+</div>
+    </ion-content>
+</ion-view>

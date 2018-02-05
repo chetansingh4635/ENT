@@ -1,0 +1,85 @@
+﻿<!-- <!DOCTYPE html> -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+    <!-- <link href="lib/ionic/css/ionic.css" rel="stylesheet"> -->
+    <!--<link href="css/style.css" rel="stylesheet">-->
+    <!--IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above-->
+    <link href="css/ionic.app.css" rel="stylesheet">
+ <!--    <link href="css/ionicuser.app.css" rel="stylesheet"> -->
+    <link href="css/style.css" rel="stylesheet">
+    
+
+    <!-- ionic/angularjs js -->
+
+    <!-- <script  src="//d2wy8f7a9ursnm.cloudfront.net/bugsnag-3.min.js"  data-apikey="599347cb8f5dddf9659389e08848ecf6"></script>
+     -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    
+    <script src="cordova.js"></script>
+    <!-- oclazyload js -->
+    <script src="lib/oclazyload/dist/ocLazyLoad.min.js"></script>
+    <script src="lib/moment/moment.js"></script>
+    <script src="lib/angular-local-storage/dist/angular-local-storage.min.js"></script>
+
+    <!-- resource js -->
+    <script src="lib/angular-resource/angular-resource.min.js"></script>
+
+    <!-- password js -->
+    <script src="lib/angular-password/angular-password.min.js"></script>
+    <script src='lib/ngMask/dist/ngMask.min.js'></script>
+
+    <!-- image lazy load -->
+    <script src="lib/ionic-image-lazy-load/ionic-image-lazy-load.js"></script>
+
+    <!--Video angular-->
+    <script src="lib/videogular/videogular.js"></script>
+    <script src="lib/videogular-controls/vg-controls.js"></script>
+    <script src="lib/videogular-overlay-play/vg-overlay-play.js"></script>
+    <script src="lib/videogular-buffering/vg-buffering.js"></script>
+    <script src="lib/bower-videogular-youtube/youtube.js"></script>
+    <script src="lib/videogular-poster/vg-poster.js"></script>
+    <script src="lib/angular-read-more/dist/readmore.min.js"></script>
+       <!--end Video angular-->
+
+    <!--Youtube embbed liberary-->
+     <script src="lib/ionic-image-lazy-load/ionic-image-lazy-load.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script type="text/javascript" src="lib/angular-youtube-mb/dist/angular-youtube-embed.min.js"></script>
+    <!--End-->
+
+    <!-- Native transition liberary injection -->
+   <!--  <script type="text/javascript" src="lib/ionic-native-transitions/dist/ionic-native-transitions.min.js"></script> -->
+    <!-- End -->
+
+     <!-- your app's js -->
+    <script src="app/app.js"></script>
+    <script src="app/config.js"></script>
+    <script src="app/app.run.js"></script>
+    <script src="app/modules/shared/services/loaderService.js"></script>
+    <script src="app/modules/shared/services/localStorage.js"></script>
+    <script type="text/javascript" src="app/modules/shared/services/authInterceptor.js"></script>
+ 
+    <script src="app/route.js"></script>
+    
+
+    <script src="js/filters/customFilters.js"></script>
+    <script src="app/modules/shared/messages.js"></script>
+    
+    <script src="app/modules/shared/directives/keyboardHandlingDirective.js"></script>
+    <script src="app/modules/shared/services/mediaService.js"></script>
+    <script src="js/moment.js"></script>
+</head>
+<body ng-app="talentNetworkApp"  cache-view="false">
+     <!--     <audio  style="display: none;"></audio> -->
+       <!--  <iframe width="100%" id="globalAudio" height="450" scrolling="no" frameborder="no" style="" width="100%" height="450" ></iframe>  -->
+        
+
+
+        <ion-nav-view></ion-nav-view>
+</body>
+</html>

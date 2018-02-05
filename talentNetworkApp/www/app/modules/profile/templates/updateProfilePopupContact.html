@@ -1,0 +1,20 @@
+
+<div class="popup-wrap text-center" ng-form="form.updateProfile">
+
+	<h4 class="mt-0 text-left frow h-space-between">
+    <span class="energized">Update Contact</span>
+    <button class="button button-clear button-stable button-small ion-android-close" ng-click="closePopup()"></button>
+    </h4>
+
+	<div class="list list-popup">
+		<label class="item item-input">
+			<input type="tel" placeholder="Contact" ng-model="updateProfileObject.contact" required minlength="10" ng-pattern="/^[789]\d{9}$/" name="mobile">
+		</label>
+
+		<p ng-if="(form.updateProfile.mobile.$touched || form.updateProfile.$submitted) &&  !form.updateProfile.mobile.$valid" class="help-block error-msg-popups">Please enter valid mobile no.</p>
+	</div><!--/.list-->
+</div><!--/.popup-wrap-->
+
+<div class="footer frow h-space-between">
+
+</div>

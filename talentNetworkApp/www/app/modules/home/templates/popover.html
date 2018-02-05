@@ -1,0 +1,32 @@
+
+<ion-popover-view  class="drop-down-list">
+	<div class="list notification-top" >Notifications
+         </div>
+        <ion-content class="mar-10-top-btb">
+                
+         <div class="notification-list">	
+         	<ul>
+         		<li ng-repeat="notificationList in notification | limitTo : 10">
+                    <div   ng-click="closePopover(notificationList)">
+                    <div class="list-container">
+         				<div class="list-img">
+                            <img ng-src="{{notificationList.profile_pic_path ? notificationList.profile_pic_path : 'img/img7.png'}}" >
+         				</div>
+
+         				<div class="list-content">
+                        
+         					<p>{{notificationList.name}} {{notificationList.body}}</p>
+         					<p class="small-font-s">{{notificationList.created_at}}</p>
+         				</div>
+
+         			</div>
+                    </div>
+         		</li>
+         		
+         	</ul>
+         </div>
+
+        </ion-content>
+                <button class="button button-full energized" ng-click="popover.hide()" ui-sref="notificationsList">See all notifications
+                </button>
+      </ion-popover-view>

@@ -1,0 +1,36 @@
+﻿<div class="popup-wrap text-center" ng-form="popupForm.video">
+    <h1 class="mt-0 text-left frow h-space-between">
+    <button class="button button-energized icons-center icon-video button-circle lg"></button>
+    <button class="button button-clear button-stable button-small ion-android-close" ng-click="closePopup()"></button>
+    </h1>
+    	{{mediaData ?(mediaData | extractFileName): mediaData}}
+
+    <web-link value="postData.youtube" ng-model="webLink" save-web-link="saveWebLink(data)"></web-link>
+
+    <button class="button button-clear button-large button-light button-block button-upload" ng-click="openUploadMedia('video')" ng-if="!mediaData &&  !postData.youtube">
+  		 Upload Video in this area
+  		<!-- <input type="file" class="file-control" /> -->
+	</button>
+
+	<p ng-show="(!mediaData && !postData.youtube)&& popupForm.video.$submitted" class="help-block error-msg-popups">Please upload a video file or youtube link.</p>
+
+	<div class="list list-popup">
+
+		<label class="item item-input" ng-if="!mediaData">
+			<input type="text" placeholder="Add a youtube link(optional) " ng-model="postData.youtube" name="youtube" >
+		</label>
+		 <p ng-show="weblink.validLink== false" class="help-block error-msg-popups">Please enter valid youtube link!!</p>
+
+		<label class="item item-input">
+			<input type="text" placeholder="Add Title to your video" ng-model="postData.name" name="title" required ng-focus="scrollToTop()">
+		</label>
+
+		<p ng-show="popupForm.video.title.$error.required && (popupForm.video.title.$touched || popupForm.video.$submitted )" class="help-block error-msg-popups">Please enter video or youtube title</p>
+		<label class="item item-input">
+			<input type="text" placeholder="Add Description here" ng-model="postData.description" name="description" ng-focus="scrollToTop()" >
+		</label>
+
+		
+
+	</div><!--/.list-->
+</div><!--/.popup-wrap-->
